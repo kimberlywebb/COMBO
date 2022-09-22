@@ -28,7 +28,7 @@
 #' @include q_beta_f.R
 #' @include q_gamma_f.R
 #'
-#' @importFrom stats rnorm rgamma rmultinom optim
+#' @importFrom stats rnorm rgamma rmultinom
 #'
 #' @export
 #'
@@ -77,24 +77,22 @@ em_function <- function(param_current,
                 pi_matrix = probabilities,
                 sample_size = sample_size, n_cat = n_cat)
 
-  beta_new = optim(par = c(beta_current),
-                   q_beta_f,
-                   X = X, w_mat = weights,
-                   sample_size = sample_size,
-                   n_cat = n_cat,
-                   control = list(maxit = 5000),
-                   method = "BFGS")$par
+  Ystar01 = obs_Y_matrix[,1]
+  fit.gamma1 <- stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
+                           weights = weights[,1],
+                           family = "binomial"(link = "logit"))
+  gamma1_new <- unname(coefficients(fit.gamma1))
 
-  gamma_new = optim(par = c(gamma_current),
-                    q_gamma_f,
-                    Z = Z,
-                    obs_Y_matrix = obs_Y_matrix,
-                    w_mat = weights,
-                    sample_size = sample_size, n_cat = n_cat,
-                    control = list(maxit = 5000),
-                    method = "BFGS")$par
+  fit.gamma2 <- stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
+                           weights = weights[,2],
+                           family = "binomial"(link = "logit"))
+  gamma2_new <- unname(coefficients(fit.gamma2))
 
-  param_new = c(beta_new, gamma_new)
+  fit.beta <- stats::glm(weights[,1] ~ . + 0, as.data.frame(X),
+                         family = stats::binomial())
+  beta_new <- unname(coefficients(fit.beta))
+
+  param_new = c(beta_new, gamma1_new, gamma2_new)
   param_current = param_new
   return(param_new)
 

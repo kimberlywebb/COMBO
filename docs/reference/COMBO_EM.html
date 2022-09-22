@@ -151,10 +151,14 @@ Biometrics, 78, 214-226.</p>
 <span class="r-in"><span>                      x_mu <span class="op">=</span> <span class="va">x_mu</span>, x_sigma <span class="op">=</span> <span class="va">x_sigma</span>,</span></span>
 <span class="r-in"><span>                      z_shape <span class="op">=</span> <span class="va">z_shape</span>,</span></span>
 <span class="r-in"><span>                      beta <span class="op">=</span> <span class="va">true_beta</span>, gamma <span class="op">=</span> <span class="va">true_gamma</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_data(sample_size = n, x_mu = x_mu, x_sigma = x_sigma, z_shape = z_shape,     beta = true_beta, gamma = true_gamma):</span> could not find function "COMBO_data"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Ystar</span> <span class="op">=</span> <span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Y"</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'my_data' not found</span>
 <span class="r-in"><span><span class="va">x_matrix</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="st">"x"</span><span class="op">]</span><span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in matrix(my_data[["x"]], ncol = 1):</span> object 'my_data' not found</span>
 <span class="r-in"><span><span class="va">z_matrix</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="st">"z"</span><span class="op">]</span><span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in matrix(my_data[["z"]], ncol = 1):</span> object 'my_data' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">starting_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">beta_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">starting_values</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
@@ -162,23 +166,7 @@ Biometrics, 78, 214-226.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">EM_results</span> <span class="op">&lt;-</span> <span class="fu">COMBO_EM</span><span class="op">(</span><span class="va">Ystar</span>, x_matrix <span class="op">=</span> <span class="va">x_matrix</span>, z_matrix <span class="op">=</span> <span class="va">z_matrix</span>,</span></span>
 <span class="r-in"><span>                       beta_start <span class="op">=</span> <span class="va">beta_start</span>, gamma_start <span class="op">=</span> <span class="va">gamma_start</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: doParallel</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: foreach</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: iterators</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: parallel</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: numDeriv</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: quantreg</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: SparseM</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'SparseM'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from 'package:base':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     backsolve</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'turboEM'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:numDeriv':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     grad, hessian</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.data.frame(z_matrix):</span> object 'z_matrix' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

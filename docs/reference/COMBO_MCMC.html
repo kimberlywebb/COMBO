@@ -188,10 +188,14 @@ provides the posterior median computed across all chains and all samples.</p></d
 <span class="r-in"><span>                      x_mu <span class="op">=</span> <span class="va">x_mu</span>, x_sigma <span class="op">=</span> <span class="va">x_sigma</span>,</span></span>
 <span class="r-in"><span>                      z_shape <span class="op">=</span> <span class="va">z_shape</span>,</span></span>
 <span class="r-in"><span>                      beta <span class="op">=</span> <span class="va">true_beta</span>, gamma <span class="op">=</span> <span class="va">true_gamma</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_data(sample_size = n, x_mu = x_mu, x_sigma = x_sigma, z_shape = z_shape,     beta = true_beta, gamma = true_gamma):</span> could not find function "COMBO_data"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Ystar</span> <span class="op">=</span> <span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Y"</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'my_data' not found</span>
 <span class="r-in"><span><span class="va">x_matrix</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="st">"x"</span><span class="op">]</span><span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in matrix(my_data[["x"]], ncol = 1):</span> object 'my_data' not found</span>
 <span class="r-in"><span><span class="va">z_matrix</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="st">"z"</span><span class="op">]</span><span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in matrix(my_data[["z"]], ncol = 1):</span> object 'my_data' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">unif_lower_beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">5</span>, <span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">unif_upper_beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">5</span>, <span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -210,26 +214,7 @@ provides the posterior median computed across all chains and all samples.</p></d
 <span class="r-in"><span>                           gamma_prior_parameters <span class="op">=</span> <span class="va">gamma_prior_parameters</span>,</span></span>
 <span class="r-in"><span>                           number_MCMC_chains <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>                           MCMC_sample <span class="op">=</span> <span class="fl">200</span>, burn_in <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 35030</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 12013</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_MCMC(Ystar, x = x_matrix, z = z_matrix, prior = "uniform",     beta_prior_parameters = beta_prior_parameters, gamma_prior_parameters = gamma_prior_parameters,     number_MCMC_chains = 2, MCMC_sample = 200, burn_in = 100):</span> object 'Ystar' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
