@@ -1,0 +1,42 @@
+template:
+  bootstrap: 5
+  bootswatch: pulse
+
+reference:
+  - title: Classification Probabilities
+    desc: ~
+    contents:
+      - '`true_classification_prob`'
+      - '`misclassification_prob`'
+  - title: Estimation
+    desc: Functions to estimate regression parameters
+    contents:
+      - '`COMBO_EM`'
+      - '`COMBO_MCMC`'
+  - title: Data generation for examples
+    desc: Function to generate data with misclassified binary outcomes
+    contents:
+      - '`COMBO_data`'
+  - title: Internals
+    desc: Internal functions and helpers
+    contents:
+      - '`check_and_fix_chains`'
+      - '`em_function`'
+      - '`expit`'
+      - '`jags_picker`'
+      - '`label_switch`'
+      - '`loglik`'
+      - '`mean_pistarjj_compute`'
+      - '`model_picker`'
+      - '`naive_jags_picker`'
+      - '`naive_model_picker`'
+      - '`perfect_sensitivity_EM`'
+      - '`pi_compute`'
+      - '`pistar_by_chain`'
+      - '`pistar_compute`'
+      - '`pistar_compute_for_chains`'
+      - '`q_beta_f`'
+      - '`q_gamma_f`'
+      - '`sum_every_n`'
+      - '`sum_every_n1`'
+      - '`w_j`'

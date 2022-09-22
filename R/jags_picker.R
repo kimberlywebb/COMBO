@@ -1,0 +1,166 @@
+#' Set up a Binary Outcome Misclassification \code{jags.model} Object for a Given Prior
+#'
+#' @param prior A character string specifying the prior distribution for the
+#'   \eqn{\beta} and \eqn{\gamma} parameters. Options are \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"} (double Exponential, or Weibull).
+#' @param sample_size An integer value specifying the number of observations in the sample.
+#' @param dim_x An integer specifying the number of columns of the design matrix of the true outcome mechanism, \code{X}.
+#' @param dim_z An integer specifying the number of columns of the design matrix of the observation mechanism, \code{Z}.
+#' @param n_cat An integer specifying the number of categorical values that the true outcome, \code{Y},
+#'   and the observed outcome, \code{Y*} can take.
+#' @param Ystar A numeric vector of indicator variables (1, 2) for the observed
+#'   outcome \code{Y*}. The reference category is 2.
+#' @param X A numeric design matrix for the true outcome mechanism.
+#' @param Z A numeric design matrix for the observation mechanism.
+#' @param beta_prior_parameters A numeric list of prior distribution parameters
+#'   for the \eqn{\beta} terms. For prior distributions \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
+#'   list should contain a matrix of location, lower bound, mean, or shape parameters,
+#'   respectively, for \eqn{\beta} terms.
+#'   For prior distributions \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
+#'   list should contain a matrix of shape, upper bound, standard deviation, or scale parameters,
+#'   respectively, for \eqn{\beta} terms.
+#'   For prior distribution \code{"t"}, the third element of the list should contain
+#'   a matrix of the degrees of freedom for \eqn{\beta} terms.
+#'   The third list element should be empty for all other prior distributions.
+#'   All matrices in the list should have dimensions \code{dim_x} X \code{n_cat}, and all
+#'   elements in the \code{n_cat} column should be set to \code{NA}.
+#' @param gamma_prior_parameters A numeric list of prior distribution parameters
+#'   for the \eqn{\gamma} terms. For prior distributions \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
+#'   list should contain an array of location, lower bound, mean, or shape parameters,
+#'   respectively, for \eqn{\gamma} terms.
+#'   For prior distributions \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
+#'   list should contain an array of shape, upper bound, standard deviation, or scale parameters,
+#'   respectively, for \eqn{\gamma} terms.
+#'   For prior distribution \code{"t"}, the third element of the list should contain
+#'   an array of the degrees of freedom for \eqn{\gamma} terms.
+#'   The third list element should be empty for all other prior distributions.
+#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z},
+#'   and all elements in the \code{n_cat} row should be set to \code{NA}.
+#' @param number_MCMC_chains An integer specifying the number of MCMC chains to compute.
+#' @param model_file A .BUG file and used
+#'   for MCMC estimation with \code{rjags}.
+#'
+#' @return \code{jags_picker} returns a \code{jags.model} object for a binay
+#'   outcome misclassification model. The object includes the specified
+#'   prior distribution, model, number of chains, and data.
+#'
+#' @importFrom stats rnorm rmultinom optim
+#' @importFrom rjags jags.model
+#'
+#' @examples \dontrun{
+#' set.seed(123)
+#' n <- 100
+#' x_mu <- 0
+#' x_sigma <- 1
+#' z_shape <- 1
+#'
+#' true_beta <- matrix(c(1, -2), ncol = 1)
+#' true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
+#'
+#' my_data <- COMBO_data(sample_size = n,
+#'                       x_mu = x_mu, x_sigma = x_sigma,
+#'                       z_shape = z_shape,
+#'                       beta = true_beta, gamma = true_gamma)
+#'
+#' obs_Y = my_data[["obs_Y"]]
+#' X = my_data[["x_design_matrix"]]
+#' Z = my_data[["z_design_matrix"]]
+#'
+#' unif_lower_beta <- matrix(c(-5, -5, NA, NA), nrow = 2, byrow = TRUE)
+#' unif_upper_beta <- matrix(c(5, 5, NA, NA), nrow = 2, byrow = TRUE)
+#'
+#' unif_lower_gamma <- array(data = c(-5, NA, -5, NA, -5, NA, -5, NA),
+#'                           dim = c(2,2,2))
+#' unif_upper_gamma <- array(data = c(5, NA, 5, NA, 5, NA, 5, NA),
+#'                           dim = c(2,2,2))
+#'
+#' beta_prior_parameters <- list(lower = unif_lower_beta, upper = unif_upper_beta)
+#' gamma_prior_parameters <- list(lower = unif_lower_gamma, upper = unif_upper_gamma)
+#'
+#' modelstring = model_picker(prior = "uniform")
+#' temp_model_file = tempfile()
+#' tmps = file(temp_model_file, "w")
+#' cat(modelstring, file = tmps)
+#' close(tmps)
+#'
+#' jags_model_object <- jags_picker(prior = "uniform",
+#'                                  sample_size = n,
+#'                                  dim_x = ncol(X), dim_z = ncol(Z),
+#'                                  n_cat = 2,
+#'                                  Ystar = obs_Y, X = X, Z = Z,
+#'                                  beta_prior_parameters = beta_prior_parameters,
+#'                                  gamma_prior_parameters = gamma_prior_parameters,
+#'                                  number_MCMC_chains = 1,
+#'                                  model_file = temp_model_file)
+#' }
+jags_picker <- function(prior, sample_size, dim_x, dim_z, n_cat,
+                        Ystar, X, Z,
+                        beta_prior_parameters, gamma_prior_parameters,
+                        number_MCMC_chains,
+                        model_file){
+  if (prior == "t") {
+    jags_object <- jags.model(
+      model_file,
+      data = list(sample_size = sample_size,
+                  dim_x = dim_x,
+                  dim_z = dim_z,
+                  n_cat = n_cat,
+                  obs_Y = Ystar,
+                  x = X, z = Z,
+                  t_mu_beta = beta_prior_parameters[[1]],
+                  t_tau_beta = beta_prior_parameters[[2]],
+                  t_df_beta = beta_prior_parameters[[3]],
+                  t_mu_gamma = gamma_prior_parameters[[1]],
+                  t_tau_gamma = gamma_prior_parameters[[2]],
+                  t_df_gamma = gamma_prior_parameters[[3]]),
+      n.chains = number_MCMC_chains)
+  } else if (prior == "uniform") {
+    jags_object <- jags.model(
+      model_file,
+      data = list(sample_size = sample_size,
+                  dim_x = dim_x,
+                  dim_z = dim_z,
+                  n_cat = n_cat,
+                  obs_Y = Ystar,
+                  x = X, z = Z,
+                  unif_l_beta = beta_prior_parameters[[1]],
+                  unif_u_beta = beta_prior_parameters[[2]],
+                  unif_l_gamma = gamma_prior_parameters[[1]],
+                  unif_u_gamma = gamma_prior_parameters[[2]]),
+      n.chains = number_MCMC_chains)
+  } else if (prior == "normal") {
+    jags_object <- jags.model(
+      model_file,
+      data = list(sample_size = sample_size,
+                  dim_x = dim_x,
+                  dim_z = dim_z,
+                  n_cat = n_cat,
+                  obs_Y = Ystar,
+                  x = X, z = Z,
+                  normal_mu_beta = beta_prior_parameters[[1]],
+                  normal_sigma_beta = beta_prior_parameters[[2]],
+                  normal_mu_gamma = gamma_prior_parameters[[1]],
+                  normal_sigma_gamma = gamma_prior_parameters[[2]]),
+      n.chains = number_MCMC_chains)
+  } else if (prior == "dexp") {
+    jags_object <- jags.model(
+      model_file,
+      data = list(sample_size = sample_size,
+                  dim_x = dim_x,
+                  dim_z = dim_z,
+                  n_cat = n_cat,
+                  obs_Y = Ystar,
+                  x = X, z = Z,
+                  dexp_mu_beta = beta_prior_parameters[[1]],
+                  dexp_b_beta = beta_prior_parameters[[2]],
+                  dexp_mu_gamma = gamma_prior_parameters[[1]],
+                  dexp_b_gamma = gamma_prior_parameters[[2]]),
+      n.chains = number_MCMC_chains)
+  } else { print("Please select a model.")}
+
+  return(jags_object)
+}

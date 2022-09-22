@@ -1,0 +1,51 @@
+Package: COMBO
+Title: Correcting Misclassified Binary Outcomes in Association Studies
+Version: 0.0.0.9000
+Authors@R: 
+    person("Kimberly", "Hochstedler",
+           email = "kah343@cornell.edu", role = c("aut", "cre"))
+Author: Kimberly Hochstedler [aut, cre]
+Maintainer: Kimberly Hochstedler  <kah343@cornell.edu>
+Description: Use frequentist and Bayesian methods to estimate parameters from a
+  binary outcome misclassification model. These methods correct for the problem
+  of "label switching" by assuming that correct outcome classification occurs
+  in at least 50% of observations.
+Depends:
+    R (>= 4.2.0)
+Imports:
+    dplyr (>= 1.0.10),
+    tidyr (>= 1.2.1),
+    Matrix (> 1.4-1),
+    rjags (>= 4-13),
+    turboEM (>= 2021.1),
+    SAMBA (>= 0.9.0)
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Collate: 
+    'expit.R'
+    'perfect_sensitivity_EM.R'
+    'sum_every_n1.R'
+    'sum_every_n.R'
+    'pistar_compute.R'
+    'pi_compute.R'
+    'w_j.R'
+    'q_gamma_f.R'
+    'q_beta_f.R'
+    'em_function.R'
+    'loglik.R'
+    'COMBO_EM.R'
+    'label_switch.R'
+    'check_and_fix_chains.R'
+    'mean_pistarjj_compute.R'
+    'pistar_compute_for_chains.R'
+    'pistar_by_chain.R'
+    'naive_jags_picker.R'
+    'naive_model_picker.R'
+    'jags_picker.R'
+    'model_picker.R'
+    'COMBO_MCMC.R'
+    'COMBO_data.R'
+    'misclassification_prob.R'
+    'true_classification_prob.R'
