@@ -1,6 +1,6 @@
 COMBO
 ==================================================
-![COMBO hex sticker](https://github.com/kimhochstedler/COMBO/blob/main/logo.png?raw=true
+![COMBO hex sticker](https://github.com/kimhochstedler/COMBO/blob/main/logo.png?raw=true)
 
 Overview
 --------------------------------------------------
