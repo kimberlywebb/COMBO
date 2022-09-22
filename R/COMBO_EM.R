@@ -153,13 +153,15 @@ COMBO_EM <- function(Ystar,
   log_reg = stats::glm(Ystar01 ~ . + 0, as.data.frame(X),
                        family = "binomial"(link = "logit"))
 
+  SAMBA_start <- c(beta_start, c(gamma_start)[1:(1 + ncol(z_matrix))])
   SAMBA_i <- SAMBA::obsloglikEM(Ystar01, Z = x_matrix,
-                                X = z_matrix, start = rep(1, 4),
+                                X = z_matrix, start = SAMBA_start,
                                 tol = tolerance,
                                 maxit = max_em_iterations)
 
+  perfect_sens_start <- c(beta_start, c(gamma_start)[(2 + ncol(z_matrix)):length(c(gamma_start))])
   perfect_sens_i <- perfect_sensitivity_EM(Ystar01, Z = x_matrix,
-                                           X = z_matrix, start = rep(1, 4),
+                                           X = z_matrix, start = perfect_sens_start,
                                            tolerance = tolerance,
                                            max_em_iterations = max_em_iterations)
 
