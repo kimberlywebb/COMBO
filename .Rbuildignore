@@ -4,4 +4,5 @@
 ^docs$
 ^pkgdown$
 ^logo.png
+^small_logo.png
 ^LICENSE\.md$
