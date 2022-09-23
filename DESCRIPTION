@@ -24,12 +24,13 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Collate: 
-    'expit.R'
-    'perfect_sensitivity_EM.R'
     'sum_every_n1.R'
     'sum_every_n.R'
     'pistar_compute.R'
     'pi_compute.R'
+    'COMBO_data.R'
+    'expit.R'
+    'perfect_sensitivity_EM.R'
     'w_j.R'
     'q_gamma_f.R'
     'q_beta_f.R'
@@ -46,6 +47,5 @@ Collate:
     'jags_picker.R'
     'model_picker.R'
     'COMBO_MCMC.R'
-    'COMBO_data.R'
     'misclassification_prob.R'
     'true_classification_prob.R'

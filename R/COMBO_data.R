@@ -31,6 +31,9 @@
 #'
 #' @export
 #'
+#' @include pi_compute.R
+#' @include pistar_compute.R
+#'
 #' @importFrom stats rnorm rgamma rmultinom
 #'
 #' @examples

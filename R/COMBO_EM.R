@@ -57,6 +57,7 @@
 #' @include em_function.R
 #' @include loglik.R
 #' @include perfect_sensitivity_EM.R
+#' @include COMBO_data.R
 #'
 #' @importFrom stats rnorm rgamma rmultinom glm
 #' @importFrom turboEM turboem
