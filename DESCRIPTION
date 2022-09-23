@@ -49,3 +49,4 @@ Collate:
     'COMBO_MCMC.R'
     'misclassification_prob.R'
     'true_classification_prob.R'
+LazyData: true
