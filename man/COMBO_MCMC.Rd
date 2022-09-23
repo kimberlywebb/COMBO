@@ -112,14 +112,37 @@ z_shape <- 1
 true_beta <- matrix(c(1, -2), ncol = 1)
 true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
 
-my_data <- COMBO_data(sample_size = n,
-                      x_mu = x_mu, x_sigma = x_sigma,
-                      z_shape = z_shape,
-                      beta = true_beta, gamma = true_gamma)
+x_matrix = matrix(rnorm(n, x_mu, x_sigma), ncol = 1)
+X = matrix(c(rep(1, n), x_matrix[,1]), ncol = 2, byrow = FALSE)
+z_matrix = matrix(rgamma(n, z_shape), ncol = 1)
+Z = matrix(c(rep(1, n), z_matrix[,1]), ncol = 2, byrow = FALSE)
 
-Ystar = my_data[["obs_Y"]]
-x_matrix = matrix(my_data[["x"]], ncol = 1)
-z_matrix = matrix(my_data[["z"]], ncol = 1)
+exp_xb = exp(X \%*\% true_beta)
+pi_result = exp_xb[,1] / (exp_xb[,1] + 1)
+pi_matrix = matrix(c(pi_result, 1 - pi_result), ncol = 2, byrow = FALSE)
+
+true_Y <- rep(NA, n)
+for(i in 1:n){
+    true_Y[i] = which(stats::rmultinom(1, 1, pi_matrix[i,]) == 1)
+}
+
+exp_zg = exp(Z \%*\% true_gamma)
+pistar_denominator = matrix(c(1 + exp_zg[,1], 1 + exp_zg[,2]), ncol = 2, byrow = FALSE)
+pistar_result = exp_zg / pistar_denominator
+
+pistar_matrix = matrix(c(pistar_result[,1], 1 - pistar_result[,1],
+                         pistar_result[,2], 1 - pistar_result[,2]),
+                       ncol = 2, byrow = FALSE)
+
+obs_Y <- rep(NA, n)
+for(i in 1:n){
+    true_j = true_Y[i]
+    obs_Y[i] = which(rmultinom(1, 1,
+                     pistar_matrix[c(i, n + i),
+                                     true_j]) == 1)
+ }
+
+Ystar <- obs_Y
 
 unif_lower_beta <- matrix(c(-5, -5, NA, NA), nrow = 2, byrow = TRUE)
 unif_upper_beta <- matrix(c(5, 5, NA, NA), nrow = 2, byrow = TRUE)
@@ -138,4 +161,5 @@ MCMC_results <- COMBO_MCMC(Ystar, x = x_matrix, z = z_matrix,
                            gamma_prior_parameters = gamma_prior_parameters,
                            number_MCMC_chains = 2,
                            MCMC_sample = 200, burn_in = 100)
+MCMC_results$posterior_means_df
 }
