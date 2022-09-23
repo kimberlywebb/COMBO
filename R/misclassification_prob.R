@@ -59,8 +59,8 @@ misclassification_prob <- function(gamma_matrix,
              byrow = FALSE, nrow = sample_size)
 
   subject = rep(1:sample_size, n_cat * n_cat)
-  Y_categories = rep(1:n_cat, each = sample_size * n_cat) - 1
-  Ystar_categories = rep(c(1:n_cat, 1:n_cat), each = sample_size) - 1
+  Y_categories = rep(1:n_cat, each = sample_size * n_cat)
+  Ystar_categories = rep(c(1:n_cat, 1:n_cat), each = sample_size)
   pistar_matrix = pistar_compute(gamma_matrix, Z, sample_size, n_cat)
   pistar_df = data.frame(Subject = subject,
                          Y = Y_categories,

@@ -54,7 +54,7 @@ true_classification_prob <- function(beta_matrix,
              byrow = FALSE, nrow = sample_size)
 
   subject = rep(1:sample_size, n_cat)
-  Y_categories = rep(1:n_cat, each = sample_size) - 1
+  Y_categories = rep(1:n_cat, each = sample_size)
   pi_matrix = pi_compute(beta_matrix, X, sample_size, n_cat)
   pi_df = data.frame(Subject = subject,
                      Y = Y_categories,
