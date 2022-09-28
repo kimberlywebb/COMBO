@@ -164,8 +164,9 @@ COMBO_MCMC <- function(Ystar, x, z, prior,
   sample_size = length(Ystar)
   n_cat = 2
 
-  X = matrix(c(rep(1, sample_size), c(x)), ncol = 2, byrow = FALSE)
-  Z = matrix(c(rep(1, sample_size), c(z)), ncol = 2, byrow = FALSE)
+  # FIX THIS! DIMENSIONS DON'T WORK FOR x, z WITH MORE THAN ONE COL
+  X = cbind(matrix(1, nrow = sample_size, ncol = 1), x)
+  Z = cbind(matrix(1, nrow = sample_size, ncol = 1), z)
 
   dim_x = ncol(X)
   dim_z = ncol(Z)
