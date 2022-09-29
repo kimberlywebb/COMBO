@@ -44,7 +44,7 @@ pistar_compute_for_chains <- function(chain_colMeans, Z, n, n_cat){
   dim_z = ncol(Z)
   gamma_names <- paste0("gamma[1,", rep(1:n_cat, dim_z), ",", rep(1:dim_z, each = n_cat), "]")
   gamma = matrix(chain_colMeans[gamma_names],
-                 nrow = 2, byrow = TRUE)
+                 ncol = 2, byrow = TRUE)
 
   exp_zg_nobaseline = exp(Z %*% gamma)
   exp_zg_baseline = matrix(1, nrow = n, ncol = n_cat)
