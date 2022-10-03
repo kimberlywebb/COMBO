@@ -42,8 +42,8 @@ respectively, for \eqn{\beta} terms.
 For prior distribution \code{"t"}, the third element of the list should contain
 a matrix of the degrees of freedom for \eqn{\beta} terms.
 The third list element should be empty for all other prior distributions.
-All matrices in the list should have dimensions \code{dim_x} X \code{n_cat}, and all
-elements in the \code{n_cat} column should be set to \code{NA}.}
+All matrices in the list should have dimensions \code{n_cat} X \code{dim_x}, and all
+elements in the \code{n_cat} row should be set to \code{NA}.}
 
 \item{gamma_prior_parameters}{A numeric list of prior distribution parameters
 for the \eqn{\gamma} terms. For prior distributions \code{"t"},
