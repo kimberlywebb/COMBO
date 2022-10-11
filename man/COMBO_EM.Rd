@@ -69,7 +69,7 @@ model.
 }
 \examples{
 set.seed(123)
-n <- 1000
+n <- 100
 x_mu <- 0
 x_sigma <- 1
 z_shape <- 1
