@@ -208,11 +208,14 @@ COMBO_EM <- function(Ystar,
     c(-1*turboEM::pars(results)[1:ncol(X)], turboEM::pars(results)[gamma_flip_index])
   }
 
-  sigma_EM = tryCatch(solve(turboEM::hessian(results)[[1]]), silent = TRUE,
-                      error = function(e) NA)
-  SE_EM = tryCatch(sqrt(diag(Matrix::nearPD(sigma_EM)$mat)),
-                   silent = TRUE,
-                   error = function(e) rep(NA, ncol(X) + (n_cat * ncol(Z))))
+  #sigma_EM = tryCatch(solve(turboEM::hessian(results)[[1]]), silent = TRUE,
+  #                    error = function(e) NA)
+  #SE_EM = tryCatch(sqrt(diag(Matrix::nearPD(sigma_EM)$mat)),
+  #                 silent = TRUE,
+  #                 error = function(e) rep(NA, ncol(X) + (n_cat * ncol(Z))))
+
+  sigma_EM = solve(turboEM::hessian(results)[[1]])
+  SE_EM = sqrt(diag(Matrix::nearPD(sigma_EM)$mat))
 
   beta_param_names <- paste0(rep("beta", ncol(X)), 1:ncol(X))
   gamma_param_names <- paste0(rep("gamma", (n_cat * ncol(Z))),
