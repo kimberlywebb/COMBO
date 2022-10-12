@@ -78,18 +78,18 @@ em_function <- function(param_current,
                 sample_size = sample_size, n_cat = n_cat)
 
   Ystar01 = obs_Y_matrix[,1]
-  fit.gamma1 <- stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
+  fit.gamma1 <- suppressWarnings( stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
                            weights = weights[,1],
-                           family = "binomial"(link = "logit"))
+                           family = "binomial"(link = "logit")) )
   gamma1_new <- unname(coefficients(fit.gamma1))
 
-  fit.gamma2 <- stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
+  fit.gamma2 <- suppressWarnings( stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
                            weights = weights[,2],
-                           family = "binomial"(link = "logit"))
+                           family = "binomial"(link = "logit")) )
   gamma2_new <- unname(coefficients(fit.gamma2))
 
-  fit.beta <- stats::glm(weights[,1] ~ . + 0, as.data.frame(X),
-                         family = stats::binomial())
+  fit.beta <- suppressWarnings( stats::glm(weights[,1] ~ . + 0, as.data.frame(X),
+                         family = stats::binomial()) )
   beta_new <- unname(coefficients(fit.beta))
 
   param_new = c(beta_new, gamma1_new, gamma2_new)
