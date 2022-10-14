@@ -13,7 +13,7 @@
 #'   outcome categories \eqn{j = 1, \dots,} \code{n_cat}. The matrix should be
 #'   obtained by \code{COMBO_EM} or \code{COMBO_MCMC}.
 #' @param z_matrix A numeric matrix of covariates in the observation mechanism.
-#'   \code{x_matrix} should not contain an intercept.
+#'   \code{z_matrix} should not contain an intercept.
 #'
 #' @return \code{misclassification_prob} returns a dataframe containing four columns.
 #'   The first column, \code{Subject}, represents the subject ID, from \eqn{1} to \code{n},
