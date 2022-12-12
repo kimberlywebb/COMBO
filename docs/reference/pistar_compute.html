@@ -57,7 +57,7 @@
 <dd><p>A numeric matrix of regression parameters for the observed
 outcome mechanism, <code>Y* | Y</code>
 (observed outcome, given the true outcome) ~ <code>Z</code> (misclassification
-predictor matrix). Rows of the matrix correspond to parameters for the <code>Y* = 0</code>
+predictor matrix). Rows of the matrix correspond to parameters for the <code>Y* = 1</code>
 observed outcome, with the dimensions of <code>Z</code>.
 Columns of the matrix correspond to the true outcome categories
 \(j = 1, \dots,\) <code>n_cat</code>.</p></dd>
@@ -89,8 +89,8 @@ and the observed outcome, <code>Y*</code> can take.</p></dd>
 <p></p>
 <p><code>n</code> subjects. Rows of the matrix
 correspond to each subject and observed outcome. Specifically, the probability
-for subject \(i\) and observed category $0$ occurs at row \(i\). The probability
-for subject \(i\) and observed category $1$ occurs at row \(i +\)</p>
+for subject \(i\) and observed category $1$ occurs at row \(i\). The probability
+for subject \(i\) and observed category $2$ occurs at row \(i +\)</p>
 <p></p>
 <p><code>n</code>.
 Columns of the matrix correspond to the true outcome categories \(j = 1, \dots,\)</p>

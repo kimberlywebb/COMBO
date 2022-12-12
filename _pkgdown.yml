@@ -39,6 +39,7 @@ reference:
       - '`pistar_by_chain`'
       - '`pistar_compute`'
       - '`pistar_compute_for_chains`'
+      - '`pitilde_compute`'
       - '`q_beta_f`'
       - '`q_gamma_f`'
       - '`sum_every_n`'

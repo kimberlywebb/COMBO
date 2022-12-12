@@ -3,7 +3,7 @@
 #' @param gamma A numeric matrix of regression parameters for the observed
 #'   outcome mechanism, \code{Y* | Y}
 #'   (observed outcome, given the true outcome) ~ \code{Z} (misclassification
-#'   predictor matrix). Rows of the matrix correspond to parameters for the \code{Y* = 0}
+#'   predictor matrix). Rows of the matrix correspond to parameters for the \code{Y* = 1}
 #'   observed outcome, with the dimensions of \code{Z}.
 #'   Columns of the matrix correspond to the true outcome categories
 #'   \eqn{j = 1, \dots,} \code{n_cat}.
@@ -17,8 +17,8 @@
 #'   \eqn{P(Y_i^* = k | Y_i = j, Z_i) = \frac{\text{exp}\{\gamma_{kj0} + \gamma_{kjZ} Z_i\}}{1 + \text{exp}\{\gamma_{kj0} + \gamma_{kjZ} Z_i\}}}
 #'   for each of the \eqn{i = 1, \dots,} \code{n} subjects. Rows of the matrix
 #'   correspond to each subject and observed outcome. Specifically, the probability
-#'   for subject \eqn{i} and observed category $0$ occurs at row \eqn{i}. The probability
-#'   for subject \eqn{i} and observed category $1$ occurs at row \eqn{i +} \code{n}.
+#'   for subject \eqn{i} and observed category $1$ occurs at row \eqn{i}. The probability
+#'   for subject \eqn{i} and observed category $2$ occurs at row \eqn{i +} \code{n}.
 #'   Columns of the matrix correspond to the true outcome categories \eqn{j = 1, \dots,} \code{n_cat}.
 #'
 #' @include sum_every_n.R
