@@ -13,6 +13,7 @@ reference:
     contents:
       - '`COMBO_EM`'
       - '`COMBO_MCMC`'
+      - '`COMBO_EM_2stage`'
   - title: Data generation for examples
     desc: Function to generate data with misclassified binary outcomes
     contents:
@@ -23,10 +24,12 @@ reference:
     contents:
       - '`check_and_fix_chains`'
       - '`em_function`'
+      - '`em_function_2stage`'
       - '`expit`'
       - '`jags_picker`'
       - '`label_switch`'
       - '`loglik`'
+      - '`loglik_2stage`'
       - '`mean_pistarjj_compute`'
       - '`model_picker`'
       - '`naive_jags_picker`'

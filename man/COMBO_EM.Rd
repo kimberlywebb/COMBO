@@ -6,13 +6,10 @@
 \usage{
 COMBO_EM(
   Ystar,
-  Ytilde,
   x_matrix,
   z_matrix,
-  v_matrix,
   beta_start,
   gamma_start,
-  delta_start,
   tolerance = 1e-07,
   max_em_iterations = 1500,
   em_method = "squarem"

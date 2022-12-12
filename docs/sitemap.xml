@@ -34,10 +34,16 @@
     <loc>/reference/COMBO_EM.html</loc>
   </url>
   <url>
+    <loc>/reference/COMBO_EM_2stage.html</loc>
+  </url>
+  <url>
     <loc>/reference/COMBO_MCMC.html</loc>
   </url>
   <url>
     <loc>/reference/em_function.html</loc>
+  </url>
+  <url>
+    <loc>/reference/em_function_2stage.html</loc>
   </url>
   <url>
     <loc>/reference/expit.html</loc>
@@ -53,6 +59,9 @@
   </url>
   <url>
     <loc>/reference/loglik.html</loc>
+  </url>
+  <url>
+    <loc>/reference/loglik_2stage.html</loc>
   </url>
   <url>
     <loc>/reference/mean_pistarjj_compute.html</loc>

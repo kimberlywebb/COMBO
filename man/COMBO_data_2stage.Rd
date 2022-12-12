@@ -46,7 +46,7 @@ to first-stage observed outcome categories. The third dimension of the \code{del
 array is indexed by the true outcome categories.}
 }
 \value{
-\code{COMBO_data} returns a list of generated data elements:
+\code{COMBO_data_2stage} returns a list of generated data elements:
 \item{obs_Ystar}{A vector of first-stage observed outcomes.}
 \item{obs_Ytilde}{A vector of second-stage observed outcomes.}
 \item{true_Y}{A vector of true outcomes.}
