@@ -48,15 +48,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">w_j</span><span class="op">(</span></span>
-<span>  <span class="va">ystar_matrix</span>,</span>
-<span>  <span class="va">ytilde_matrix</span>,</span>
-<span>  <span class="va">pitilde_array</span>,</span>
-<span>  <span class="va">pistar_matrix</span>,</span>
-<span>  <span class="va">pi_matrix</span>,</span>
-<span>  <span class="va">sample_size</span>,</span>
-<span>  <span class="va">n_cat</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">w_j</span><span class="op">(</span><span class="va">ystar_matrix</span>, <span class="va">pistar_matrix</span>, <span class="va">pi_matrix</span>, <span class="va">sample_size</span>, <span class="va">n_cat</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -98,7 +90,7 @@ and the observed outcome, <code>Y*</code>, can take.</p></dd>
 
 <p><code>w_j</code> returns a matrix of E-step weights for the EM-algorithm,
 computed as follows:
-\(\sum_{k = 1}^2 \frac{y^*_{ik} \pi^*_{ikj} \pi_{ij}}{\sum_{\ell = 1}^2 \pi^*_{i \ell j} \pi_{ij}}\).
+\(\sum_{k = 1}^2 \frac{y^*_{ik} \pi^*_{ikj} \pi_{ij}}{\sum_{\ell = 1}^2 \pi^*_{i k \ell} \pi_{i \ell}}\).
 Rows of the matrix correspond to each subject. Columns of the matrix correspond
 to the true outcome categories \(j = 1, \dots,\)</p>
 <p></p>

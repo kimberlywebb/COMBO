@@ -42,6 +42,8 @@ reference:
       - '`pitilde_compute`'
       - '`q_beta_f`'
       - '`q_gamma_f`'
+      - '`q_delta_f`'
       - '`sum_every_n`'
       - '`sum_every_n1`'
       - '`w_j`'
+      - '`w_j_2stage`'

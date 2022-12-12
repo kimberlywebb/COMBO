@@ -19,7 +19,7 @@
 #'
 #' @return \code{w_j} returns a matrix of E-step weights for the EM-algorithm,
 #'   computed as follows:
-#'   \eqn{\sum_{k = 1}^2 \frac{y^*_{ik} \pi^*_{ikj} \pi_{ij}}{\sum_{\ell = 1}^2 \pi^*_{i \ell j} \pi_{ij}}}.
+#'   \eqn{\sum_{k = 1}^2 \frac{y^*_{ik} \pi^*_{ikj} \pi_{ij}}{\sum_{\ell = 1}^2 \pi^*_{i k \ell} \pi_{i \ell}}}.
 #'   Rows of the matrix correspond to each subject. Columns of the matrix correspond
 #'   to the true outcome categories \eqn{j = 1, \dots,} \code{n_cat}.
 #'
