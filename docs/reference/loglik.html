@@ -48,7 +48,16 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">loglik</span><span class="op">(</span><span class="va">param_current</span>, <span class="va">obs_Y_matrix</span>, <span class="va">X</span>, <span class="va">Z</span>, <span class="va">sample_size</span>, <span class="va">n_cat</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">loglik</span><span class="op">(</span></span>
+<span>  <span class="va">param_current</span>,</span>
+<span>  <span class="va">obs_Ystar_matrix</span>,</span>
+<span>  <span class="va">obs_Ytilde_matrix</span>,</span>
+<span>  <span class="va">X</span>,</span>
+<span>  <span class="va">Z</span>,</span>
+<span>  <span class="va">V</span>,</span>
+<span>  <span class="va">sample_size</span>,</span>
+<span>  <span class="va">n_cat</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -62,13 +71,6 @@ observed outcome, with the dimensions of <code>Z</code>.
 In matrix form, the gamma parameter matrix columns correspond to the true outcome categories
 \(j = 1, \dots,\) <code>n_cat</code>. The numeric vector <code>gamma_v</code> is
 obtained by concatenating the gamma matrix, i.e. <code>gamma_v &lt;- c(gamma_matrix)</code>.</p></dd>
-
-
-<dt>obs_Y_matrix</dt>
-<dd><p>A numeric matrix of indicator variables (0, 1) for the observed
-outcome <code>Y*</code>. Rows of the matrix correspond to each subject. Columns of
-the matrix correspond to each observed outcome category. Each row should contain
-exactly one 0 entry and exactly one 1 entry.</p></dd>
 
 
 <dt>X</dt>
@@ -87,6 +89,13 @@ This value should be equal to the number of rows of the design matrix, <code>X</
 <dt>n_cat</dt>
 <dd><p>The number of categorical values that the true outcome, <code>Y</code>,
 and the observed outcome, <code>Y*</code> can take.</p></dd>
+
+
+<dt>obs_Y_matrix</dt>
+<dd><p>A numeric matrix of indicator variables (0, 1) for the observed
+outcome <code>Y*</code>. Rows of the matrix correspond to each subject. Columns of
+the matrix correspond to each observed outcome category. Each row should contain
+exactly one 0 entry and exactly one 1 entry.</p></dd>
 
 </dl></div>
     <div class="section level2">

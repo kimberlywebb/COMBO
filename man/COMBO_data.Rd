@@ -23,7 +23,7 @@ to generate data under in the true outcome mechanism.}
 
 \item{gamma}{A numeric matrix of \eqn{\gamma} parameters
 to generate data under in the observation mechanism.
-In matrix form, the \code{gamma_start} matrix rows correspond to intercept (row 1)
+In matrix form, the \code{gamma} matrix rows correspond to intercept (row 1)
 and slope (row 2) terms. The gamma parameter matrix columns correspond to the true outcome categories
 \eqn{Y \in \{1, 2\}}.}
 }

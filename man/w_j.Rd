@@ -4,7 +4,15 @@
 \alias{w_j}
 \title{Compute E-step for Binary Outcome Misclassification Model Estimated With the EM-Algorithm}
 \usage{
-w_j(ystar_matrix, pistar_matrix, pi_matrix, sample_size, n_cat)
+w_j(
+  ystar_matrix,
+  ytilde_matrix,
+  pitilde_array,
+  pistar_matrix,
+  pi_matrix,
+  sample_size,
+  n_cat
+)
 }
 \arguments{
 \item{ystar_matrix}{A numeric matrix of indicator variables (0, 1) for the observed

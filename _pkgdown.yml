@@ -17,6 +17,7 @@ reference:
     desc: Function to generate data with misclassified binary outcomes
     contents:
       - '`COMBO_data`'
+      - '`COMBO_data_2stage`'
   - title: Internals
     desc: Internal functions and helpers
     contents:

@@ -4,7 +4,16 @@
 \alias{loglik}
 \title{Expected Complete Data Log-Likelihood Function for Estimation of the Misclassification Model}
 \usage{
-loglik(param_current, obs_Y_matrix, X, Z, sample_size, n_cat)
+loglik(
+  param_current,
+  obs_Ystar_matrix,
+  obs_Ytilde_matrix,
+  X,
+  Z,
+  V,
+  sample_size,
+  n_cat
+)
 }
 \arguments{
 \item{param_current}{A numeric vector of regression parameters, in the order
@@ -16,11 +25,6 @@ In matrix form, the gamma parameter matrix columns correspond to the true outcom
 \eqn{j = 1, \dots,} \code{n_cat}. The numeric vector \code{gamma_v} is
 obtained by concatenating the gamma matrix, i.e. \code{gamma_v <- c(gamma_matrix)}.}
 
-\item{obs_Y_matrix}{A numeric matrix of indicator variables (0, 1) for the observed
-outcome \code{Y*}. Rows of the matrix correspond to each subject. Columns of
-the matrix correspond to each observed outcome category. Each row should contain
-exactly one 0 entry and exactly one 1 entry.}
-
 \item{X}{A numeric design matrix for the true outcome mechanism.}
 
 \item{Z}{A numeric design matrix for the observation mechanism.}
@@ -30,6 +34,11 @@ This value should be equal to the number of rows of the design matrix, \code{X} 
 
 \item{n_cat}{The number of categorical values that the true outcome, \code{Y},
 and the observed outcome, \code{Y*} can take.}
+
+\item{obs_Y_matrix}{A numeric matrix of indicator variables (0, 1) for the observed
+outcome \code{Y*}. Rows of the matrix correspond to each subject. Columns of
+the matrix correspond to each observed outcome category. Each row should contain
+exactly one 0 entry and exactly one 1 entry.}
 }
 \value{
 \code{loglik} returns the negative value of the expected log-likelihood function,

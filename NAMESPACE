@@ -3,6 +3,7 @@
 export(COMBO_EM)
 export(COMBO_MCMC)
 export(COMBO_data)
+export(COMBO_data_2stage)
 export(em_function)
 export(misclassification_prob)
 export(true_classification_prob)
