@@ -29,6 +29,7 @@ in a two-stage binary outcome misclassification model."><meta property="og:image
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/COMBO_notation_guide.html">COMBO Notation Guide</a>
+    <a class="dropdown-item" href="../articles/COMBO_notation_guide_2stage.html">COMBO Notation Guide - Two-stage Misclassification Model</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -171,9 +172,21 @@ whether or not the algorithm converged for a given parameter estimate.</p>
 <span class="r-in"><span>                             x_mu <span class="op">=</span> <span class="va">x_mu</span>, x_sigma <span class="op">=</span> <span class="va">x_sigma</span>,</span></span>
 <span class="r-in"><span>                             z_shape <span class="op">=</span> <span class="va">z_shape</span>, v_shape <span class="op">=</span> <span class="va">v_shape</span>,</span></span>
 <span class="r-in"><span>                             beta <span class="op">=</span> <span class="va">true_beta</span>, gamma <span class="op">=</span> <span class="va">true_gamma</span>, delta <span class="op">=</span> <span class="va">true_delta</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_data_2stage(sample_size = n, x_mu = x_mu, x_sigma = x_sigma,     z_shape = z_shape, v_shape = v_shape, beta = true_beta, gamma = true_gamma,     delta = true_delta):</span> could not find function "COMBO_data_2stage"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Ytilde"</span><span class="op">]</span><span class="op">]</span>, <span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Ystar"</span><span class="op">]</span><span class="op">]</span>, <span class="va">my_data</span><span class="op">[[</span><span class="st">"true_Y"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in table(my_data[["obs_Ytilde"]], my_data[["obs_Ystar"]], my_data[["true_Y"]]):</span> object 'my_data' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , ,  = 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       1   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1 236  50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2  26  17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , ,  = 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       1   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1  18  20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2  21 112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">beta_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">true_beta</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gamma_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">true_gamma</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -187,7 +200,7 @@ whether or not the algorithm converged for a given parameter estimate.</p>
 <span class="r-in"><span>                              beta_start <span class="op">=</span> <span class="va">beta_start</span>,</span></span>
 <span class="r-in"><span>                              gamma_start <span class="op">=</span> <span class="va">gamma_start</span>,</span></span>
 <span class="r-in"><span>                              delta_start <span class="op">=</span> <span class="va">delta_start</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_EM_2stage(Ystar = my_data[["obs_Ystar"]], Ytilde = my_data[["obs_Ytilde"]],     x_matrix = my_data[["x_matrix"]], z_matrix = my_data[["z_matrix"]],     v_matrix = my_data[["v_matrix"]], beta_start = beta_start,     gamma_start = gamma_start, delta_start = delta_start):</span> could not find function "COMBO_EM_2stage"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_EM_2stage(Ystar = my_data[["obs_Ystar"]], Ytilde = my_data[["obs_Ytilde"]],     x_matrix = my_data[["x_matrix"]], z_matrix = my_data[["z_matrix"]],     v_matrix = my_data[["v_matrix"]], beta_start = beta_start,     gamma_start = gamma_start, delta_start = delta_start):</span> 'z_matrix' should be a numeric matrix.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">EM_results</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'EM_results' not found</span>

@@ -29,6 +29,7 @@ model."><meta property="og:image" content="/logo.png"><!-- mathjax --><script sr
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/COMBO_notation_guide.html">COMBO Notation Guide</a>
+    <a class="dropdown-item" href="../articles/COMBO_notation_guide_2stage.html">COMBO Notation Guide - Two-stage Misclassification Model</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -263,12 +264,12 @@ provides the posterior median computed across all chains and all samples.</p></d
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameter    posterior_mean posterior_median</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> beta[1,1]             0.816            0.786</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> beta[1,2]            -<span style="color: #BB0000;">2.14</span>            -<span style="color: #BB0000;">2.10</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> gamma[1,1,1]          0.622            0.618</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> gamma[1,2,1]         -<span style="color: #BB0000;">0.131</span>           -<span style="color: #BB0000;">0.136</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> gamma[1,1,2]          1.05             1.05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> gamma[1,2,2]         -<span style="color: #BB0000;">1.50</span>            -<span style="color: #BB0000;">1.32</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> beta[1,1]            0.992            0.979 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> beta[1,2]           -<span style="color: #BB0000;">2.45</span>            -<span style="color: #BB0000;">2.42</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> gamma[1,1,1]         0.557            0.563 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> gamma[1,2,1]        -<span style="color: #BB0000;">0.069</span><span style="color: #BB0000; text-decoration: underline;">2</span>          -<span style="color: #BB0000;">0.098</span><span style="color: #BB0000; text-decoration: underline;">6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> gamma[1,1,2]         0.947            0.859 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> gamma[1,2,2]        -<span style="color: #BB0000;">1.46</span>            -<span style="color: #BB0000;">1.49</span>  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
