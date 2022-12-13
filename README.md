@@ -22,7 +22,7 @@ The package allows users to compute the probability of the latent true outcome a
 
 Parameter estimation 
 --------------------------------------------------
-Jointly estimate parameters from the true outcome and observation mechanisms, respectively, in a binary outcome misclassification model using the EM algorithm or MCMC. 
+Jointly estimate parameters from the true outcome and observation mechanisms, respectively, in a binary outcome misclassification model using the EM algorithm or MCMC. Parameters from the true outcome, first-stage observation, and second-stage observation mechanisms in a two-stage binary outcome misclassification model can also be estimated using the EM algorithm.
 
 Installation
 --------------------------------------------------
