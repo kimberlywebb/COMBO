@@ -52,7 +52,7 @@
 #' @examples \dontrun{
 #'
 #' set.seed(123)
-#' n <- 1000
+#' sample_size <- 1000
 #' x_mu <- 0
 #' x_sigma <- 1
 #' z_shape <- 1
@@ -62,7 +62,7 @@
 #' true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
 #' true_delta <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
 #'
-#' my_data <- COMBO_data_2stage(sample_size = n,
+#' my_data <- COMBO_data_2stage(sample_size = sample_size,
 #'                              x_mu = x_mu, x_sigma = x_sigma,
 #'                              z_shape = z_shape, v_shape = v_shape,
 #'                              beta = true_beta, gamma = true_gamma, delta = true_delta)
@@ -79,7 +79,7 @@
 #'                               obs_Ystar_matrix = obs_Ystar_matrix,
 #'                               obs_Ytilde_matrix = obs_Ytilde_matrix,
 #'                               X = X, Z = Z, V = V,
-#'                               sample_size = n, n_cat = 2)
+#'                               sample_size = sample_size, n_cat = 2)
 #' loglik_value
 #'
 #' }
@@ -98,7 +98,9 @@ loglik_2stage <- function(param_current,
   pistar_terms_v = pistar_compute(gamma_current, Z, sample_size, n_cat)
   pitilde_terms_v = pitilde_compute(delta_current, V, sample_size, n_cat)
 
-  weights = w_j_2stage(obs_Ystar_matrix, pistar_terms_v, pi_terms_v, sample_size, n_cat)
+  weights = w_j_2stage(obs_Ystar_matrix, obs_Ytilde_matrix,
+                       pitilde_terms_v, pistar_terms_v, pi_terms_v,
+                       sample_size, n_cat)
 
   loglikelihood = sum(
     (q_beta_f(beta_current, X = X, w_mat = weights,

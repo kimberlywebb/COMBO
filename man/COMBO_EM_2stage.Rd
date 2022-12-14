@@ -76,7 +76,7 @@ whether or not the algorithm converged for a given parameter estimate.
 Estimates are provided for the two-stage binary misclassification model.
 }
 \description{
-Jointly estimate \eqn{\beta}, \eqn{\gamma}, \eqn{delta} parameters from the true outcome,
+Jointly estimate \eqn{\beta}, \eqn{\gamma}, \eqn{\delta} parameters from the true outcome,
 first-stage observation, and second-stage observation mechanisms, respectively,
 in a two-stage binary outcome misclassification model.
 }
@@ -104,9 +104,9 @@ delta_start <- rep(1, length = length(c(true_delta)))
 
 EM_results <- COMBO_EM_2stage(Ystar = my_data[["obs_Ystar"]],
                               Ytilde = my_data[["obs_Ytilde"]],
-                              x_matrix = my_data[["x_matrix"]],
-                              z_matrix = my_data[["z_matrix"]],
-                              v_matrix = my_data[["v_matrix"]],
+                              x_matrix = my_data[["x"]],
+                              z_matrix = my_data[["z"]],
+                              v_matrix = my_data[["v"]],
                               beta_start = beta_start,
                               gamma_start = gamma_start,
                               delta_start = delta_start)

@@ -1,6 +1,6 @@
 #' EM-Algorithm Estimation of the Two-Stage Binary Outcome Misclassification Model
 #'
-#' Jointly estimate \eqn{\beta}, \eqn{\gamma}, \eqn{delta} parameters from the true outcome,
+#' Jointly estimate \eqn{\beta}, \eqn{\gamma}, \eqn{\delta} parameters from the true outcome,
 #' first-stage observation, and second-stage observation mechanisms, respectively,
 #' in a two-stage binary outcome misclassification model.
 #'
@@ -90,9 +90,9 @@
 #'
 #' EM_results <- COMBO_EM_2stage(Ystar = my_data[["obs_Ystar"]],
 #'                               Ytilde = my_data[["obs_Ytilde"]],
-#'                               x_matrix = my_data[["x_matrix"]],
-#'                               z_matrix = my_data[["z_matrix"]],
-#'                               v_matrix = my_data[["v_matrix"]],
+#'                               x_matrix = my_data[["x"]],
+#'                               z_matrix = my_data[["z"]],
+#'                               v_matrix = my_data[["v"]],
 #'                               beta_start = beta_start,
 #'                               gamma_start = gamma_start,
 #'                               delta_start = delta_start)
@@ -163,7 +163,7 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
   obs_Ystar_reps = matrix(rep(Ystar, n_cat), nrow = sample_size, byrow = FALSE)
   category_matrix = matrix(rep(1:n_cat, each = sample_size), nrow = sample_size,
                            byrow = FALSE)
-  obs_Ystar_matrix = 1 * (obs_Y_reps == category_matrix)
+  obs_Ystar_matrix = 1 * (obs_Ystar_reps == category_matrix)
 
   obs_Ytilde_reps <- matrix(rep(Ytilde, n_cat), nrow = sample_size, byrow = FALSE)
   category_matrix <- matrix(rep(1:n_cat, each = sample_size), nrow = sample_size,

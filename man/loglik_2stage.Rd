@@ -69,7 +69,7 @@ Expected Complete Data Log-Likelihood Function for Estimation of the Two-Stage M
 \dontrun{
 
 set.seed(123)
-n <- 1000
+sample_size <- 1000
 x_mu <- 0
 x_sigma <- 1
 z_shape <- 1
@@ -79,7 +79,7 @@ true_beta <- matrix(c(1, -2), ncol = 1)
 true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
 true_delta <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
 
-my_data <- COMBO_data_2stage(sample_size = n,
+my_data <- COMBO_data_2stage(sample_size = sample_size,
                              x_mu = x_mu, x_sigma = x_sigma,
                              z_shape = z_shape, v_shape = v_shape,
                              beta = true_beta, gamma = true_gamma, delta = true_delta)
@@ -96,7 +96,7 @@ loglik_value <- loglik_2stage(starting_values,
                               obs_Ystar_matrix = obs_Ystar_matrix,
                               obs_Ytilde_matrix = obs_Ytilde_matrix,
                               X = X, Z = Z, V = V,
-                              sample_size = n, n_cat = 2)
+                              sample_size = sample_size, n_cat = 2)
 loglik_value
 
 }
