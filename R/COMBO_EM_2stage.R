@@ -182,6 +182,37 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                              sample_size = sample_size, n_cat = n_cat,
                              control.run = control_settings)
 
+  # Do label switching correction within the EM algorithm simulation
+  results_i_gamma <- matrix(turboEM::pars(results)[(ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))],
+                            ncol = n_cat, byrow = FALSE)
+  results_i_pistar_v <- pistar_compute(results_i_gamma, Z, sample_size, n_cat)
+
+  results_i_delta <- array(pars(results)[((ncol(X) + (n_cat * ncol(Z))) + 1):length(pars(results))],
+                           dim = c(ncol(V), n_cat, n_cat))
+  results_i_pitilde <- pitilde_compute(results_i_delta, V, sample_size, n_cat)
+
+  pistar_11 <- mean(results_i_pistar_v[1:sample_size, 1])
+  pistar_22 <- mean(results_i_pistar_v[(sample_size + 1):(2*sample_size), 2])
+
+  pitilde_111 <- mean(results_i_pitilde[1:sample_size, 1, 1])
+  pitilde_222 <- mean(results_i_pitilde[(sample_size + 1):(2*sample_size), 2, 2])
+
+  estimates_i <- if ((pistar_11 > .50 | pistar_22 > .50 | pitilde_111 > .50 | pitilde_222 > .50) |
+                     (is.na(pistar_11) & is.na(pistar_22))) {
+    # If turboem cannot estimate the parameters they will be NA.
+    turboEM::pars(results)
+  } else {
+    gamma_index = (ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))
+    n_gamma_param = length(gamma_index) / n_cat
+    gamma_flip_index = ncol(X) + c((n_gamma_param + 1):length(gamma_index), 1:n_gamma_param)
+
+    delta_index = ((ncol(X) + (n_cat * ncol(Z))) + 1):length(pars(results))
+    n_delta_param = length(delta_index) / n_cat
+    delta_flip_index = (ncol(X) + (n_cat * ncol(Z))) + c((n_delta_param + 1):length(delta_index), 1:n_delta_param)
+
+    c(-1*turboEM::pars(results)[1:ncol(X)], turboEM::pars(results)[c(gamma_flip_index, delta_flip_index)])
+  }
+
   #sigma_EM = tryCatch(solve(turboEM::hessian(results)[[1]]), silent = TRUE,
   #                    error = function(e) NA)
   #SE_EM = tryCatch(sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
