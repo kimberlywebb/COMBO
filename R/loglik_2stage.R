@@ -106,7 +106,7 @@ loglik_2stage <- function(param_current,
     (q_beta_f(beta_current, X = X, w_mat = weights,
               sample_size = sample_size, n_cat = n_cat)) +
       (q_gamma_f(c(gamma_current), Z = Z,
-                 obs_Y_matrix = obs_Y_matrix,
+                 obs_Y_matrix = obs_Ystar_matrix,
                  w_mat = weights,
                  sample_size = sample_size, n_cat = n_cat)) +
       (q_delta_f(c(delta_current), V = V,
