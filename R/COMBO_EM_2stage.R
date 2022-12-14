@@ -230,7 +230,11 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
   gamma_param_names <- paste0(rep("gamma", (n_cat * ncol(Z))),
                               rep(1:ncol(Z), n_cat),
                               rep(1:n_cat, each = ncol(Z)))
-  delta_param_names <- rep("not done yet", length(c(delta_start)))
+  delta_param_names <- paste0(rep("delta", length(c(delta_start))),
+                              rep(1:ncol(V), n_cat * n_cat),
+                              rep(1, length(c(delta_start))),
+                              rep(c(rep(1, ncol(V)), rep(2, ncol(V))), n_cat),
+                              c(rep(1, ncol(V) * n_cat), rep(2, ncol(V) * n_cat)))
 
   estimates <- data.frame(Parameter = c(beta_param_names,
                                         gamma_param_names,
