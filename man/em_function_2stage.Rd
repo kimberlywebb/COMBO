@@ -90,11 +90,11 @@ V = my_data[["v_design_matrix"]]
 
 starting_values <- rnorm(14)
 
-new_parameters <- em_function(starting_values,
-                              obs_Ystar_matrix = obs_Ystar_matrix,
-                              obs_Ytilde_matrix = obs_Ytilde_matrix,
-                              X = X, Z = Z, V = V,
-                              sample_size = n, n_cat = 2)
+new_parameters <- em_function_2stage(starting_values,
+                                     obs_Ystar_matrix = obs_Ystar_matrix,
+                                     obs_Ytilde_matrix = obs_Ytilde_matrix,
+                                     X = X, Z = Z, V = V,
+                                     sample_size = n, n_cat = 2)
 
 new_parameters
 }

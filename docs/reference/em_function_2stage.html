@@ -155,11 +155,11 @@ estimates from one iteration of the EM-algorithm.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">starting_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">14</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">new_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="em_function.html">em_function</a></span><span class="op">(</span><span class="va">starting_values</span>,</span></span>
-<span class="r-in"><span>                              obs_Ystar_matrix <span class="op">=</span> <span class="va">obs_Ystar_matrix</span>,</span></span>
-<span class="r-in"><span>                              obs_Ytilde_matrix <span class="op">=</span> <span class="va">obs_Ytilde_matrix</span>,</span></span>
-<span class="r-in"><span>                              X <span class="op">=</span> <span class="va">X</span>, Z <span class="op">=</span> <span class="va">Z</span>, V <span class="op">=</span> <span class="va">V</span>,</span></span>
-<span class="r-in"><span>                              sample_size <span class="op">=</span> <span class="va">n</span>, n_cat <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">new_parameters</span> <span class="op">&lt;-</span> <span class="fu">em_function_2stage</span><span class="op">(</span><span class="va">starting_values</span>,</span></span>
+<span class="r-in"><span>                                     obs_Ystar_matrix <span class="op">=</span> <span class="va">obs_Ystar_matrix</span>,</span></span>
+<span class="r-in"><span>                                     obs_Ytilde_matrix <span class="op">=</span> <span class="va">obs_Ytilde_matrix</span>,</span></span>
+<span class="r-in"><span>                                     X <span class="op">=</span> <span class="va">X</span>, Z <span class="op">=</span> <span class="va">Z</span>, V <span class="op">=</span> <span class="va">V</span>,</span></span>
+<span class="r-in"><span>                                     sample_size <span class="op">=</span> <span class="va">n</span>, n_cat <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">new_parameters</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>

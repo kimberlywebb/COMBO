@@ -68,7 +68,7 @@
 #'
 #' @examples
 #' set.seed(123)
-#' n <- 500
+#' n <- 1000
 #' x_mu <- 0
 #' x_sigma <- 1
 #' z_shape <- 1
@@ -223,7 +223,7 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
 
   sigma_EM = solve(turboEM::hessian(results)[[1]])
   SE_EM = sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
-                           nrow = length(c(c(beta_start), c(gamma_start))),
+                           nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
                            byrow = FALSE)))
 
   beta_param_names <- paste0(rep("beta", ncol(X)), 1:ncol(X))
