@@ -84,9 +84,9 @@
 #'                              beta = true_beta, gamma = true_gamma, delta = true_delta)
 #' table(my_data[["obs_Ytilde"]], my_data[["obs_Ystar"]], my_data[["true_Y"]])
 #'
-#' beta_start <- rep(1, length = length(c(true_beta)))
-#' gamma_start <- rep(1, length = length(c(true_gamma)))
-#' delta_start <- rep(1, length = length(c(true_delta)))
+#' beta_start <- rnorm(length(c(true_beta)))
+#' gamma_start <- rnorm(length(c(true_gamma)))
+#' delta_start <- rnorm(length(c(true_delta)))
 #'
 #' EM_results <- COMBO_EM_2stage(Ystar = my_data[["obs_Ystar"]],
 #'                               Ytilde = my_data[["obs_Ytilde"]],
