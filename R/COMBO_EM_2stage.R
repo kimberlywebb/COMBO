@@ -211,6 +211,7 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
     delta_flip_index = (ncol(X) + (n_cat * ncol(Z))) + c((n_delta_param + 1):length(delta_index), 1:n_delta_param)
 
     c(-1*turboEM::pars(results)[1:ncol(X)], turboEM::pars(results)[c(gamma_flip_index, delta_flip_index)])
+
   }
 
   #sigma_EM = tryCatch(solve(turboEM::hessian(results)[[1]]), silent = TRUE,
@@ -225,6 +226,28 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
   SE_EM = sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
                            nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
                            byrow = FALSE)))
+
+  SE_EM <- if ((pistar_11 > .50 | pistar_22 > .50 | pitilde_111 > .50 | pitilde_222 > .50) |
+                     (is.na(pistar_11) & is.na(pistar_22))) {
+
+    sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
+                     nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
+                     byrow = FALSE)))
+
+  } else {
+    gamma_index = (ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))
+    n_gamma_param = length(gamma_index) / n_cat
+    gamma_flip_index = ncol(X) + c((n_gamma_param + 1):length(gamma_index), 1:n_gamma_param)
+
+    delta_index = ((ncol(X) + (n_cat * ncol(Z))) + 1):length(pars(results))
+    n_delta_param = length(delta_index) / n_cat
+    delta_flip_index = (ncol(X) + (n_cat * ncol(Z))) + c((n_delta_param + 1):length(delta_index), 1:n_delta_param)
+
+    sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
+                     nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
+                     byrow = FALSE)))[c(1, 2, gamma_flip_index, delta_flip_index)]
+
+  }
 
   beta_param_names <- paste0(rep("beta", ncol(X)), 1:ncol(X))
   gamma_param_names <- paste0(rep("gamma", (n_cat * ncol(Z))),
