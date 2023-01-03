@@ -14,7 +14,7 @@
 #' @param z_matrix A numeric matrix of covariates in the first-stage observation mechanism.
 #'   \code{z_matrix} should not contain an intercept and no values should be \code{NA}.
 #' @param v_matrix A numeric matrix of covariates in the second-stage observation mechanism.
-#'   \code{z_matrix} should not contain an intercept and no values should be \code{NA}.
+#'   \code{v_matrix} should not contain an intercept and no values should be \code{NA}.
 #' @param beta_start A numeric vector or column matrix of starting values for the \eqn{\beta}
 #'   parameters in the true outcome mechanism. The number of elements in \code{beta_start}
 #'   should be equal to the number of columns of \code{x_matrix} plus 1.

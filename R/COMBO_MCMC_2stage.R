@@ -1,17 +1,22 @@
-#' MCMC Estimation of the Binary Outcome Misclassification Model
+#' MCMC Estimation of the Two-Stage Binary Outcome Misclassification Model
 #'
-#' Jointly estimate \eqn{\beta} and \eqn{\gamma} parameters from the true outcome
-#' and observation mechanisms, respectively, in a binary outcome misclassification
-#' model.
+#' Jointly estimate \eqn{\beta}, \eqn{\gamma}, and \eqn{\delta} parameters from the true outcome
+#' first-stage observation, and second-stage observation mechanisms, respectively,
+#' in a two-stage binary outcome misclassification model.
 #'
 #' @param Ystar A numeric vector of indicator variables (1, 2) for the observed
 #'   outcome \code{Y*}. The reference category is 2.
+#' @param Ytilde A numeric vector of indicator variables (1, 2) for the second-stage
+#'   observed outcome \eqn{\tilde{Y}}. There should be no \code{NA} terms. The
+#'   reference category is 2.
 #' @param x A numeric matrix of covariates in the true outcome mechanism.
 #'   \code{x} should not contain an intercept.
 #' @param z A numeric matrix of covariates in the observation mechanism.
 #'   \code{z} should not contain an intercept.
+#' @param v A numeric matrix of covariates in the second-stage observation mechanism.
+#'   \code{v} should not contain an intercept and no values should be \code{NA}.
 #' @param prior A character string specifying the prior distribution for the
-#'   \eqn{\beta} and \eqn{\gamma} parameters. Options are \code{"t"},
+#'   \eqn{\beta}, \eqn{\gamma}, and \eqn{\delta} parameters. Options are \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"} (double Exponential, or Weibull).
 #' @param beta_prior_parameters A numeric list of prior distribution parameters
 #'   for the \eqn{\beta} terms. For prior distributions \code{"t"},
@@ -29,6 +34,20 @@
 #'   elements in the \code{n_cat} row should be set to \code{NA}.
 #' @param gamma_prior_parameters A numeric list of prior distribution parameters
 #'   for the \eqn{\gamma} terms. For prior distributions \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
+#'   list should contain an array of location, lower bound, mean, or shape parameters,
+#'   respectively, for \eqn{\gamma} terms.
+#'   For prior distributions \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
+#'   list should contain an array of shape, upper bound, standard deviation, or scale parameters,
+#'   respectively, for \eqn{\gamma} terms.
+#'   For prior distribution \code{"t"}, the third element of the list should contain
+#'   an array of the degrees of freedom for \eqn{\gamma} terms.
+#'   The third list element should be empty for all other prior distributions.
+#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z},
+#'   and all elements in the \code{n_cat} row should be set to \code{NA}.
+#' @param delta_prior_parameters A numeric list of prior distribution parameters
+#'   for the \eqn{\delta} terms. For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
 #'   list should contain an array of location, lower bound, mean, or shape parameters,
 #'   respectively, for \eqn{\gamma} terms.
@@ -77,7 +96,7 @@
 #'
 #' @export
 #'
-#' @include model_picker.R
+#' @include model_picker_2stage.R
 #' @include jags_picker.R
 #' @include naive_model_picker.R
 #' @include naive_jags_picker.R
@@ -139,6 +158,9 @@
 #' unif_upper_gamma <- array(data = c(5, NA, 5, NA, 5, NA, 5, NA),
 #'                           dim = c(2,2,2))
 #'
+#' unif_upper_delta <- array(rep(c(5, NA), 8), dim = c(2,2,2,2))
+#' unif_lower_delta <- array(rep(c(-5, NA), 8), dim = c(2,2,2,2))
+#'
 #' beta_prior_parameters <- list(lower = unif_lower_beta, upper = unif_upper_beta)
 #' gamma_prior_parameters <- list(lower = unif_lower_gamma, upper = unif_upper_gamma)
 #'
@@ -149,12 +171,13 @@
 #'                            number_MCMC_chains = 2,
 #'                            MCMC_sample = 200, burn_in = 100)
 #' MCMC_results$posterior_means_df
-COMBO_MCMC <- function(Ystar, x, z, prior,
-                       beta_prior_parameters,
-                       gamma_prior_parameters,
-                       number_MCMC_chains = 4,
-                       MCMC_sample = 2000,
-                       burn_in = 1000){
+COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
+                              beta_prior_parameters,
+                              gamma_prior_parameters,
+                              delta_prior_parameters,
+                              number_MCMC_chains = 4,
+                              MCMC_sample = 2000,
+                              burn_in = 1000){
 
   if (!is.numeric(Ystar) || !is.vector(Ystar))
     stop("'Ystar' must be a numeric vector.")
@@ -167,11 +190,13 @@ COMBO_MCMC <- function(Ystar, x, z, prior,
   # FIX THIS! DIMENSIONS DON'T WORK FOR x, z WITH MORE THAN ONE COL
   X = cbind(matrix(1, nrow = sample_size, ncol = 1), x)
   Z = cbind(matrix(1, nrow = sample_size, ncol = 1), z)
+  V = cbind(matrix(1, nrow = sample_size, ncol = 1), v)
 
   dim_x = ncol(X)
   dim_z = ncol(Z)
+  dim_v = ncol(V)
 
-  modelstring = model_picker(prior)
+  modelstring = model_picker_2stage(prior)
 
   temp_model_file = tempfile()
   tmps = file(temp_model_file, "w")
