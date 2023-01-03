@@ -30,15 +30,11 @@ model_picker_2stage <- function(prior){
 
     }
 
-    for(l in 1:n_cat){
-    for(k in 1:n_cat){
+     for(k in 1:n_cat){
       for(j in 1:n_cat){
 
         log(phistar[i, k, j]) <- gamma[k, j, 1:dim_z] %*% z[i,1:dim_z]
         pistar[i, k, j] <- phistar[i, k, j] / (sum(phistar[i, 1:n_cat, j]))
-
-        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
-        pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
 
       }
 
@@ -46,9 +42,20 @@ model_picker_2stage <- function(prior){
 
     }
 
-    pi_tilde_obs[i, l] <- sum(pitilde[i, l, 1:n_cat, 1:n_cat] * pi[i, 1:n_cat])
+  for(l in 1:n_cat){
+     for(k in 1:n_cat){
+      for(j in 1:n_cat){
+
+        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
+        pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
+
+      }
+     }
+
+      pi_tilde_obs[i, l] <- sum(pitilde[i, l, 1:n_cat, 1:n_cat] * pistar[i, 1:n_cat, 1:n_cat] * pi[i, 1:n_cat])
 
     }
+
   }
 
 # reference categories
