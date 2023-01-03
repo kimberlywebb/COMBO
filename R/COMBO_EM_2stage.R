@@ -245,7 +245,7 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
 
     sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
                      nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
-                     byrow = FALSE)))[c(1, 2, gamma_flip_index, delta_flip_index)]
+                     byrow = FALSE)))[c(1:ncol(X), gamma_flip_index, delta_flip_index)]
 
   }
 
