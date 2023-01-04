@@ -25,7 +25,7 @@ This value should be equal to the number of rows of the design matrix, \code{V}.
 and the observed outcomes can take.}
 }
 \value{
-\code{pistar_compute} returns an array of conditional probabilities,
+\code{pitilde_compute} returns an array of conditional probabilities,
 \eqn{P(\tilde{Y}_i = \ell | Y^*_i = k, Y_i = j, V_i) = \frac{\text{exp}\{\delta_{\ell kj0} + \delta_{\ell kjV} V_i\}}{1 + \text{exp}\{\delta_{\ell kj0} + \delta_{\ell kjV} V_i\}}}
 for each of the \eqn{i = 1, \dots,} \code{n} subjects. Rows of the matrix
 correspond to each subject and second-stage observed outcome. Specifically, the probability

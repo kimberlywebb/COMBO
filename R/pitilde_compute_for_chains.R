@@ -2,20 +2,22 @@
 #'
 #' @param chain_colMeans A numeric vector containing the posterior means for all
 #'   sampled parameters in a given MCMC chain. \code{chain_colMeans} must be a named
-#'   object (i.e. each parameter must be named as \code{gamma[k,j,p]}).
-#' @param Z A numeric design matrix.
+#'   object (i.e. each parameter must be named as \code{delta[l,k,j,p]}).
+#' @param V A numeric design matrix.
 #' @param n An integer value specifying the number of observations in the sample.
-#'   This value should be equal to the number of rows of the design matrix, \code{Z}.
-#' @param n_cat The number of categorical values that the true outcome, \code{Y},
-#'   and the observed outcome, \code{Y*} can take.
+#'   This value should be equal to the number of rows of the design matrix, \code{V}.
+#' @param n_cat The number of categorical values that the true outcome, \eqn{Y},
+#'   the first-stage observed outcome, \eqn{Y^*}, and the second-stage
+#'   observed outcome, \eqn{\tilde{Y}},\ can take.
 #'
-#' @return \code{pistar_compute_for_chains} returns a matrix of conditional probabilities,
-#'   \eqn{P(Y_i^* = k | Y_i = j, Z_i) = \frac{\text{exp}\{\gamma_{kj0} + \gamma_{kjZ} Z_i\}}{1 + \text{exp}\{\gamma_{kj0} + \gamma_{kjZ} Z_i\}}}
-#'   for each of the \eqn{i = 1, \dots,} \code{n} subjects. Rows of the matrix
-#'   correspond to each subject and observed outcome. Specifically, the probability
-#'   for subject \eqn{i} and observed category $0$ occurs at row \eqn{i}. The probability
-#'   for subject \eqn{i} and observed category $1$ occurs at row \eqn{i +} \code{n}.
-#'   Columns of the matrix correspond to the true outcome categories \eqn{j = 1, \dots,} \code{n_cat}.
+#' @return \code{pitilde_compute_for_chains} returns a matrix of conditional probabilities,
+#'   \eqn{P(\tilde{Y}_i = \ell | Y^*_i = k, Y_i = j, V_i) = \frac{\text{exp}\{\delta_{\ell kj0} + \delta_{\ell kjV} V_i\}}{1 + \text{exp}\{\delta_{\ell kj0} + \delta_{\ell kjV} V_i\}}}
+#'   corresponding to each subject and observed outcome. Specifically, the probability
+#'   for subject \eqn{i} and second-stage observed category $1$ occurs at row \eqn{i}. The probability
+#'   for subject \eqn{i} and second-stage observed category $2$ occurs at row \eqn{i +} \code{n}.
+#'   Columns of the matrix correspond to the first-stage outcome categories \eqn{j = 1, \dots,} \code{n_cat}.
+#'   The third dimension of the array corresponds to the true outcome categories,
+#'   \eqn{j = 1, \dots,} \code{n_cat}.
 #'
 #' @include sum_every_n.R
 #'
