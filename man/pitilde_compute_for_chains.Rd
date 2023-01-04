@@ -9,24 +9,26 @@ pitilde_compute_for_chains(chain_colMeans, V, n, n_cat)
 \arguments{
 \item{chain_colMeans}{A numeric vector containing the posterior means for all
 sampled parameters in a given MCMC chain. \code{chain_colMeans} must be a named
-object (i.e. each parameter must be named as \code{gamma[k,j,p]}).}
+object (i.e. each parameter must be named as \code{delta[l,k,j,p]}).}
+
+\item{V}{A numeric design matrix.}
 
 \item{n}{An integer value specifying the number of observations in the sample.
-This value should be equal to the number of rows of the design matrix, \code{Z}.}
+This value should be equal to the number of rows of the design matrix, \code{V}.}
 
-\item{n_cat}{The number of categorical values that the true outcome, \code{Y},
-and the observed outcome, \code{Y*} can take.}
-
-\item{Z}{A numeric design matrix.}
+\item{n_cat}{The number of categorical values that the true outcome, \eqn{Y},
+the first-stage observed outcome, \eqn{Y^*}, and the second-stage
+observed outcome, \eqn{\tilde{Y}},\ can take.}
 }
 \value{
-\code{pistar_compute_for_chains} returns a matrix of conditional probabilities,
-\eqn{P(Y_i^* = k | Y_i = j, Z_i) = \frac{\text{exp}\{\gamma_{kj0} + \gamma_{kjZ} Z_i\}}{1 + \text{exp}\{\gamma_{kj0} + \gamma_{kjZ} Z_i\}}}
-for each of the \eqn{i = 1, \dots,} \code{n} subjects. Rows of the matrix
-correspond to each subject and observed outcome. Specifically, the probability
-for subject \eqn{i} and observed category $0$ occurs at row \eqn{i}. The probability
-for subject \eqn{i} and observed category $1$ occurs at row \eqn{i +} \code{n}.
-Columns of the matrix correspond to the true outcome categories \eqn{j = 1, \dots,} \code{n_cat}.
+\code{pitilde_compute_for_chains} returns a matrix of conditional probabilities,
+\eqn{P(\tilde{Y}_i = \ell | Y^*_i = k, Y_i = j, V_i) = \frac{\text{exp}\{\delta_{\ell kj0} + \delta_{\ell kjV} V_i\}}{1 + \text{exp}\{\delta_{\ell kj0} + \delta_{\ell kjV} V_i\}}}
+corresponding to each subject and observed outcome. Specifically, the probability
+for subject \eqn{i} and second-stage observed category $1$ occurs at row \eqn{i}. The probability
+for subject \eqn{i} and second-stage observed category $2$ occurs at row \eqn{i +} \code{n}.
+Columns of the matrix correspond to the first-stage outcome categories \eqn{j = 1, \dots,} \code{n_cat}.
+The third dimension of the array corresponds to the true outcome categories,
+\eqn{j = 1, \dots,} \code{n_cat}.
 }
 \description{
 Compute Conditional Probability of Each Observed Outcome Given Each True Outcome for a given MCMC Chain, for Every Subject

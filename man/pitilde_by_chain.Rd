@@ -2,7 +2,7 @@
 % Please edit documentation in R/pitilde_by_chain.R
 \name{pitilde_by_chain}
 \alias{pitilde_by_chain}
-\title{Compute the Mean Conditional Probability of Correct Classification, by True Outcome Across all Subjects for each MCMC Chain}
+\title{Compute the Mean Conditional Probability of Second-Stage Correct Classification, by First-Stage and True Outcome Across all Subjects for each MCMC Chain}
 \usage{
 pitilde_by_chain(n_chains, chains_list, V, n, n_cat)
 }
@@ -12,48 +12,61 @@ pitilde_by_chain(n_chains, chains_list, V, n, n_cat)
 \item{chains_list}{A numeric list containing the samples from \code{n_chains}
 MCMC chains.}
 
+\item{V}{A numeric design matrix.}
+
 \item{n}{An integer value specifying the number of observations in the sample.
-This value should be equal to the number of rows of the design matrix, \code{Z}.}
+This value should be equal to the number of rows of the design matrix, \code{V}.}
 
-\item{n_cat}{The number of categorical values that the true outcome, \code{Y},
-and the observed outcome, \code{Y*} can take.}
-
-\item{Z}{A numeric design matrix.}
+\item{n_cat}{The number of categorical values that the true outcome, \eqn{Y},
+the first-stage observed outcome, \eqn{Y*}, and the second-stage
+observed outcome, \eqn{\tilde{Y}}, can take.}
 }
 \value{
-\code{pistar_by_chain} returns a numeric matrix of the average
-conditional probability \eqn{P(Y^* = j | Y = j, Z)} across all subjects for
+\code{pitilde_by_chain} returns a numeric matrix of the average
+conditional probability \eqn{P( \tilde{Y} = j | Y^* = j, Y = j, V)} across all subjects for
 each MCMC chain. Rows of the matrix correspond to MCMC chains, up to \code{n_chains}.
-The first column contains the conditional probability \eqn{P(Y^* = 1 | Y = 1, Z)}.
-The second column contains the conditional probability \eqn{P(Y^* = 2 | Y = 2, Z)}.
+The first column contains the conditional probability \eqn{P( \tilde{Y} = 1 | Y^* = 1, Y = 1, V)}.
+The second column contains the conditional probability \eqn{P( \tilde{Y} = 2 | Y^* = 2, Y = 2, V)}.
 }
 \description{
-Compute the Mean Conditional Probability of Correct Classification, by True Outcome Across all Subjects for each MCMC Chain
+Compute the Mean Conditional Probability of Second-Stage Correct Classification, by First-Stage and True Outcome Across all Subjects for each MCMC Chain
 }
 \examples{
 \dontrun{
 set.seed(123)
 n <- 100
 ones <- rep(1, n)
-z <- rnorm(n)
-Z <- matrix(c(ones, z), nrow = n, byrow = FALSE)
-gamma <- matrix(c(1, 2, 3, 4), nrow = 2, byrow = FALSE)
-example_chain1 <- matrix(c(rnorm(n, mean = gamma[1,1]),
-                           rnorm(n, mean = gamma[2,1]),
-                           rnorm(n, mean = gamma[1,2]),
-                           rnorm(n, mean = gamma[2,2])),
+v <- rnorm(n)
+V <- matrix(c(ones, v), nrow = n, byrow = FALSE)
+delta <- array(c(1, 2, -1, -2, -3, -4, -1, -2), dim = c(2,2,2))
+example_chain1 <- matrix(c(rnorm(n, mean = delta[1,1,1]),
+                           rnorm(n, mean = delta[2,1,1]),
+                           rnorm(n, mean = delta[1,2,1]),
+                           rnorm(n, mean = delta[2,2,1]),
+                           rnorm(n, mean = delta[1,1,2]),
+                           rnorm(n, mean = delta[2,1,2]),
+                           rnorm(n, mean = delta[1,2,2]),
+                           rnorm(n, mean = delta[2,2,2])),
                            nrow = n, byrow = FALSE)
-colnames(example_chain1) <- c("gamma[1,1,1]", "gamma[1,1,2]",
-                              "gamma[1,2,1]", "gamma[1,2,2]")
-example_chain2 <- matrix(c(rnorm(n, mean = gamma[1,1]),
-                           rnorm(n, mean = gamma[2,1]),
-                           rnorm(n, mean = gamma[1,2]),
-                           rnorm(n, mean = gamma[2,2])),
+colnames(example_chain1) <- c("delta[1,1,1,1]", "delta[1,2,1,1]",
+                              "delta[1,1,2,1]", "delta[1,2,2,1]",
+                              "delta[1,1,1,2]", "delta[1,2,1,2]",
+                              "delta[1,2,2,2]", "delta[1,2,2,2]")
+example_chain2 <- matrix(c(rnorm(n, mean = delta[1,1,1]),
+                           rnorm(n, mean = delta[2,1,1]),
+                           rnorm(n, mean = delta[1,2,1]),
+                           rnorm(n, mean = delta[2,2,1]),
+                           rnorm(n, mean = delta[1,1,2]),
+                           rnorm(n, mean = delta[2,1,2]),
+                           rnorm(n, mean = delta[1,2,2]),
+                           rnorm(n, mean = delta[2,2,2])),
                            nrow = n, byrow = FALSE)
-colnames(example_chain2) <- c("gamma[1,1,1]", "gamma[1,1,2]",
-                              "gamma[1,2,1]", "gamma[1,2,2]")
+colnames(example_chain2) <- c("delta[1,1,1,1]", "delta[1,2,1,1]",
+                              "delta[1,1,2,1]", "delta[1,2,2,1]",
+                              "delta[1,1,1,2]", "delta[1,2,1,2]",
+                              "delta[1,2,2,2]", "delta[1,2,2,2]")
 chains_list <- list(example_chain1, example_chain2)
-pistar_by_chain(n_chains = 2, chains_list = chains_list,
-                Z = Z, n = n, n_cat = 2)
+pitilde_by_chain(n_chains = 2, chains_list = chains_list,
+                 V = V, n = n, n_cat = 2)
 }
 }

@@ -74,13 +74,13 @@ and all elements in the \code{n_cat} row should be set to \code{NA}.}
 for the \eqn{\delta} terms. For prior distributions \code{"t"},
 \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
 list should contain an array of location, lower bound, mean, or shape parameters,
-respectively, for \eqn{\gamma} terms.
+respectively, for \eqn{\delta} terms.
 For prior distributions \code{"t"},
 \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
 list should contain an array of shape, upper bound, standard deviation, or scale parameters,
-respectively, for \eqn{\gamma} terms.
+respectively, for \eqn{\delta} terms.
 For prior distribution \code{"t"}, the third element of the list should contain
-an array of the degrees of freedom for \eqn{\gamma} terms.
+an array of the degrees of freedom for \eqn{\delta} terms.
 The third list element should be empty for all other prior distributions.
 All arrays in the list should have dimensions \code{n_cat} X
 \code{n_cat} X \code{n_cat} X \code{dim_v},
@@ -134,14 +134,18 @@ n <- 1000
 x_mu <- 0
 x_sigma <- 1
 z_shape <- 1
+v_shape <- 1
 
 true_beta <- matrix(c(1, -2), ncol = 1)
 true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
+true_delta <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
 
 x_matrix = matrix(rnorm(n, x_mu, x_sigma), ncol = 1)
 X = matrix(c(rep(1, n), x_matrix[,1]), ncol = 2, byrow = FALSE)
 z_matrix = matrix(rgamma(n, z_shape), ncol = 1)
 Z = matrix(c(rep(1, n), z_matrix[,1]), ncol = 2, byrow = FALSE)
+v_matrix = matrix(rgamma(n, v_shape), ncol = 1)
+V = matrix(c(rep(1, n), v_matrix[,1]), ncol = 2, byrow = FALSE)
 
 exp_xb = exp(X \%*\% true_beta)
 pi_result = exp_xb[,1] / (exp_xb[,1] + 1)
@@ -160,6 +164,7 @@ pistar_matrix = matrix(c(pistar_result[,1], 1 - pistar_result[,1],
                          pistar_result[,2], 1 - pistar_result[,2]),
                        ncol = 2, byrow = FALSE)
 
+
 obs_Y <- rep(NA, n)
 for(i in 1:n){
     true_j = true_Y[i]
@@ -169,6 +174,39 @@ for(i in 1:n){
  }
 
 Ystar <- obs_Y
+
+exp_vd1 = exp(V \%*\% delta[,,1])
+exp_vd2 = exp(V \%*\% delta[,,2])
+
+pi_denominator1 = apply(exp_vd1, FUN = sum_every_n1, n, MARGIN = 2)
+pi_result1 = exp_vd1 / rbind(pi_denominator1)
+
+pi_denominator2 = apply(exp_vd2, FUN = sum_every_n1, n, MARGIN = 2)
+pi_result2 = exp_vd2 / rbind(pi_denominator2)
+
+pitilde_matrix1 = rbind(pi_result1,
+                        1 - apply(pi_result1,
+                                  FUN = sum_every_n, n = n,
+                                  MARGIN = 2))
+
+pitilde_matrix2 = rbind(pi_result2,
+                        1 - apply(pi_result2,
+                                  FUN = sum_every_n, n = n,
+                                  MARGIN = 2))
+
+pitilde_array = array(c(pitilde_matrix1, pitilde_matrix2),
+                   dim = c(dim(pitilde_matrix1), 2))
+
+obs_Ytilde <- rep(NA, sample_size)
+for(i in 1:sample_size){
+    true_j = true_Y[i]
+    obs_k = obs_Ystar[i]
+    obs_Ytilde[i] = which(rmultinom(1, 1,
+                                  pitilde_array[c(i,sample_size + i),
+                                                obs_k, true_j]) == 1)
+}
+
+Ytilde  <- obs_Ytilde
 
 unif_lower_beta <- matrix(c(-5, -5, NA, NA), nrow = 2, byrow = TRUE)
 unif_upper_beta <- matrix(c(5, 5, NA, NA), nrow = 2, byrow = TRUE)
@@ -183,12 +221,15 @@ unif_lower_delta <- array(rep(c(-5, NA), 8), dim = c(2,2,2,2))
 
 beta_prior_parameters <- list(lower = unif_lower_beta, upper = unif_upper_beta)
 gamma_prior_parameters <- list(lower = unif_lower_gamma, upper = unif_upper_gamma)
+delta_prior_parameters <- list(lower = unif_lower_delta, upper = unif_upper_delta)
 
-MCMC_results <- COMBO_MCMC(Ystar, x = x_matrix, z = z_matrix,
-                           prior = "uniform",
-                           beta_prior_parameters = beta_prior_parameters,
-                           gamma_prior_parameters = gamma_prior_parameters,
-                           number_MCMC_chains = 2,
-                           MCMC_sample = 200, burn_in = 100)
+MCMC_results <- COMBO_MCMC_2stage(Ystar, Ytilde,
+                                  x = x_matrix, z = z_matrix,
+                                  prior = "uniform",
+                                  beta_prior_parameters = beta_prior_parameters,
+                                  gamma_prior_parameters = gamma_prior_parameters,
+                                  delta_prior_parameters = delta_prior_parameters,
+                                  number_MCMC_chains = 2,
+                                  MCMC_sample = 200, burn_in = 100)
 MCMC_results$posterior_means_df
 }
