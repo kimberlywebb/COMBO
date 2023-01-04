@@ -54,6 +54,13 @@ Collate:
     'jags_picker.R'
     'model_picker.R'
     'COMBO_MCMC.R'
+    'model_picker_2stage.R'
+    'COMBO_MCMC_2stage.R'
+    'check_and_fix_chains_2stage.R'
+    'jags_picker_2stage.R'
+    'label_switch_2stage.R'
     'misclassification_prob.R'
+    'pitilde_by_chain.R'
+    'pitilde_compute_for_chains.R'
     'true_classification_prob.R'
 LazyData: true

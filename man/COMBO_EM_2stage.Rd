@@ -33,7 +33,7 @@ reference category is 2.}
 \code{z_matrix} should not contain an intercept and no values should be \code{NA}.}
 
 \item{v_matrix}{A numeric matrix of covariates in the second-stage observation mechanism.
-\code{z_matrix} should not contain an intercept and no values should be \code{NA}.}
+\code{v_matrix} should not contain an intercept and no values should be \code{NA}.}
 
 \item{beta_start}{A numeric vector or column matrix of starting values for the \eqn{\beta}
 parameters in the true outcome mechanism. The number of elements in \code{beta_start}

@@ -48,21 +48,21 @@
 #'   for the \eqn{\delta} terms. For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
 #'   list should contain an array of location, lower bound, mean, or shape parameters,
-#'   respectively, for \eqn{\gamma} terms.
+#'   respectively, for \eqn{\delta} terms.
 #'   For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
 #'   list should contain an array of shape, upper bound, standard deviation, or scale parameters,
-#'   respectively, for \eqn{\gamma} terms.
+#'   respectively, for \eqn{\delta} terms.
 #'   For prior distribution \code{"t"}, the third element of the list should contain
-#'   an array of the degrees of freedom for \eqn{\gamma} terms.
+#'   an array of the degrees of freedom for \eqn{\delta} terms.
 #'   The third list element should be empty for all other prior distributions.
-#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z},
+#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{n_cat} X \code{dim_v},
 #'   and all elements in the \code{n_cat} row should be set to \code{NA}.
 #' @param number_MCMC_chains An integer specifying the number of MCMC chains to compute.
 #' @param model_file A .BUG file and used
 #'   for MCMC estimation with \code{rjags}.
 #'
-#' @return \code{jags_picker} returns a \code{jags.model} object for a binay
+#' @return \code{jags_picker} returns a \code{jags.model} object for a two-stage binary
 #'   outcome misclassification model. The object includes the specified
 #'   prior distribution, model, number of chains, and data.
 #'
