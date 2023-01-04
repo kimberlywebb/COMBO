@@ -96,7 +96,7 @@ The default is \code{2000}.}
 for the burn-in period. The default is \code{1000}.}
 }
 \value{
-\code{COMBO_MCMC} returns a list of the posterior samples and posterior
+\code{COMBO_MCMC_2stage} returns a list of the posterior samples and posterior
 means for both the binary outcome misclassification model and a naive logistic
 regression of the observed outcome, \code{Y*}, predicted by the matrix \code{x}.
 The list contains the following components:

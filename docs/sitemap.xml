@@ -28,6 +28,9 @@
     <loc>/reference/check_and_fix_chains.html</loc>
   </url>
   <url>
+    <loc>/reference/check_and_fix_chains_2stage.html</loc>
+  </url>
+  <url>
     <loc>/reference/COMBO_data.html</loc>
   </url>
   <url>
@@ -41,6 +44,9 @@
   </url>
   <url>
     <loc>/reference/COMBO_MCMC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/COMBO_MCMC_2stage.html</loc>
   </url>
   <url>
     <loc>/reference/em_function.html</loc>
@@ -58,7 +64,13 @@
     <loc>/reference/jags_picker.html</loc>
   </url>
   <url>
+    <loc>/reference/jags_picker_2stage.html</loc>
+  </url>
+  <url>
     <loc>/reference/label_switch.html</loc>
+  </url>
+  <url>
+    <loc>/reference/label_switch_2stage.html</loc>
   </url>
   <url>
     <loc>/reference/loglik.html</loc>
@@ -74,6 +86,9 @@
   </url>
   <url>
     <loc>/reference/model_picker.html</loc>
+  </url>
+  <url>
+    <loc>/reference/model_picker_2stage.html</loc>
   </url>
   <url>
     <loc>/reference/naive_jags_picker.html</loc>
@@ -94,7 +109,13 @@
     <loc>/reference/pistar_compute_for_chains.html</loc>
   </url>
   <url>
+    <loc>/reference/pitilde_by_chain.html</loc>
+  </url>
+  <url>
     <loc>/reference/pitilde_compute.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pitilde_compute_for_chains.html</loc>
   </url>
   <url>
     <loc>/reference/pi_compute.html</loc>

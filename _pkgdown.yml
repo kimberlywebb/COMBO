@@ -14,6 +14,7 @@ reference:
       - '`COMBO_EM`'
       - '`COMBO_MCMC`'
       - '`COMBO_EM_2stage`'
+      - '`COMBO_MCMC_2stage`'
   - title: Data generation for examples
     desc: Function to generate data with misclassified binary outcomes
     contents:
@@ -23,15 +24,19 @@ reference:
     desc: Internal functions and helpers
     contents:
       - '`check_and_fix_chains`'
+      - '`check_and_fix_chains_2stage`'
       - '`em_function`'
       - '`em_function_2stage`'
       - '`expit`'
       - '`jags_picker`'
+      - '`jags_picker_2stage`'
       - '`label_switch`'
+      - '`label_switch_2stage`'
       - '`loglik`'
       - '`loglik_2stage`'
       - '`mean_pistarjj_compute`'
       - '`model_picker`'
+      - '`model_picker_2stage`'
       - '`naive_jags_picker`'
       - '`naive_model_picker`'
       - '`perfect_sensitivity_EM`'
@@ -39,7 +44,9 @@ reference:
       - '`pistar_by_chain`'
       - '`pistar_compute`'
       - '`pistar_compute_for_chains`'
+      - '`pitilde_by_chain`'
       - '`pitilde_compute`'
+      - '`pitilde_compute_for_chains`'
       - '`q_beta_f`'
       - '`q_gamma_f`'
       - '`q_delta_f`'
