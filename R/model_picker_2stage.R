@@ -50,10 +50,12 @@ model_picker_2stage <- function(prior){
         pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
 
       }
+
+      pi_tilde_obs1[i, l, k] <- sum(pitilde[i, l, k, 1:n_cat] * pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
+
      }
 
-      pi_tilde_obs[i, l] <- sum(pitilde[i, l, 1:n_cat, 1:n_cat] * pistar[i, 1:n_cat, 1:n_cat] * pi[i, 1:n_cat])
-
+      pi_tilde_obs[i, l] <- sum(pi_tilde_obs1[i, l, 1:n_cat])
     }
 
   }

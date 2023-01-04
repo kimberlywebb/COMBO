@@ -58,7 +58,8 @@
 #'   For prior distribution \code{"t"}, the third element of the list should contain
 #'   an array of the degrees of freedom for \eqn{\gamma} terms.
 #'   The third list element should be empty for all other prior distributions.
-#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z},
+#'   All arrays in the list should have dimensions \code{n_cat} X
+#'   \code{n_cat} X \code{n_cat} X \code{dim_v},
 #'   and all elements in the \code{n_cat} row should be set to \code{NA}.
 #' @param number_MCMC_chains An integer specifying the number of MCMC chains to compute.
 #'   The default is \code{4}.
@@ -203,29 +204,35 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
   cat(modelstring, file = tmps)
   close(tmps)
 
-  jags <- jags_picker(prior, sample_size, dim_x, dim_z, n_cat,
-                      Ystar, X, Z,
-                      beta_prior_parameters, gamma_prior_parameters,
-                      number_MCMC_chains,
-                      model_file = temp_model_file)
+  jags <- jags_picker_2stage(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
+                             Ystar, Ytilde, X, Z, V,
+                             beta_prior_parameters, gamma_prior_parameters,
+                             delta_prior_parameters,
+                             number_MCMC_chains,
+                             model_file = temp_model_file)
 
   posterior_sample = coda.samples(jags,
-                                  c('beta', 'gamma'),
+                                  c('beta', 'gamma', 'delta'),
                                   MCMC_sample)
 
   pistarjj = pistar_by_chain(n_chains = number_MCMC_chains,
                              chains_list = posterior_sample,
                              Z = Z, n = sample_size, n_cat = n_cat)
 
-  posterior_sample_fixed = check_and_fix_chains(n_chains = number_MCMC_chains,
-                                                chains_list = posterior_sample,
-                                                pistarjj_matrix = pistarjj,
-                                                dim_x, dim_z, n_cat)
+  pitildejjj = pitilde_by_chain(n_chains = number_MCMC_chains,
+                                chains_list = posterior_sample,
+                                V = V, n = sample_size, n_cat = n_cat)
+
+  posterior_sample_fixed = check_and_fix_chains_2stage(n_chains = number_MCMC_chains,
+                                                       chains_list = posterior_sample,
+                                                       pistarjj_matrix = pistarjj,
+                                                       pitildejjj_matrix = pitildejjj,
+                                                       dim_x, dim_z, dim_v,
+                                                       n_cat)
 
   posterior_sample_df <- do.call(rbind.data.frame, posterior_sample_fixed)
   posterior_sample_df$chain <- rep(1:number_MCMC_chains, each = MCMC_sample)
   posterior_sample_df$sample <- rep(1:MCMC_sample, number_MCMC_chains)
-
 
   ##########################################
   naive_modelstring = naive_model_picker(prior)
@@ -251,6 +258,10 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
 
   beta_names <- paste0("beta[1,", 1:dim_x, "]")
   gamma_names <- paste0("gamma[1,", rep(1:n_cat, dim_z), ",", rep(1:dim_z, each = n_cat), "]")
+  delta_names <- paste0("delta[1,",
+                        rep(1:n_cat, dim_v*dim_v), ",",
+                        rep(rep(1:n_cat, each = dim_v), dim_v), ",",
+                        rep(1:dim_v, each = n_cat * n_cat), "]")
 
   naive_posterior_sample_burn <- naive_posterior_sample_df %>%
     dplyr::select(dplyr::all_of(beta_names), chain, sample) %>%
@@ -267,10 +278,11 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
 
   posterior_sample_burn <- posterior_sample_df %>%
     dplyr::select(dplyr::all_of(beta_names), dplyr::all_of(gamma_names),
+                  dplyr::all_of(delta_names),
                   chain, sample) %>%
     dplyr::filter(sample > burn_in) %>%
     tidyr::gather(parameter, sample,
-                  beta_names[1]:gamma_names[length(gamma_names)], factor_key = TRUE)
+                  beta_names[1]:delta_names[length(delta_names)], factor_key = TRUE)
 
   posterior_means <- posterior_sample_burn %>%
     dplyr::group_by(parameter) %>%

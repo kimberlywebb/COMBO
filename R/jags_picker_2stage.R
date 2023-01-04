@@ -127,7 +127,7 @@
 #'                                         number_MCMC_chains = 1,
 #'                                         model_file = temp_model_file)
 #' }
-jags_picker <- function(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
+jags_picker_2stage <- function(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
                         Ystar, Ytilde, X, Z, V,
                         beta_prior_parameters,
                         gamma_prior_parameters,
