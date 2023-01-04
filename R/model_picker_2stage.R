@@ -122,6 +122,23 @@ t_modelstring = "
       pi_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
 
     }
+
+    for(l in 1:n_cat){
+     for(k in 1:n_cat){
+      for(j in 1:n_cat){
+
+        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
+        pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
+
+      }
+
+      pi_tilde_obs1[i, l, k] <- sum(pitilde[i, l, k, 1:n_cat] * pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
+
+     }
+
+      pi_tilde_obs[i, l] <- sum(pi_tilde_obs1[i, l, 1:n_cat])
+    }
+
   }
 
 # reference categories
@@ -130,9 +147,9 @@ t_modelstring = "
   #gamma[n_cat, 1:n_cat, 1:dim_z] <- 0
 
 # priors
-  for(l in 1:dim_x){
-    beta[1, l] ~ dt(t_mu_beta[1,l], t_tau_beta[1,l], t_df_beta[1,l])
-    beta[2, l] <- 0
+  for(p in 1:dim_x){
+    beta[1, p] ~ dt(t_mu_beta[1,p], t_tau_beta[1,p], t_df_beta[1,p])
+    beta[2, p] <- 0
   }
 
   for(m in 1:n_cat){
@@ -140,6 +157,18 @@ t_modelstring = "
       gamma[1, m, n] ~ dt(t_mu_gamma[1,m,n], t_tau_gamma[1,m,n], t_df_gamma[1,m,n])
       gamma[2, m, n] <- 0
     }
+
+  }
+
+  for(q in 1:n_cat){
+    for(r in 1:n_cat){
+      for(s in 1:dim_v){
+
+      delta[1, q, r, s] ~ dt(t_mu_delta[1, q, r, s], t_tau_delta[1, q, r, s], t_df_delta[1, q, r, s])
+      delta[2, q, r, s] <- 0
+    }
+
+  }
 
   }
 
@@ -174,6 +203,23 @@ normal_modelstring = "
       pi_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
 
     }
+
+    for(l in 1:n_cat){
+     for(k in 1:n_cat){
+      for(j in 1:n_cat){
+
+        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
+        pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
+
+      }
+
+      pi_tilde_obs1[i, l, k] <- sum(pitilde[i, l, k, 1:n_cat] * pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
+
+     }
+
+      pi_tilde_obs[i, l] <- sum(pi_tilde_obs1[i, l, 1:n_cat])
+    }
+
   }
 
 # reference categories
@@ -182,9 +228,9 @@ normal_modelstring = "
   #gamma[n_cat, 1:n_cat, 1:dim_z] <- 0
 
 # priors
-  for(l in 1:dim_x){
-    beta[1, l] ~ dnorm(normal_mu_beta[1, l], normal_sigma_beta[1, l])
-    beta[2, l] <- 0
+  for(p in 1:dim_x){
+    beta[1, p] ~ dnorm(normal_mu_beta[1, p], normal_sigma_beta[1, p])
+    beta[2, p] <- 0
   }
 
   for(m in 1:n_cat){
@@ -193,6 +239,18 @@ normal_modelstring = "
       gamma[1, m, n] ~ dnorm(normal_mu_gamma[1, m, n], normal_sigma_gamma[1, m, n])
       gamma[2, m, n] <- 0
     }
+
+  }
+
+for(q in 1:n_cat){
+  for(r in 1:n_cat){
+    for(s in 1:dim_v){
+
+      delta[1, q, r, s] ~ dnorm(normal_mu_delta[1, q, r, s], normal_sigma_delta[1, q, r, s])
+      delta[2, q, r, s] <- 0
+    }
+
+  }
 
   }
 
@@ -227,6 +285,23 @@ dexp_modelstring = "
       pi_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
 
     }
+
+    for(l in 1:n_cat){
+     for(k in 1:n_cat){
+      for(j in 1:n_cat){
+
+        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
+        pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
+
+      }
+
+      pi_tilde_obs1[i, l, k] <- sum(pitilde[i, l, k, 1:n_cat] * pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
+
+     }
+
+      pi_tilde_obs[i, l] <- sum(pi_tilde_obs1[i, l, 1:n_cat])
+    }
+
   }
 
 # reference categories
@@ -246,6 +321,18 @@ dexp_modelstring = "
       gamma[1, m, n] ~ ddexp(dexp_mu_gamma[1, m, n], dexp_b_gamma[1, m, n])
       gamma[2, m, n] <- 0
     }
+
+  }
+
+  for(q in 1:n_cat){
+  for(r in 1:n_cat){
+    for(s in 1:dim_v){
+
+      delta[1, q, r, s] ~ ddexp(dexp_mu_delta[1, q, r, s], dexp_b_delta[1, q, r, s])
+      delta[2, q, r, s] <- 0
+    }
+
+  }
 
   }
 
