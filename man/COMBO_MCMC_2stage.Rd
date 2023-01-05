@@ -175,8 +175,8 @@ for(i in 1:n){
 
 Ystar <- obs_Y
 
-exp_vd1 = exp(V \%*\% delta[,,1])
-exp_vd2 = exp(V \%*\% delta[,,2])
+exp_vd1 = exp(V \%*\% true_delta[,,1])
+exp_vd2 = exp(V \%*\% true_delta[,,2])
 
 pi_denominator1 = apply(exp_vd1, FUN = sum_every_n1, n, MARGIN = 2)
 pi_result1 = exp_vd1 / rbind(pi_denominator1)
@@ -197,12 +197,12 @@ pitilde_matrix2 = rbind(pi_result2,
 pitilde_array = array(c(pitilde_matrix1, pitilde_matrix2),
                    dim = c(dim(pitilde_matrix1), 2))
 
-obs_Ytilde <- rep(NA, sample_size)
-for(i in 1:sample_size){
+obs_Ytilde <- rep(NA, n)
+for(i in 1:n){
     true_j = true_Y[i]
-    obs_k = obs_Ystar[i]
+    obs_k = Ystar[i]
     obs_Ytilde[i] = which(rmultinom(1, 1,
-                                  pitilde_array[c(i,sample_size + i),
+                                  pitilde_array[c(i,n+ i),
                                                 obs_k, true_j]) == 1)
 }
 

@@ -14,7 +14,7 @@
 #'   exactly one 0 entry and exactly one 1 entry.
 #' @param X A numeric design matrix for the true outcome mechanism.
 #' @param Z A numeric design matrix for the observation mechanism.
-#' @param sample_size  integer value specifying the number of observations in the sample.
+#' @param sample_size Integer value specifying the number of observations in the sample.
 #'   This value should be equal to the number of rows of the design matrix, \code{X} or \code{Z}.
 #' @param n_cat The number of categorical values that the true outcome, \code{Y},
 #'   and the observed outcome, \code{Y*} can take.

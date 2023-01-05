@@ -25,7 +25,7 @@ exactly one 0 entry and exactly one 1 entry.}
 
 \item{Z}{A numeric design matrix for the observation mechanism.}
 
-\item{sample_size}{integer value specifying the number of observations in the sample.
+\item{sample_size}{Integer value specifying the number of observations in the sample.
 This value should be equal to the number of rows of the design matrix, \code{X} or \code{Z}.}
 
 \item{n_cat}{The number of categorical values that the true outcome, \code{Y},

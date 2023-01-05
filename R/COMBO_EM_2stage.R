@@ -182,6 +182,24 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                              sample_size = sample_size, n_cat = n_cat,
                              control.run = control_settings)
 
+  # Naive model
+  Ystar_01 <- ifelse(Ystar == 1, 1, 0)
+  Ytilde_01 <- ifelse(Ytilde == 1, 1, 0)
+  naive_start_beta <- glm(Ystar_01 ~ X[,-1], family = "binomial")
+  naive_start_delta1 <- glm(Ytilde_01[which(Ystar == 1)] ~ V[which(Ystar == 1), -1],
+                            family = "binomial")
+  naive_start_delta2 <- glm(Ytilde_01[which(Ystar == 2)] ~ V[which(Ystar == 2), -1],
+                            family = "binomial")
+  naive_results <- optim(par = c(unname(coef(naive_start_beta)),
+                                 unname(coef(naive_start_delta1)),
+                                 unname(coef(naive_start_delta2))),
+                         fn = naive_loglik_2stage,
+                         X = X, V = V,
+                         obs_Ystar_matrix = obs_Ystar_matrix,
+                         obs_Ytilde_matrix = obs_Ytilde_matrix,
+                         sample_size = sample_size,
+                         n_cat = n_cat)
+
   # Do label switching correction within the EM algorithm simulation
   results_i_gamma <- matrix(turboEM::pars(results)[(ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))],
                             ncol = n_cat, byrow = FALSE)
@@ -222,10 +240,11 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
   #                 silent = TRUE,
   #                 error = function(e) rep(NA, ncol(X) + (n_cat * ncol(Z))))
 
+  # Do label switching for the SE estimates too.
   sigma_EM = solve(turboEM::hessian(results)[[1]])
-  SE_EM = sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
-                           nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
-                           byrow = FALSE)))
+  #SE_EM = sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
+   #                        nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
+    #                       byrow = FALSE)))
 
   SE_EM <- if ((pistar_11 > .50 | pistar_22 > .50 | pitilde_111 > .50 | pitilde_222 > .50) |
                      (is.na(pistar_11) & is.na(pistar_22))) {
