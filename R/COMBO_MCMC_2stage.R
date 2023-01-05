@@ -156,8 +156,8 @@
 #'
 #' Ystar <- obs_Y
 #'
-#' exp_vd1 = exp(V %*% delta[,,1])
-#' exp_vd2 = exp(V %*% delta[,,2])
+#' exp_vd1 = exp(V %*% true_delta[,,1])
+#' exp_vd2 = exp(V %*% true_delta[,,2])
 #'
 #' pi_denominator1 = apply(exp_vd1, FUN = sum_every_n1, n, MARGIN = 2)
 #' pi_result1 = exp_vd1 / rbind(pi_denominator1)
@@ -178,12 +178,12 @@
 #' pitilde_array = array(c(pitilde_matrix1, pitilde_matrix2),
 #'                    dim = c(dim(pitilde_matrix1), 2))
 #'
-#' obs_Ytilde <- rep(NA, sample_size)
-#' for(i in 1:sample_size){
+#' obs_Ytilde <- rep(NA, n)
+#' for(i in 1:n){
 #'     true_j = true_Y[i]
-#'     obs_k = obs_Ystar[i]
+#'     obs_k = Ystar[i]
 #'     obs_Ytilde[i] = which(rmultinom(1, 1,
-#'                                   pitilde_array[c(i,sample_size + i),
+#'                                   pitilde_array[c(i,n+ i),
 #'                                                 obs_k, true_j]) == 1)
 #' }
 #'
@@ -276,20 +276,21 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
   posterior_sample_df$sample <- rep(1:MCMC_sample, number_MCMC_chains)
 
   ##########################################
-  naive_modelstring = naive_model_picker(prior)
+  naive_modelstring = naive_model_picker_2stage(prior)
 
   naive_temp_model_file = tempfile()
   tmps = file(naive_temp_model_file, "w")
   cat(naive_modelstring, file = tmps)
   close(tmps)
-  naive_jags <- naive_jags_picker(prior, sample_size, dim_x, n_cat,
-                                  Ystar, X,
-                                  beta_prior_parameters,
-                                  number_MCMC_chains,
-                                  naive_model_file = naive_temp_model_file)
+  naive_jags <- naive_jags_picker_2stage(prior, sample_size, dim_x, dim_v, n_cat,
+                                         Ystar, Ytilde, X, V,
+                                         beta_prior_parameters,
+                                         gamma_prior_parameters,
+                                         number_MCMC_chains,
+                                         naive_model_file = naive_temp_model_file)
 
   naive_posterior_sample = coda.samples(naive_jags,
-                                        c('beta'),
+                                        c('beta', 'delta'),
                                         MCMC_sample)
 
   naive_posterior_sample_df <- do.call(rbind.data.frame, naive_posterior_sample)
@@ -303,11 +304,13 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                         rep(1:n_cat, dim_v*dim_v), ",",
                         rep(rep(1:n_cat, each = dim_v), dim_v), ",",
                         rep(1:dim_v, each = n_cat * n_cat), "]")
+  naive_delta_names <- paste0("delta[1,", rep(1:n_cat, dim_v), ",", rep(1:dim_z, each = n_cat), "]")
 
   naive_posterior_sample_burn <- naive_posterior_sample_df %>%
-    dplyr::select(dplyr::all_of(beta_names), chain, sample) %>%
+    dplyr::select(dplyr::all_of(beta_names), dplyr::all_of(naive_delta_names),
+                  chain, sample) %>%
     dplyr::filter(sample > burn_in) %>%
-    tidyr::gather(parameter, sample, beta_names[1]:beta_names[length(beta_names)],
+    tidyr::gather(parameter, sample, beta_names[1]:naive_delta_names[length(naive_delta_names)],
                   factor_key = TRUE) %>%
     dplyr::mutate(parameter = paste0("naive_", parameter))
 
