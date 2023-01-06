@@ -198,7 +198,18 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                          obs_Ystar_matrix = obs_Ystar_matrix,
                          obs_Ytilde_matrix = obs_Ytilde_matrix,
                          sample_size = sample_size,
-                         n_cat = n_cat)
+                         n_cat = n_cat,
+                         hessian = TRUE)
+  naive_se <- sqrt(diag(solve(naive_results$hessian)))
+  naive_convergence <- ifelse(naive_results$convergence == 1, "maxit reached",
+                              ifelse(naive_results$convergence == 10,
+                                     "degenerency in nelder-mead simplex",
+                                     ifelse(naive_results$convergence == 51,
+                                            "warning from L-BFGS-B",
+                                            ifelse(naive_results$convergence == 52,
+                                                   "error from L-BFGS-B",
+                                                   ifelse(naive_results$convergence == 0,
+                                                          TRUE, NA)))))
 
   # Do label switching correction within the EM algorithm simulation
   results_i_gamma <- matrix(turboEM::pars(results)[(ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))],
@@ -277,16 +288,24 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                               rep(1, length(c(delta_start))),
                               rep(c(rep(1, ncol(V)), rep(2, ncol(V))), n_cat),
                               c(rep(1, ncol(V) * n_cat), rep(2, ncol(V) * n_cat)))
+  naive_param_names <- paste0("naive_", c(beta_param_names,
+                                          paste0(rep("delta", (n_cat * ncol(V))),
+                                                 rep(1:ncol(V), n_cat),
+                                                 rep(1:n_cat, each = ncol(V)))))
 
   estimates <- data.frame(Parameter = c(beta_param_names,
                                         gamma_param_names,
-                                        delta_param_names),
-                          Estimates = c(estimates_i),
-                          SE = c(SE_EM),
+                                        delta_param_names,
+                                        naive_param_names),
+                          Estimates = c(c(estimates_i),
+                                        c(naive_results$par)),
+                          SE = c(SE_EM, naive_se),
                           Convergence = c(rep(results$convergence,
                                               length(c(beta_param_names,
                                                        gamma_param_names,
-                                                       delta_param_names)))))
+                                                       delta_param_names))),
+                                          rep(naive_convergence,
+                                              length(naive_param_names))))
 
   return(estimates)
 }

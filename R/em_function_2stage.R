@@ -93,7 +93,8 @@ em_function_2stage <- function(param_current,
   delta_current = array(c(param_current[(ncol(X) + (n_cat * ncol(Z)) + 1):length(param_current)]),
                         dim = c(ncol(Z), 2, 2))
 
-  probabilities = pi_compute(beta_current, X, sample_size, n_cat)
+  probabilities = matrix(pi_compute(beta_current, X, sample_size, n_cat),
+                         ncol = n_cat, byrow = FALSE)
   conditional_probabilities = pistar_compute(gamma_current, Z, sample_size, n_cat)
   conditional_probabilities2 = pitilde_compute(delta_current, V, sample_size, n_cat)
 
@@ -159,3 +160,4 @@ em_function_2stage <- function(param_current,
   return(param_new)
 
 }
+
