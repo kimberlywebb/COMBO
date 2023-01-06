@@ -285,7 +285,7 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
   naive_jags <- naive_jags_picker_2stage(prior, sample_size, dim_x, dim_v, n_cat,
                                          Ystar, Ytilde, X, V,
                                          beta_prior_parameters,
-                                         gamma_prior_parameters,
+                                         gamma_prior_parameters, # UPDATE!
                                          number_MCMC_chains,
                                          naive_model_file = naive_temp_model_file)
 

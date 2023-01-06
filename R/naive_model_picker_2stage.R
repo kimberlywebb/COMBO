@@ -1,15 +1,15 @@
-#' Select a Logisitic Regression Model for a Given Prior
+#' Select a Naive Two-Stage Regression Model for a Given Prior
 #'
 #' @param prior A character string specifying the prior distribution for the naive
 #'   \eqn{\beta} parameters. Options are \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"} (double Exponential, or Weibull).
 #'
-#' @return \code{naive_model_picker} returns a character string specifying the
+#' @return \code{naive_model_picker_2stage} returns a character string specifying the
 #'   logistic regression model to be turned into a .BUG file and used
 #'   for MCMC estimation with \code{rjags}.
 #'
 #' @examples \dontrun{
-#' t_model <- naive_model_picker(prior = "t")
+#' t_model <- naive_model_picker_2stage(prior = "t")
 #' }
 
 naive_model_picker_2stage <- function(prior) {
@@ -65,7 +65,8 @@ naive_model_picker_2stage <- function(prior) {
 # likelihood
   for(i in 1:sample_size){
 
-    obs_Y[i] ~ dcat(pi_obs[i, 1:n_cat])
+    Y_star[i] ~ dcat(pi_obs[i, 1:n_cat])
+    Y_tilde[i] ~ dcat(pi2_obs[i, 1:n_cat])
 
   # regression
     for(j in 1:n_cat){
@@ -74,12 +75,33 @@ naive_model_picker_2stage <- function(prior) {
       pi_obs[i, j] <- phi[i, j] / sum(phi[i, 1:n_cat])
 
     }
+
+    for(k in 1:n_cat){
+      for(j in 1:n_cat){
+
+      log(phitilde[i, k, j]) <- delta[k, j, 1:dim_v] %*% v[i, 1:dim_v]
+      pi2_obs2[i, k, j] <- phitilde[i, k, j] / (sum(phitilde[i, 1:n_cat, j]))
+
+      }
+
+    pi2_obs[i, k] <- sum(pi2_obs2[i, k, 1:n_cat] * pi_obs[i, 1:n_cat])
+    }
+
   }
 
 # priors
   for(l in 1:dim_x){
     beta[1, l] ~ dt(t_mu_beta[1, l], t_tau_beta[1, l], t_df_beta[1, l])
     beta[2, l] <- 0
+  }
+
+  for(m in 1:n_cat){
+    for(n in 1:dim_v){
+
+      delta[1, m, n] ~ dunif(t_mu_delta[1, m, n], t_tau_delta[1, m, n], t_df_delta[1, m, n])
+      delta[2, m, n] <- 0
+    }
+
   }
 
   }"
@@ -89,7 +111,8 @@ naive_model_picker_2stage <- function(prior) {
 # likelihood
   for(i in 1:sample_size){
 
-    obs_Y[i] ~ dcat(pi_obs[i, 1:n_cat])
+    Y_star[i] ~ dcat(pi_obs[i, 1:n_cat])
+    Y_tilde[i] ~ dcat(pi2_obs[i, 1:n_cat])
 
   # regression
     for(j in 1:n_cat){
@@ -98,12 +121,33 @@ naive_model_picker_2stage <- function(prior) {
       pi_obs[i, j] <- phi[i, j] / sum(phi[i, 1:n_cat])
 
     }
+
+    for(k in 1:n_cat){
+      for(j in 1:n_cat){
+
+      log(phitilde[i, k, j]) <- delta[k, j, 1:dim_v] %*% v[i, 1:dim_v]
+      pi2_obs2[i, k, j] <- phitilde[i, k, j] / (sum(phitilde[i, 1:n_cat, j]))
+
+      }
+
+    pi2_obs[i, k] <- sum(pi2_obs2[i, k, 1:n_cat] * pi_obs[i, 1:n_cat])
+    }
+
   }
 
 # priors
   for(l in 1:dim_x){
     beta[1, l] ~ dnorm(normal_mu_beta[1, l], normal_sigma_beta[1, l])
     beta[2, l] <- 0
+  }
+
+  for(m in 1:n_cat){
+    for(n in 1:dim_v){
+
+      delta[1, m, n] ~ dunif(normal_mu_delta[1, m, n], normal_sigma_delta[1, m, n])
+      delta[2, m, n] <- 0
+    }
+
   }
 
   }"
@@ -113,7 +157,8 @@ naive_model_picker_2stage <- function(prior) {
 # likelihood
   for(i in 1:sample_size){
 
-    obs_Y[i] ~ dcat(pi_obs[i, 1:n_cat])
+    Y_star[i] ~ dcat(pi_obs[i, 1:n_cat])
+    Y_tilde[i] ~ dcat(pi2_obs[i, 1:n_cat])
 
   # regression
     for(j in 1:n_cat){
@@ -122,12 +167,33 @@ naive_model_picker_2stage <- function(prior) {
       pi_obs[i, j] <- phi[i, j] / sum(phi[i, 1:n_cat])
 
     }
+
+    for(k in 1:n_cat){
+      for(j in 1:n_cat){
+
+      log(phitilde[i, k, j]) <- delta[k, j, 1:dim_v] %*% v[i, 1:dim_v]
+      pi2_obs2[i, k, j] <- phitilde[i, k, j] / (sum(phitilde[i, 1:n_cat, j]))
+
+      }
+
+    pi2_obs[i, k] <- sum(pi2_obs2[i, k, 1:n_cat] * pi_obs[i, 1:n_cat])
+    }
+
   }
 
 # priors
   for(l in 1:dim_x){
     beta[1, l] ~ ddexp(dexp_mu_beta[1, l], dexp_b_beta[1, l])
     beta[2, l] <- 0
+  }
+
+  for(m in 1:n_cat){
+    for(n in 1:dim_v){
+
+      delta[1, m, n] ~ dunif(dexp_mu_delta[1, m, n], dexp_b_delta[1, m, n])
+      delta[2, m, n] <- 0
+    }
+
   }
 
   }"
