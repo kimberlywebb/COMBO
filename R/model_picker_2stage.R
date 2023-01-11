@@ -119,7 +119,7 @@ t_modelstring = "
 
       }
 
-      pi_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
+      pi_star_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
 
     }
 
@@ -200,7 +200,7 @@ normal_modelstring = "
 
       }
 
-      pi_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
+      pi_star_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
 
     }
 
@@ -282,7 +282,7 @@ dexp_modelstring = "
 
       }
 
-      pi_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
+      pi_star_obs[i, k] <- sum(pistar[i, k, 1:n_cat] * pi[i, 1:n_cat])
 
     }
 
