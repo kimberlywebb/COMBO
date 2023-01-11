@@ -8,6 +8,7 @@ reference:
     contents:
       - '`true_classification_prob`'
       - '`misclassification_prob`'
+      - '`misclassification_prob2`'
   - title: Estimation
     desc: Functions to estimate regression parameters
     contents:

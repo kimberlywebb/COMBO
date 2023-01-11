@@ -60,6 +60,7 @@ Collate:
     'jags_picker_2stage.R'
     'label_switch_2stage.R'
     'misclassification_prob.R'
+    'misclassification_prob2.R'
     'naive_jags_picker_2stage.R'
     'naive_loglik_2stage.R'
     'naive_model_picker_2stage.R'

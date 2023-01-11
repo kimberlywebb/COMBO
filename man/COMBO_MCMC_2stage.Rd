@@ -225,6 +225,7 @@ delta_prior_parameters <- list(lower = unif_lower_delta, upper = unif_upper_delt
 
 MCMC_results <- COMBO_MCMC_2stage(Ystar, Ytilde,
                                   x = x_matrix, z = z_matrix,
+                                  v = v_matrix,
                                   prior = "uniform",
                                   beta_prior_parameters = beta_prior_parameters,
                                   gamma_prior_parameters = gamma_prior_parameters,

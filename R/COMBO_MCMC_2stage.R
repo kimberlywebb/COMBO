@@ -206,6 +206,7 @@
 #'
 #' MCMC_results <- COMBO_MCMC_2stage(Ystar, Ytilde,
 #'                                   x = x_matrix, z = z_matrix,
+#'                                   v = v_matrix,
 #'                                   prior = "uniform",
 #'                                   beta_prior_parameters = beta_prior_parameters,
 #'                                   gamma_prior_parameters = gamma_prior_parameters,

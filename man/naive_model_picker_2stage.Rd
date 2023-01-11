@@ -2,7 +2,7 @@
 % Please edit documentation in R/naive_model_picker_2stage.R
 \name{naive_model_picker_2stage}
 \alias{naive_model_picker_2stage}
-\title{Select a Logisitic Regression Model for a Given Prior}
+\title{Select a Naive Two-Stage Regression Model for a Given Prior}
 \usage{
 naive_model_picker_2stage(prior)
 }
@@ -12,15 +12,15 @@ naive_model_picker_2stage(prior)
 \code{"uniform"}, \code{"normal"}, or \code{"dexp"} (double Exponential, or Weibull).}
 }
 \value{
-\code{naive_model_picker} returns a character string specifying the
+\code{naive_model_picker_2stage} returns a character string specifying the
 logistic regression model to be turned into a .BUG file and used
 for MCMC estimation with \code{rjags}.
 }
 \description{
-Select a Logisitic Regression Model for a Given Prior
+Select a Naive Two-Stage Regression Model for a Given Prior
 }
 \examples{
 \dontrun{
-t_model <- naive_model_picker(prior = "t")
+t_model <- naive_model_picker_2stage(prior = "t")
 }
 }

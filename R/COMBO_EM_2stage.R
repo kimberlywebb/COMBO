@@ -252,7 +252,11 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
   #                 error = function(e) rep(NA, ncol(X) + (n_cat * ncol(Z))))
 
   # Do label switching for the SE estimates too.
-  sigma_EM = solve(turboEM::hessian(results)[[1]])
+  sigma_EM = tryCatch(solve(turboEM::hessian(results)[[1]]),
+                      silent = TRUE,
+                      error = function(e) matrix(NA,
+                                                 nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
+                                                 ncol = length(c(c(beta_start), c(gamma_start), c(delta_start)))))
   #SE_EM = sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
    #                        nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
     #                       byrow = FALSE)))
@@ -260,9 +264,11 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
   SE_EM <- if ((pistar_11 > .50 | pistar_22 > .50 | pitilde_111 > .50 | pitilde_222 > .50) |
                      (is.na(pistar_11) & is.na(pistar_22))) {
 
-    sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
-                     nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
-                     byrow = FALSE)))
+    tryCatch(sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
+                              nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
+                              byrow = FALSE))),
+             silent = TRUE,
+             error = function(e) rep(NA, length = nrow(sigma_EM)))
 
   } else {
     gamma_index = (ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))
@@ -273,9 +279,11 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
     n_delta_param = length(delta_index) / n_cat
     delta_flip_index = (ncol(X) + (n_cat * ncol(Z))) + c((n_delta_param + 1):length(delta_index), 1:n_delta_param)
 
-    sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
-                     nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
-                     byrow = FALSE)))[c(1:ncol(X), gamma_flip_index, delta_flip_index)]
+    tryCatch(sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
+                              nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
+                              byrow = FALSE)))[c(1:ncol(X), gamma_flip_index, delta_flip_index)],
+             silent = TRUE,
+             error = function(e) rep(NA, length = nrow(sigma_EM)))
 
   }
 

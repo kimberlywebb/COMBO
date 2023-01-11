@@ -318,15 +318,51 @@ provides the posterior median computed across all chains and all samples.</p></d
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">MCMC_results</span> <span class="op">&lt;-</span> <span class="fu">COMBO_MCMC_2stage</span><span class="op">(</span><span class="va">Ystar</span>, <span class="va">Ytilde</span>,</span></span>
 <span class="r-in"><span>                                  x <span class="op">=</span> <span class="va">x_matrix</span>, z <span class="op">=</span> <span class="va">z_matrix</span>,</span></span>
+<span class="r-in"><span>                                  v <span class="op">=</span> <span class="va">v_matrix</span>,</span></span>
 <span class="r-in"><span>                                  prior <span class="op">=</span> <span class="st">"uniform"</span>,</span></span>
 <span class="r-in"><span>                                  beta_prior_parameters <span class="op">=</span> <span class="va">beta_prior_parameters</span>,</span></span>
 <span class="r-in"><span>                                  gamma_prior_parameters <span class="op">=</span> <span class="va">gamma_prior_parameters</span>,</span></span>
 <span class="r-in"><span>                                  delta_prior_parameters <span class="op">=</span> <span class="va">delta_prior_parameters</span>,</span></span>
 <span class="r-in"><span>                                  number_MCMC_chains <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>                                  MCMC_sample <span class="op">=</span> <span class="fl">200</span>, burn_in <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_MCMC_2stage(Ystar, Ytilde, x = x_matrix, z = z_matrix,     prior = "uniform", beta_prior_parameters = beta_prior_parameters,     gamma_prior_parameters = gamma_prior_parameters, delta_prior_parameters = delta_prior_parameters,     number_MCMC_chains = 2, MCMC_sample = 200, burn_in = 100):</span> could not find function "COMBO_MCMC_2stage"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 1014</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 81063</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 1006</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 36030</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">MCMC_results</span><span class="op">$</span><span class="va">posterior_means_df</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'MCMC_results' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 14 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    parameter      posterior_mean posterior_median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> beta[1,1]             -<span style="color: #BB0000;">0.072</span><span style="color: #BB0000; text-decoration: underline;">6</span>          0.009<span style="text-decoration: underline;">27</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> beta[1,2]              0.081<span style="text-decoration: underline;">3</span>          0.123  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> gamma[1,1,1]          -<span style="color: #BB0000;">0.441</span>          -<span style="color: #BB0000;">0.013</span><span style="color: #BB0000; text-decoration: underline;">3</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> gamma[1,2,1]          -<span style="color: #BB0000;">0.475</span>          -<span style="color: #BB0000;">0.166</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> gamma[1,1,2]          -<span style="color: #BB0000;">0.577</span>           0.377  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> gamma[1,2,2]          -<span style="color: #BB0000;">0.843</span>           0.382  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> delta[1,1,1,1]         0.238           0.157  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> delta[1,2,1,1]        -<span style="color: #BB0000;">0.166</span>          -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">1</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> delta[1,1,2,1]        -<span style="color: #BB0000;">0.101</span>          -<span style="color: #BB0000;">0.084</span><span style="color: #BB0000; text-decoration: underline;">4</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> delta[1,2,2,1]         0.130           0.300  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> delta[1,1,1,2]         0.154           0.078<span style="text-decoration: underline;">4</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> delta[1,2,1,2]        -<span style="color: #BB0000;">0.124</span>          -<span style="color: #BB0000;">0.150</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> delta[1,1,2,2]         0.042<span style="text-decoration: underline;">0</span>         -<span style="color: #BB0000;">0.019</span><span style="color: #BB0000; text-decoration: underline;">9</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> delta[1,2,2,2]         0.074<span style="text-decoration: underline;">2</span>          0.107  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
