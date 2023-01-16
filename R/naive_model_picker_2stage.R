@@ -98,7 +98,7 @@ naive_model_picker_2stage <- function(prior) {
   for(m in 1:n_cat){
     for(n in 1:dim_v){
 
-      delta[1, m, n] ~ dunif(t_mu_delta[1, m, n], t_tau_delta[1, m, n], t_df_delta[1, m, n])
+      delta[1, m, n] ~ dt(t_mu_delta[1, m, n], t_tau_delta[1, m, n], t_df_delta[1, m, n])
       delta[2, m, n] <- 0
     }
 

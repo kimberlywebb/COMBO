@@ -150,7 +150,10 @@ jags_picker_2stage <- function(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
                   t_df_beta = beta_prior_parameters[[3]],
                   t_mu_gamma = gamma_prior_parameters[[1]],
                   t_tau_gamma = gamma_prior_parameters[[2]],
-                  t_df_gamma = gamma_prior_parameters[[3]]),
+                  t_df_gamma = gamma_prior_parameters[[3]],
+                  t_mu_delta = delta_prior_parameters[[1]],
+                  t_tau_delta = delta_prior_parameters[[2]],
+                  t_df_delta = delta_prior_parameters[[3]]),
       n.chains = number_MCMC_chains)
   } else if (prior == "uniform") {
     jags_object <- jags.model(

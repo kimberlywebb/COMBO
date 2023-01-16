@@ -61,6 +61,22 @@
 #'   All arrays in the list should have dimensions \code{n_cat} X
 #'   \code{n_cat} X \code{n_cat} X \code{dim_v},
 #'   and all elements in the \code{n_cat} row should be set to \code{NA}.
+#' @param naive_delta_prior_parameters A numeric list of prior distribution parameters
+#'   for the naive model \eqn{\delta} terms. For prior distributions \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
+#'   list should contain an array of location, lower bound, mean, or shape parameters,
+#'   respectively, for naive \eqn{\delta} terms.
+#'   For prior distributions \code{"t"},
+#'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
+#'   list should contain an array of shape, upper bound, standard deviation, or scale parameters,
+#'   respectively, for naive \eqn{\delta} terms.
+#'   For prior distribution \code{"t"}, the third element of the list should contain
+#'   an array of the degrees of freedom for naive \eqn{\delta} terms.
+#'   The third list element should be empty for all other prior distributions.
+#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_v},
+#'   and all elements in the \code{n_cat} row should be set to \code{NA}.
+#'   Note that prior distributions for the naive \eqn{\beta} terms are inherted
+#'   from the \code{beta_prior_parameters} argument.
 #' @param number_MCMC_chains An integer specifying the number of MCMC chains to compute.
 #'   The default is \code{4}.
 #' @param MCMC_sample An integer specifying the number of MCMC samples to draw.
@@ -200,9 +216,16 @@
 #' unif_upper_delta <- array(rep(c(5, NA), 8), dim = c(2,2,2,2))
 #' unif_lower_delta <- array(rep(c(-5, NA), 8), dim = c(2,2,2,2))
 #'
+#' unif_lower_naive_delta <- array(data = c(-5, NA, -5, NA, -5, NA, -5, NA),
+#'                                 dim = c(2,2,2))
+#' unif_upper_naive_delta <- array(data = c(5, NA, 5, NA, 5, NA, 5, NA),
+#'                                 dim = c(2,2,2))
+#'
 #' beta_prior_parameters <- list(lower = unif_lower_beta, upper = unif_upper_beta)
 #' gamma_prior_parameters <- list(lower = unif_lower_gamma, upper = unif_upper_gamma)
 #' delta_prior_parameters <- list(lower = unif_lower_delta, upper = unif_upper_delta)
+#' naive_delta_prior_parameters <- list(lower = unif_lower_naive_delta,
+#'                                      upper = unif_upper_naive_delta)
 #'
 #' MCMC_results <- COMBO_MCMC_2stage(Ystar, Ytilde,
 #'                                   x = x_matrix, z = z_matrix,
@@ -211,6 +234,7 @@
 #'                                   beta_prior_parameters = beta_prior_parameters,
 #'                                   gamma_prior_parameters = gamma_prior_parameters,
 #'                                   delta_prior_parameters = delta_prior_parameters,
+#'                                   naive_delta_prior_parameters = naive_delta_prior_parameters,
 #'                                   number_MCMC_chains = 2,
 #'                                   MCMC_sample = 200, burn_in = 100)
 #' MCMC_results$posterior_means_df
@@ -218,6 +242,7 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                               beta_prior_parameters,
                               gamma_prior_parameters,
                               delta_prior_parameters,
+                              naive_delta_prior_parameters,
                               number_MCMC_chains = 4,
                               MCMC_sample = 2000,
                               burn_in = 1000){
@@ -286,7 +311,7 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
   naive_jags <- naive_jags_picker_2stage(prior, sample_size, dim_x, dim_v, n_cat,
                                          Ystar, Ytilde, X, V,
                                          beta_prior_parameters,
-                                         gamma_prior_parameters, # UPDATE!
+                                         naive_delta_prior_parameters,
                                          number_MCMC_chains,
                                          naive_model_file = naive_temp_model_file)
 
