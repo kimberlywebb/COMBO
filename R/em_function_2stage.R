@@ -144,16 +144,45 @@ em_function_2stage <- function(param_current,
                                               family = "binomial"(link = "logit")) )
   delta22_new <- unname(coefficients(fit.delta22))
 
-  delta_estimates <- optim(par = rep(1, 8),
-                           fn = q_delta_f,
-                           V = V,
-                           obs_Ystar_matrix = obs_Ystar_matrix,
-                           obs_Ytilde_matrix = obs_Ytilde_matrix,
-                           w_mat = weights,
-                           sample_size = sample_size, n = n,
-                           method = "BFGS")
+  fit.delta11 <- suppressWarnings( stats::glm(outcome_j1_k1 ~ . + 0, as.data.frame(V),
+                                              weights = weights[,1],
+                                              family = "binomial"(link = "logit")) )
+  delta11_new <- unname(coefficients(fit.delta11))
 
-  delta_new <- delta_estimates$par
+
+  outcome_j1_k2 <- ifelse(obs_Ystar_matrix[,1] == 0 & obs_Ytilde_matrix[,1] == 1,
+                          1,
+                          ifelse(obs_Ystar_matrix[,1] == 0 & obs_Ytilde_matrix[,1] == 0,
+                                 0, NA))
+
+  fit.delta21 <- suppressWarnings( stats::glm(outcome_j1_k2 ~ . + 0, as.data.frame(V),
+                                              weights = weights[,1],
+                                              family = "binomial"(link = "logit")) )
+  delta21_new <- unname(coefficients(fit.delta21))
+
+
+  outcome_j2_k1 <- ifelse(obs_Ystar_matrix[,1] == 1 & obs_Ytilde_matrix[,1] == 1,
+                          1,
+                          ifelse(obs_Ystar_matrix[,1] == 1 & obs_Ytilde_matrix[,1] == 0,
+                                 0, NA))
+
+  fit.delta12 <- suppressWarnings( stats::glm(outcome_j2_k1 ~ . + 0, as.data.frame(V),
+                                              weights = weights[,2],
+                                              family = "binomial"(link = "logit")) )
+  delta12_new <- unname(coefficients(fit.delta12))
+
+
+  outcome_j2_k2 <- ifelse(obs_Ystar_matrix[,1] == 0 & obs_Ytilde_matrix[,1] == 1,
+                          1,
+                          ifelse(obs_Ystar_matrix[,1] == 0 & obs_Ytilde_matrix[,1] == 0,
+                                 0, NA))
+
+  fit.delta22 <- suppressWarnings( stats::glm(outcome_j2_k2 ~ . + 0, as.data.frame(V),
+                                              weights = weights[,2],
+                                              family = "binomial"(link = "logit")) )
+  delta22_new <- unname(coefficients(fit.delta22))
+
+  delta_new <- c(fit.delta11, fit.delta21, fit.delta12, fit.delta22)
 
   param_new = c(beta_new, gamma1_new, gamma2_new, delta_new)
   param_current = param_new
