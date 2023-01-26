@@ -164,7 +164,7 @@ em_function_2stage <- function(param_current,
                                               family = "binomial"(link = "logit")) )
   delta22_new <- unname(coefficients(fit.delta22))
 
-  delta_new <- c(fit.delta11, fit.delta21, fit.delta12, fit.delta22)
+  delta_new <- c(delta11_new, delta21_new, delta12_new, delta22_new)
 
   param_new = c(beta_new, gamma1_new, gamma2_new, delta_new)
   param_current = param_new
