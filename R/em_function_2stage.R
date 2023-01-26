@@ -99,50 +99,32 @@ em_function_2stage <- function(param_current,
   conditional_probabilities2 = pitilde_compute(delta_current, V, sample_size, n_cat)
 
   weights = w_j_2stage(ystar_matrix = obs_Ystar_matrix,
-                ytilde_matrix = obs_Ytilde_matrix,
-                pitilde_array = conditional_probabilities2,
-                pistar_matrix = conditional_probabilities,
-                pi_matrix = probabilities,
-                sample_size = sample_size, n_cat = n_cat)
+                       ytilde_matrix = obs_Ytilde_matrix,
+                       pitilde_array = conditional_probabilities2,
+                       pistar_matrix = conditional_probabilities,
+                       pi_matrix = probabilities,
+                       sample_size = sample_size, n_cat = n_cat)
 
   Ystar01 = obs_Ystar_matrix[,1]
   fit.gamma1 <- suppressWarnings( stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
-                           weights = weights[,1],
-                           family = "binomial"(link = "logit")) )
+                                             weights = weights[,1],
+                                             family = "binomial"(link = "logit")) )
   gamma1_new <- unname(coefficients(fit.gamma1))
 
   fit.gamma2 <- suppressWarnings( stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
-                           weights = weights[,2],
-                           family = "binomial"(link = "logit")) )
+                                             weights = weights[,2],
+                                             family = "binomial"(link = "logit")) )
   gamma2_new <- unname(coefficients(fit.gamma2))
 
   fit.beta <- suppressWarnings( stats::glm(weights[,1] ~ . + 0, as.data.frame(X),
-                         family = stats::binomial()) )
+                                           family = stats::binomial()) )
   beta_new <- unname(coefficients(fit.beta))
 
-  Ytilde01 <- obs_Ytilde_matrix[,1]
 
-  Y_star1_tilde <- ifelse(Ystar01 == 1 & Ytilde01 == 1, 1, 0)
-  fit.delta11 <- suppressWarnings( stats::glm(Y_star1_tilde ~ . + 0, as.data.frame(V),
-                                             weights = weights[,1],
-                                             family = "binomial"(link = "logit")) )
-  delta11_new <- unname(coefficients(fit.delta11))
-
-  Y_star2_tilde <- ifelse(Ystar01 == 0 & Ytilde01 == 1, 1, 0)
-  fit.delta12 <- suppressWarnings( stats::glm(Y_star2_tilde ~ . + 0, as.data.frame(V),
-                                              weights = weights[,1],
-                                              family = "binomial"(link = "logit")) )
-  delta12_new <- unname(coefficients(fit.delta12))
-
-  fit.delta21 <- suppressWarnings( stats::glm(Y_star1_tilde ~ . + 0, as.data.frame(V),
-                                              weights = weights[,2],
-                                              family = "binomial"(link = "logit")) )
-  delta21_new <- unname(coefficients(fit.delta21))
-
-  fit.delta22 <- suppressWarnings( stats::glm(Y_star2_tilde ~ . + 0, as.data.frame(V),
-                                              weights = weights[,2],
-                                              family = "binomial"(link = "logit")) )
-  delta22_new <- unname(coefficients(fit.delta22))
+  outcome_j1_k1 <- ifelse(obs_Ystar_matrix[,1] == 1 & obs_Ytilde_matrix[,1] == 1,
+                          1,
+                          ifelse(obs_Ystar_matrix[,1] == 1 & obs_Ytilde_matrix[,1] == 0,
+                                 0, NA))
 
   fit.delta11 <- suppressWarnings( stats::glm(outcome_j1_k1 ~ . + 0, as.data.frame(V),
                                               weights = weights[,1],
@@ -189,4 +171,3 @@ em_function_2stage <- function(param_current,
   return(param_new)
 
 }
-
