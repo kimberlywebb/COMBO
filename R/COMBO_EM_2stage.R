@@ -202,13 +202,9 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                          hessian = TRUE)
   naive_se <- tryCatch(sqrt(diag(solve(naive_results$hessian))),
                        silent = TRUE,
-                       error = function(e) matrix(NA,
-                                                    nrow = length(c(unname(coef(naive_start_beta)),
-                                                                    unname(coef(naive_start_delta1)),
-                                                                    unname(coef(naive_start_delta2)))),
-                                                    ncol = length(c(unname(coef(naive_start_beta)),
-                                                                    unname(coef(naive_start_delta1)),
-                                                                    unname(coef(naive_start_delta2))))))
+                       error = function(e) rep(NA, length(c(unname(coef(naive_start_beta)),
+                                                            unname(coef(naive_start_delta1)),
+                                                            unname(coef(naive_start_delta2))))))
   naive_convergence <- ifelse(naive_results$convergence == 1, "maxit reached",
                               ifelse(naive_results$convergence == 10,
                                      "degenerency in nelder-mead simplex",
