@@ -67,7 +67,7 @@ misclassification_prob2 <- function(delta_array,
   Y_categories = rep(1:n_cat, each = sample_size * n_cat * n_cat)
   Ystar_categories = rep(c(1:n_cat, 1:n_cat), each = sample_size * n_cat)
   Ytilde_categories = rep(rep(1:n_cat, each = sample_size), n_cat * n_cat)
-  pitilde_array = COMBO:::pitilde_compute(delta_array, V, sample_size, n_cat)
+  pitilde_array = pitilde_compute(delta_array, V, sample_size, n_cat)
   pitilde_df = data.frame(Subject = subject,
                           Y = Y_categories,
                           Ystar = Ystar_categories,

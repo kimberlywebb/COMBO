@@ -14,7 +14,9 @@ or \code{delta[l,k,j,p]}).}
 
 \item{dim_x}{An integer specifying the number of columns of the design matrix of the true outcome mechanism, \code{X}.}
 
-\item{dim_z}{An integer specifying the number of columns of the design matrix of the second-stage observation mechanism, \code{V}.}
+\item{dim_z}{An integer specifying the number of columns of the design matrix of the first-stage observation mechanism, \code{Z}.}
+
+\item{dim_v}{An integer specifying the number of columns of the design matrix of the second-stage observation mechanism, \code{V}.}
 
 \item{n_cat}{An integer specifying the number of categorical values that the true outcome, \eqn{Y},
 the first-stage observed outcome, \eqn{Y^*}, and the second-stage observed

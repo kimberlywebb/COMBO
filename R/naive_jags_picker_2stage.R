@@ -5,7 +5,7 @@
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"} (double Exponential, or Weibull).
 #' @param sample_size An integer value specifying the number of observations in the sample.
 #' @param dim_x An integer specifying the number of columns of the design matrix of the first-stage outcome mechanism, \code{X}.
-#' #' @param dim_v An integer specifying the number of columns of the design matrix of the second-stage outcome mechanism, \code{V}.
+#' @param dim_v An integer specifying the number of columns of the design matrix of the second-stage outcome mechanism, \code{V}.
 #' @param n_cat An integer specifying the number of categorical values that
 #' the observed outcomes can take.
 #' @param Ystar A numeric vector of indicator variables (1, 2) for the first-stage observed

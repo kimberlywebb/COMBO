@@ -6,8 +6,13 @@
 #' @param pistarjj_matrix A numeric matrix of the average
 #'   conditional probability \eqn{P(Y^* = j | Y = j, Z)} across all subjects for
 #'   each MCMC chain, obtained from the \code{pistar_by_chain} function.
+#' @param pitildejjj_matrix A numeric matrix of the average conditional probability
+#' \eqn{P( \tilde{Y} = j | Y^* = j, Y = j, V)} across all subjects for
+#'   each MCMC chain. Rows of the matrix correspond to MCMC chains, up to \code{n_chains}.
+#'   Obtained from the \code{pitilde_by_chain} function.
 #' @param dim_x The number of columns of the design matrix of the true outcome mechanism, \code{X}.
-#' @param dim_z The number of columns of the design matrix of the observation mechanism, \code{Z}.
+#' @param dim_z The number of columns of the design matrix of the first-stage observation mechanism, \code{Z}.
+#' @param dim_v The number of columns of the design matrix of the second-stage observation mechanism, \code{V}.
 #' @param n_cat The number of categorical values that the true outcome, \code{Y},
 #'   and the observed outcome, \code{Y*} can take.
 #'
@@ -23,16 +28,17 @@
 #' x_mu <- 0
 #' x_sigma <- 1
 #' z_shape <- 1
+#' v_shape <- 1
 #'
 #' beta <- matrix(c(1, 2), ncol = 1)
 #' gamma <- matrix(c(1, 2, -1, -1), nrow = 2, byrow = FALSE)
-#' true_delta <- array(c(1.5, 3, -.5, -.5, -.5, 0, -1, -1), dim = c(2, 2, 2))
+#' delta <- array(c(1.5, 3, -.5, -.5, -.5, 0, -1, -1), dim = c(2, 2, 2))
 #'
 #' my_data <- COMBO_data_2stage(sample_size = n,
 #'                              x_mu = x_mu, x_sigma = x_sigma,
 #'                              z_shape = z_shape, v_shape = v_shape,
-#'                              beta = true_beta, gamma = true_gamma,
-#'                              delta = true_delta)
+#'                              beta = beta, gamma = gamma,
+#'                              delta = delta)
 #'
 #' X = my_data[["x_design_matrix"]]
 #' Z = my_data[["z_design_matrix"]]

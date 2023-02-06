@@ -216,7 +216,7 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                             ncol = n_cat, byrow = FALSE)
   results_i_pistar_v <- pistar_compute(results_i_gamma, Z, sample_size, n_cat)
 
-  results_i_delta <- array(pars(results)[((ncol(X) + (n_cat * ncol(Z))) + 1):length(pars(results))],
+  results_i_delta <- array(turboEM::pars(results)[((ncol(X) + (n_cat * ncol(Z))) + 1):length(turboEM::pars(results))],
                            dim = c(ncol(V), n_cat, n_cat))
   results_i_pitilde <- pitilde_compute(results_i_delta, V, sample_size, n_cat)
 
@@ -235,7 +235,7 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
     n_gamma_param = length(gamma_index) / n_cat
     gamma_flip_index = ncol(X) + c((n_gamma_param + 1):length(gamma_index), 1:n_gamma_param)
 
-    delta_index = ((ncol(X) + (n_cat * ncol(Z))) + 1):length(pars(results))
+    delta_index = ((ncol(X) + (n_cat * ncol(Z))) + 1):length(turboEM::pars(results))
     n_delta_param = length(delta_index) / n_cat
     delta_flip_index = (ncol(X) + (n_cat * ncol(Z))) + c((n_delta_param + 1):length(delta_index), 1:n_delta_param)
 
@@ -275,7 +275,7 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
     n_gamma_param = length(gamma_index) / n_cat
     gamma_flip_index = ncol(X) + c((n_gamma_param + 1):length(gamma_index), 1:n_gamma_param)
 
-    delta_index = ((ncol(X) + (n_cat * ncol(Z))) + 1):length(pars(results))
+    delta_index = ((ncol(X) + (n_cat * ncol(Z))) + 1):length(turboEM::pars(results))
     n_delta_param = length(delta_index) / n_cat
     delta_flip_index = (ncol(X) + (n_cat * ncol(Z))) + c((n_delta_param + 1):length(delta_index), 1:n_delta_param)
 

@@ -147,6 +147,7 @@ first-stage observation, and second-stage observation mechanisms, respectively,
 in a two-stage binary outcome misclassification model.
 }
 \examples{
+\dontrun{
 set.seed(123)
 n <- 1000
 x_mu <- 0
@@ -258,5 +259,5 @@ MCMC_results <- COMBO_MCMC_2stage(Ystar, Ytilde,
                                   naive_delta_prior_parameters = naive_delta_prior_parameters,
                                   number_MCMC_chains = 2,
                                   MCMC_sample = 200, burn_in = 100)
-MCMC_results$posterior_means_df
+MCMC_results$posterior_means_df}
 }

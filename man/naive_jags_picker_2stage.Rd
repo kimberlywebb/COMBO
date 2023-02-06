@@ -27,8 +27,9 @@ naive_jags_picker_2stage(
 
 \item{sample_size}{An integer value specifying the number of observations in the sample.}
 
-\item{dim_x}{An integer specifying the number of columns of the design matrix of the first-stage outcome mechanism, \code{X}.
-#' @param dim_v An integer specifying the number of columns of the design matrix of the second-stage outcome mechanism, \code{V}.}
+\item{dim_x}{An integer specifying the number of columns of the design matrix of the first-stage outcome mechanism, \code{X}.}
+
+\item{dim_v}{An integer specifying the number of columns of the design matrix of the second-stage outcome mechanism, \code{V}.}
 
 \item{n_cat}{An integer specifying the number of categorical values that
 the observed outcomes can take.}

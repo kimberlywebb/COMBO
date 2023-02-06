@@ -5,7 +5,7 @@ output: rmarkdown::html_vignette
 header-includes:
 - \usepackage[fontsize=13pt]{scrextend}
 vignette: >
-  %\VignetteIndexEntry{COMBO Notation Guide}
+  %\VignetteIndexEntry{COMBO Notation Guide - Two-stage Misclassification Model}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -6,7 +6,7 @@
 #'   or \code{delta[l,k,j,p]}).
 #' @param dim_x An integer specifying the number of columns of the design matrix of the true outcome mechanism, \code{X}.
 #' @param dim_z An integer specifying the number of columns of the design matrix of the first-stage observation mechanism, \code{Z}.
-#' @param dim_z An integer specifying the number of columns of the design matrix of the second-stage observation mechanism, \code{V}.
+#' @param dim_v An integer specifying the number of columns of the design matrix of the second-stage observation mechanism, \code{V}.
 #' @param n_cat An integer specifying the number of categorical values that the true outcome, \eqn{Y},
 #'   the first-stage observed outcome, \eqn{Y^*}, and the second-stage observed
 #'   outcome \eqn{\tilde{Y}} can take.

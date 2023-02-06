@@ -78,12 +78,23 @@ conditional probability \(P(Y^* = j | Y = j, Z)\) across all subjects for
 each MCMC chain, obtained from the <code>pistar_by_chain</code> function.</p></dd>
 
 
+<dt>pitildejjj_matrix</dt>
+<dd><p>A numeric matrix of the average conditional probability
+\(P( \tilde{Y} = j | Y^* = j, Y = j, V)\) across all subjects for
+each MCMC chain. Rows of the matrix correspond to MCMC chains, up to <code>n_chains</code>.
+Obtained from the <code>pitilde_by_chain</code> function.</p></dd>
+
+
 <dt>dim_x</dt>
 <dd><p>The number of columns of the design matrix of the true outcome mechanism, <code>X</code>.</p></dd>
 
 
 <dt>dim_z</dt>
-<dd><p>The number of columns of the design matrix of the observation mechanism, <code>Z</code>.</p></dd>
+<dd><p>The number of columns of the design matrix of the first-stage observation mechanism, <code>Z</code>.</p></dd>
+
+
+<dt>dim_v</dt>
+<dd><p>The number of columns of the design matrix of the second-stage observation mechanism, <code>V</code>.</p></dd>
 
 
 <dt>n_cat</dt>
@@ -108,16 +119,17 @@ the following assumption is not met: \(P(Y^* = j | Y = j, Z) &gt; 0.50 \forall j
 <span class="r-in"><span><span class="va">x_mu</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
 <span class="r-in"><span><span class="va">x_sigma</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="va">z_shape</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="va">v_shape</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">true_delta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">.5</span>, <span class="op">-</span><span class="fl">.5</span>, <span class="op">-</span><span class="fl">.5</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">delta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">.5</span>, <span class="op">-</span><span class="fl">.5</span>, <span class="op">-</span><span class="fl">.5</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="COMBO_data_2stage.html">COMBO_data_2stage</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="va">n</span>,</span></span>
 <span class="r-in"><span>                             x_mu <span class="op">=</span> <span class="va">x_mu</span>, x_sigma <span class="op">=</span> <span class="va">x_sigma</span>,</span></span>
 <span class="r-in"><span>                             z_shape <span class="op">=</span> <span class="va">z_shape</span>, v_shape <span class="op">=</span> <span class="va">v_shape</span>,</span></span>
-<span class="r-in"><span>                             beta <span class="op">=</span> <span class="va">true_beta</span>, gamma <span class="op">=</span> <span class="va">true_gamma</span>,</span></span>
-<span class="r-in"><span>                             delta <span class="op">=</span> <span class="va">true_delta</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                             beta <span class="op">=</span> <span class="va">beta</span>, gamma <span class="op">=</span> <span class="va">gamma</span>,</span></span>
+<span class="r-in"><span>                             delta <span class="op">=</span> <span class="va">delta</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="va">my_data</span><span class="op">[[</span><span class="st">"x_design_matrix"</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">Z</span> <span class="op">=</span> <span class="va">my_data</span><span class="op">[[</span><span class="st">"z_design_matrix"</span><span class="op">]</span><span class="op">]</span></span></span>

@@ -119,13 +119,16 @@
 #' @include naive_jags_picker.R
 #' @include pistar_by_chain.R
 #' @include check_and_fix_chains.R
+#' @include sum_every_n.R
+#' @include sum_every_n1.R
+#'
 #'
 #' @importFrom stats rnorm rgamma rmultinom median
 #' @importFrom rjags coda.samples jags.model
 #' @importFrom dplyr select filter `%>%` mutate group_by ungroup summarise all_of
 #' @importFrom tidyr gather
 #'
-#' @examples
+#' @examples \dontrun{
 #' set.seed(123)
 #' n <- 1000
 #' x_mu <- 0
@@ -237,7 +240,7 @@
 #'                                   naive_delta_prior_parameters = naive_delta_prior_parameters,
 #'                                   number_MCMC_chains = 2,
 #'                                   MCMC_sample = 200, burn_in = 100)
-#' MCMC_results$posterior_means_df
+#' MCMC_results$posterior_means_df}
 COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                               beta_prior_parameters,
                               gamma_prior_parameters,
