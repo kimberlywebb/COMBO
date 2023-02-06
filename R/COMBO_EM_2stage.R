@@ -202,7 +202,7 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                          hessian = TRUE)
   naive_se <- tryCatch(sqrt(diag(solve(naive_results$hessian))),
                        silent = TRUE,
-                       error = function(e) = matrix(NA,
+                       error = function(e) matrix(NA,
                                                     nrow = length(c(unname(coef(naive_start_beta)),
                                                                     unname(coef(naive_start_delta1)),
                                                                     unname(coef(naive_start_delta2)))),
