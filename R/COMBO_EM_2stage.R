@@ -199,7 +199,8 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                          obs_Ytilde_matrix = obs_Ytilde_matrix,
                          sample_size = sample_size,
                          n_cat = n_cat,
-                         hessian = TRUE)
+                         hessian = TRUE,
+                         control = list(maxit = max_em_iterations))
   naive_se <- tryCatch(sqrt(diag(solve(naive_results$hessian))),
                        silent = TRUE,
                        error = function(e) rep(NA, length(c(unname(coef(naive_start_beta)),
