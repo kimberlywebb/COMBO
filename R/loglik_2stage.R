@@ -92,7 +92,7 @@ loglik_2stage <- function(param_current,
   gamma_current = matrix(c(param_current[(ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))]),
                          ncol = n_cat, byrow = FALSE)
   delta_current = array(c(param_current[(ncol(X) + (n_cat * ncol(Z)) + 1):length(param_current)]),
-                         dim = c(ncol(Z), 2, 2))
+                         dim = c(ncol(V), 2, 2))
 
   pi_terms_v = pi_compute(beta_current, X, sample_size, n_cat)
   pistar_terms_v = pistar_compute(gamma_current, Z, sample_size, n_cat)
