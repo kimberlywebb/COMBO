@@ -64,10 +64,12 @@ jobs:
             eval sudo $cmd
           done < <(Rscript -e 'release <- system("lsb_release -rs", intern = TRUE); writeLines(remotes::system_requirements("ubuntu", release))')
 
-      - name: Install jags (windows-latest)
+      # JAGS install from https://github.com/boydorr/SpARKjags/blob/master/.github/workflows/test-build.yaml
+      # JAGS is automatically installed on linux via the rjags package.
+      - name: Install JAGS (if Windows)
         if: runner.os == 'Windows'
         run: |
-          curl.exe -o wjags.exe --url https://deac-fra.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.1-Rtools33.exe
+          curl.exe -o wjags.exe --url https://deac-fra.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.0.exe
           wjags.exe /S
           del wjags.exe
         shell: cmd
