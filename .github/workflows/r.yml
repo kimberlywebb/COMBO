@@ -57,7 +57,6 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y jags
           sudo apt-get install xvfb xauth xfonts-base tcl8.6-dev tk8.6-dev
-          sudo add-apt-repository --remove ppa:travis
           xvfb-run R --no-save
           while read -r cmd
           do
