@@ -67,11 +67,6 @@ jobs:
           brew install pkg-config
           brew install udunits
           brew install gdal
-      - name: Install package dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-        shell: Rscript {0}
 
       - name: Install system dependencies (Linux)
         if: runner.os == 'Linux'
