@@ -68,12 +68,20 @@ jobs:
 
       # JAGS install from https://github.com/boydorr/SpARKjags/blob/master/.github/workflows/test-build.yaml
       # JAGS is automatically installed on linux via the rjags package.
-      - name: Install JAGS (if Windows)
+      - name: Install most Windows system dependencies
         if: runner.os == 'Windows'
         run: |
-          curl.exe -o wjags.exe --url https://deac-fra.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.1-Rtools33.exe
-          wjags.exe /S
-          del wjags.exe
+          pacman -Syu mingw-w64-x86_64-make --noconfirm
+          g++ --version
+          Get-Command g++ | Select-Object -ExpandProperty Definition
+          mingw32-make --version
+          Get-Command mingw32-make | Select-Object -ExpandProperty Definition
+          (New-Object System.Net.WebClient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe', 'C:\JAGS-4.3.1.exe')
+        shell: powershell
+
+      - name: Install JAGS on Windows
+        if: runner.os == 'Windows'
+        run: C:\JAGS-4.3.1.exe /S
         shell: cmd
 
       - name: Install system dependencies (macOS)
