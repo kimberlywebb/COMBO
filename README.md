@@ -1,7 +1,4 @@
-# COMBO
-
-
-![my workflow](https://github.com/kimhochstedler/COMBO/actions/workflows/r.yml/badge.svg)
+# COMBO ![my workflow](https://github.com/kimhochstedler/COMBO/actions/workflows/r.yml/badge.svg)
 ==================================================
 ![ ](https://github.com/kimhochstedler/COMBO/blob/main/small_logo.png?raw=true)
 
