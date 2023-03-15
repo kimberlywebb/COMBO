@@ -1,4 +1,4 @@
-COMBO
+# COMBO
 
 
 ![my workflow](https://github.com/kimhochstedler/COMBO/actions/workflows/r.yml/badge.svg)
