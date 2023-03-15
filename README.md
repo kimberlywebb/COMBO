@@ -1,5 +1,5 @@
 # COMBO ![my workflow](https://github.com/kimhochstedler/COMBO/actions/workflows/r.yml/badge.svg)
-==================================================
+
 ![ ](https://github.com/kimhochstedler/COMBO/blob/main/small_logo.png?raw=true)
 
 **COMBO:** **CO**rrecting **M**isclassified **B**inary **O**utcomes
