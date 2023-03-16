@@ -249,6 +249,10 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                               MCMC_sample = 2000,
                               burn_in = 1000){
 
+  # Define global variables to make the "NOTES" happy.
+  chain_number <- NULL
+  parameter_name <- NULL
+
   if (!is.numeric(Ystar) || !is.vector(Ystar))
     stop("'Ystar' must be a numeric vector.")
   if (length(setdiff(1:2, unique(Ystar))) != 0)
