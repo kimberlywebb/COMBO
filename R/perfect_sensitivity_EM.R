@@ -158,9 +158,9 @@ perfect_sensitivity_EM <- function(Ystar, Z, X, start, beta0_fixed = NULL,
   beta  <- param[-(1:(ncol(Z) + 1))]
 
   if (is.null(weights)) {
-    var <- SAMBA_obsloglik_var(Ystar, Z, X, theta, beta, beta0_fixed, expected)
+    var <- SAMBA:::obsloglik_var(Ystar, Z, X, theta, beta, beta0_fixed, expected)
   } else {
-    var <- SAMBA_obsloglik_var_weighted(Ystar, Z, X, theta, beta, beta0_fixed,
+    var <- SAMBA:::obsloglik_var_weighted(Ystar, Z, X, theta, beta, beta0_fixed,
                                   weights, expected)
   }
 
