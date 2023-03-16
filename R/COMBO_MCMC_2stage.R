@@ -122,11 +122,11 @@
 #' @include sum_every_n.R
 #' @include sum_every_n1.R
 #'
-#'
 #' @importFrom stats rnorm rgamma rmultinom median
 #' @importFrom rjags coda.samples jags.model
 #' @importFrom dplyr select filter `%>%` mutate group_by ungroup summarise all_of
 #' @importFrom tidyr gather
+#' @importFrom utils globalVariables
 #'
 #' @examples \dontrun{
 #' set.seed(123)
@@ -250,6 +250,8 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                               MCMC_sample = 2000,
                               burn_in = 1000){
 
+  utils::globalVariables(c("chain_number", "parameter_name"))
+
   if (!is.numeric(Ystar) || !is.vector(Ystar))
     stop("'Ystar' must be a numeric vector.")
   if (length(setdiff(1:2, unique(Ystar))) != 0)
@@ -301,7 +303,7 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                                                        n_cat)
 
   posterior_sample_df <- do.call(rbind.data.frame, posterior_sample_fixed)
-  posterior_sample_df$chain <- rep(1:number_MCMC_chains, each = MCMC_sample)
+  posterior_sample_df$chain_number <- rep(1:number_MCMC_chains, each = MCMC_sample)
   posterior_sample_df$sample <- rep(1:MCMC_sample, number_MCMC_chains)
 
   ##########################################
@@ -323,7 +325,7 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                                         MCMC_sample)
 
   naive_posterior_sample_df <- do.call(rbind.data.frame, naive_posterior_sample)
-  naive_posterior_sample_df$chain <- rep(1:number_MCMC_chains, each = MCMC_sample)
+  naive_posterior_sample_df$chain_number <- rep(1:number_MCMC_chains, each = MCMC_sample)
   naive_posterior_sample_df$sample <- rep(1:MCMC_sample, number_MCMC_chains)
   ###########################################
 
@@ -337,14 +339,14 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
 
   naive_posterior_sample_burn <- naive_posterior_sample_df %>%
     dplyr::select(dplyr::all_of(beta_names), dplyr::all_of(naive_delta_names),
-                  chain, sample) %>%
+                  chain_number, sample) %>%
     dplyr::filter(sample > burn_in) %>%
-    tidyr::gather(parameter, sample, beta_names[1]:naive_delta_names[length(naive_delta_names)],
+    tidyr::gather(parameter_name, sample, beta_names[1]:naive_delta_names[length(naive_delta_names)],
                   factor_key = TRUE) %>%
-    dplyr::mutate(parameter = paste0("naive_", parameter))
+    dplyr::mutate(parameter_name = paste0("naive_", parameter_name))
 
   naive_posterior_means <- naive_posterior_sample_burn %>%
-    dplyr::group_by(parameter) %>%
+    dplyr::group_by(parameter_name) %>%
     dplyr::summarise(posterior_mean = mean(sample),
                      posterior_median = stats::median(sample)) %>%
     dplyr::ungroup()
@@ -352,13 +354,13 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
   posterior_sample_burn <- posterior_sample_df %>%
     dplyr::select(dplyr::all_of(beta_names), dplyr::all_of(gamma_names),
                   dplyr::all_of(delta_names),
-                  chain, sample) %>%
+                  chain_number, sample) %>%
     dplyr::filter(sample > burn_in) %>%
-    tidyr::gather(parameter, sample,
+    tidyr::gather(parameter_name, sample,
                   beta_names[1]:delta_names[length(delta_names)], factor_key = TRUE)
 
   posterior_means <- posterior_sample_burn %>%
-    dplyr::group_by(parameter) %>%
+    dplyr::group_by(parameter_name) %>%
     dplyr::summarise(posterior_mean = mean(sample),
                      posterior_median = stats::median(sample)) %>%
     dplyr::ungroup()
