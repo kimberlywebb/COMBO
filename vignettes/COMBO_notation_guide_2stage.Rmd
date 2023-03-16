@@ -4,6 +4,8 @@ author: "Kim Hochstedler"
 output: rmarkdown::html_vignette
 header-includes:
 - \usepackage[fontsize=13pt]{scrextend}
+- \usepackage{kableExtra}
+- \usepackage{knitr}
 vignette: >
   %\VignetteIndexEntry{COMBO Notation Guide - Two-stage Misclassification Model}
   %\VignetteEngine{knitr::rmarkdown}
