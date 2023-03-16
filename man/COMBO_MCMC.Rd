@@ -103,8 +103,9 @@ and observation mechanisms, respectively, in a binary outcome misclassification
 model.
 }
 \examples{
+\dontrun{
 set.seed(123)
-n <- 100
+n <- 1000
 x_mu <- 0
 x_sigma <- 1
 z_shape <- 1
@@ -161,5 +162,5 @@ MCMC_results <- COMBO_MCMC(Ystar, x = x_matrix, z = z_matrix,
                            gamma_prior_parameters = gamma_prior_parameters,
                            number_MCMC_chains = 2,
                            MCMC_sample = 200, burn_in = 100)
-MCMC_results$posterior_means_df
+MCMC_results$posterior_means_df}
 }

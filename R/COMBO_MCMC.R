@@ -89,9 +89,9 @@
 #' @importFrom dplyr select filter `%>%` mutate group_by ungroup summarise all_of
 #' @importFrom tidyr gather
 #'
-#' @examples
+#' @examples \dontrun{
 #' set.seed(123)
-#' n <- 100
+#' n <- 1000
 #' x_mu <- 0
 #' x_sigma <- 1
 #' z_shape <- 1
@@ -148,7 +148,7 @@
 #'                            gamma_prior_parameters = gamma_prior_parameters,
 #'                            number_MCMC_chains = 2,
 #'                            MCMC_sample = 200, burn_in = 100)
-#' MCMC_results$posterior_means_df
+#' MCMC_results$posterior_means_df}
 COMBO_MCMC <- function(Ystar, x, z, prior,
                        beta_prior_parameters,
                        gamma_prior_parameters,

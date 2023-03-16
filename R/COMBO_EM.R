@@ -64,7 +64,7 @@
 #' @importFrom SAMBA obsloglikEM
 #' @importFrom Matrix nearPD
 #'
-#' @examples
+#' @examples \dontrun{
 #' set.seed(123)
 #' n <- 1000
 #' x_mu <- 0
@@ -113,7 +113,7 @@
 #' EM_results <- COMBO_EM(Ystar, x_matrix = x_matrix, z_matrix = z_matrix,
 #'                        beta_start = beta_start, gamma_start = gamma_start)
 #'
-#' EM_results
+#' EM_results}
 COMBO_EM <- function(Ystar,
                      x_matrix, z_matrix,
                      beta_start, gamma_start,

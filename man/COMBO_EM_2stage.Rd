@@ -81,6 +81,7 @@ first-stage observation, and second-stage observation mechanisms, respectively,
 in a two-stage binary outcome misclassification model.
 }
 \examples{
+\dontrun{
 set.seed(123)
 n <- 1000
 x_mu <- 0
@@ -111,5 +112,5 @@ EM_results <- COMBO_EM_2stage(Ystar = my_data[["obs_Ystar"]],
                               gamma_start = gamma_start,
                               delta_start = delta_start)
 
-EM_results
+EM_results}
 }

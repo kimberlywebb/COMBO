@@ -66,7 +66,7 @@
 #' @importFrom turboEM turboem
 #' @importFrom Matrix nearPD
 #'
-#' @examples
+#' @examples \dontrun{
 #' set.seed(123)
 #' n <- 1000
 #' x_mu <- 0
@@ -97,7 +97,7 @@
 #'                               gamma_start = gamma_start,
 #'                               delta_start = delta_start)
 #'
-#' EM_results
+#' EM_results}
 COMBO_EM_2stage <- function(Ystar, Ytilde,
                             x_matrix, z_matrix, v_matrix,
                             beta_start, gamma_start, delta_start,

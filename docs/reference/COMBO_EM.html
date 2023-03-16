@@ -145,7 +145,8 @@ Biometrics, 78, 214-226.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
 <span class="r-in"><span><span class="va">x_mu</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
 <span class="r-in"><span><span class="va">x_sigma</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
@@ -192,42 +193,8 @@ Biometrics, 78, 214-226.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">EM_results</span> <span class="op">&lt;-</span> <span class="fu">COMBO_EM</span><span class="op">(</span><span class="va">Ystar</span>, x_matrix <span class="op">=</span> <span class="va">x_matrix</span>, z_matrix <span class="op">=</span> <span class="va">z_matrix</span>,</span></span>
 <span class="r-in"><span>                       beta_start <span class="op">=</span> <span class="va">beta_start</span>, gamma_start <span class="op">=</span> <span class="va">gamma_start</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: doParallel</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: foreach</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: iterators</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: parallel</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: numDeriv</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: quantreg</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: SparseM</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'SparseM'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from 'package:base':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     backsolve</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'turboEM'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:numDeriv':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     grad, hessian</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">EM_results</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Parameter    Estimates          SE Convergence</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          beta1   0.94890120  0.27589385        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          beta2  -2.35565018  0.16518517        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        gamma11   0.53773267  0.17206710        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        gamma21   0.94899526  0.21022199        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        gamma12  -0.03143942  0.12881774        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        gamma22  -1.42142132  0.25802541        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    SAMBA_beta1   1.02579269  0.29776853          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    SAMBA_beta2  -1.13762209  0.20119894          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  SAMBA_gamma11   1.22380033  0.30354598          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 SAMBA_gamma21   0.57807251  0.35267049          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   PSens_beta1   0.36958220  7.02366053          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   PSens_beta2  -0.72231505  2.81551719          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 PSens_gamma12  -0.75532783  3.28479253          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 PSens_gamma22 -43.39974465 22.14360437          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   naive_beta1   0.38315779  0.06811635        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   naive_beta2  -0.71541393  0.07536077        TRUE</span>
+<span class="r-in"><span><span class="va">EM_results</span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

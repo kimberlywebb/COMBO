@@ -68,6 +68,7 @@ and observation mechanisms, respectively, in a binary outcome misclassification
 model.
 }
 \examples{
+\dontrun{
 set.seed(123)
 n <- 1000
 x_mu <- 0
@@ -116,7 +117,7 @@ gamma_start <- matrix(starting_values[3:6], ncol = 2, nrow = 2, byrow = FALSE)
 EM_results <- COMBO_EM(Ystar, x_matrix = x_matrix, z_matrix = z_matrix,
                        beta_start = beta_start, gamma_start = gamma_start)
 
-EM_results
+EM_results}
 }
 \references{
 Beesley, L. and Mukherjee, B. (2020).
