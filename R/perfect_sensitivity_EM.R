@@ -1,5 +1,7 @@
 #' EM-Algorithm Estimation of the Binary Outcome Misclassification Model while Assuming Perfect Sensitivity
 #'
+#' Code is adapted by the SAMBA R package from Lauren Beesley and Bhramar Mukherjee.
+#'
 #' @param Ystar A numeric vector of indicator variables (1, 0) for the observed
 #'   outcome \code{Y*}. The reference category is 0.
 #' @param Z A numeric matrix of covariates in the true outcome mechanism.
@@ -66,6 +68,10 @@ perfect_sensitivity_EM <- function(Ystar, Z, X, start, beta0_fixed = NULL,
                                    weights = NULL, expected = TRUE,
                                    tolerance = 1e-7, max_em_iterations = 1500)
 {
+
+  obsloglik_var <- utils::getFromNamespace("obsloglik_var", "SAMBA")
+  obsloglik_var_weighted <- utils::getFromNamespace("obsloglik_var_weighted", "SAMBA")
+
   if (is.data.frame(Z))
     Z <- as.matrix(Z)
   if (!is.numeric(Z))
@@ -158,9 +164,9 @@ perfect_sensitivity_EM <- function(Ystar, Z, X, start, beta0_fixed = NULL,
   beta  <- param[-(1:(ncol(Z) + 1))]
 
   if (is.null(weights)) {
-    var <- SAMBA:::obsloglik_var(Ystar, Z, X, theta, beta, beta0_fixed, expected)
+    var <- obsloglik_var(Ystar, Z, X, theta, beta, beta0_fixed, expected)
   } else {
-    var <- SAMBA:::obsloglik_var_weighted(Ystar, Z, X, theta, beta, beta0_fixed,
+    var <- obsloglik_var_weighted(Ystar, Z, X, theta, beta, beta0_fixed,
                                   weights, expected)
   }
 

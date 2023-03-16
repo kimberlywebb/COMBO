@@ -19,6 +19,8 @@ Imports:
     rjags (>= 4-13),
     turboEM (>= 2021.1),
     SAMBA (>= 0.9.0),
+    utils (>= 4.2.0)
+Suggests:
     knitr (>= 1.40),
     kableExtra (>= 1.3.4)
 License: MIT + file LICENSE

@@ -51,7 +51,7 @@ The elements are detailed in \code{?SAMBA::obsloglikEM} documentation. Code
 is adapted from the \code{SAMBA::obsloglikEM} function.
 }
 \description{
-EM-Algorithm Estimation of the Binary Outcome Misclassification Model while Assuming Perfect Sensitivity
+Code is adapted by the SAMBA R package from Lauren Beesley and Bhramar Mukherjee.
 }
 \examples{
 \dontrun{

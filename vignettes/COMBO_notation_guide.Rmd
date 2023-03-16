@@ -59,9 +59,9 @@ notation_table <- data.frame(Term, Definition, Description)
 ```
 
 ## Notation
-This guide is designed to summarise key notation and quantities used the *COMBO* R Package and associated publications.
+This guide is designed to summarize key notation and quantities used the *COMBO* R Package and associated publications.
 
 ```{r}
-kbl(notation_table, escape = FALSE, booktabs = TRUE) %>%
-  kable_styling(latex_options = "HOLD_position")
+kableExtra::kbl(notation_table, escape = FALSE, booktabs = TRUE) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
 ```
