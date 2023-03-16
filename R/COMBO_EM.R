@@ -59,7 +59,7 @@
 #' @include perfect_sensitivity_EM.R
 #' @include COMBO_data.R
 #'
-#' @importFrom stats rnorm rgamma rmultinom glm
+#' @importFrom stats rnorm rgamma rmultinom coefficients binomial glm
 #' @importFrom turboEM turboem
 #' @importFrom SAMBA obsloglikEM
 #' @importFrom Matrix nearPD

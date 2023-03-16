@@ -46,7 +46,7 @@
 #' @include q_gamma_f.R
 #' @include q_delta_f.R
 #'
-#' @importFrom stats rnorm rgamma rmultinom
+#' @importFrom stats rnorm rgamma rmultinom coefficients binomial glm
 #'
 #' @examples \dontrun{
 #'
@@ -109,16 +109,16 @@ em_function_2stage <- function(param_current,
   fit.gamma1 <- suppressWarnings( stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
                                              weights = weights[,1],
                                              family = "binomial"(link = "logit")) )
-  gamma1_new <- unname(coefficients(fit.gamma1))
+  gamma1_new <- unname(stats::coefficients(fit.gamma1))
 
   fit.gamma2 <- suppressWarnings( stats::glm(Ystar01 ~ . + 0, as.data.frame(Z),
                                              weights = weights[,2],
                                              family = "binomial"(link = "logit")) )
-  gamma2_new <- unname(coefficients(fit.gamma2))
+  gamma2_new <- unname(stats::coefficients(fit.gamma2))
 
   fit.beta <- suppressWarnings( stats::glm(weights[,1] ~ . + 0, as.data.frame(X),
                                            family = stats::binomial()) )
-  beta_new <- unname(coefficients(fit.beta))
+  beta_new <- unname(stats::coefficients(fit.beta))
 
 
   outcome_j1_k1 <- ifelse(obs_Ystar_matrix[,1] == 1 & obs_Ytilde_matrix[,1] == 1,

@@ -91,7 +91,7 @@
 #'
 #' @examples
 #' set.seed(123)
-#' n <- 1000
+#' n <- 100
 #' x_mu <- 0
 #' x_sigma <- 1
 #' z_shape <- 1
@@ -198,7 +198,7 @@ COMBO_MCMC <- function(Ystar, x, z, prior,
                                                 dim_x, dim_z, n_cat)
 
   posterior_sample_df <- do.call(rbind.data.frame, posterior_sample_fixed)
-  posterior_sample_df$chain <- rep(1:number_MCMC_chains, each = MCMC_sample)
+  posterior_sample_df$chain_number <- rep(1:number_MCMC_chains, each = MCMC_sample)
   posterior_sample_df$sample <- rep(1:MCMC_sample, number_MCMC_chains)
 
 
@@ -220,7 +220,7 @@ COMBO_MCMC <- function(Ystar, x, z, prior,
                                         MCMC_sample)
 
   naive_posterior_sample_df <- do.call(rbind.data.frame, naive_posterior_sample)
-  naive_posterior_sample_df$chain <- rep(1:number_MCMC_chains, each = MCMC_sample)
+  naive_posterior_sample_df$chain_number <- rep(1:number_MCMC_chains, each = MCMC_sample)
   naive_posterior_sample_df$sample <- rep(1:MCMC_sample, number_MCMC_chains)
   ###########################################
 
@@ -228,27 +228,27 @@ COMBO_MCMC <- function(Ystar, x, z, prior,
   gamma_names <- paste0("gamma[1,", rep(1:n_cat, dim_z), ",", rep(1:dim_z, each = n_cat), "]")
 
   naive_posterior_sample_burn <- naive_posterior_sample_df %>%
-    dplyr::select(dplyr::all_of(beta_names), chain, sample) %>%
+    dplyr::select(dplyr::all_of(beta_names), chain_number, sample) %>%
     dplyr::filter(sample > burn_in) %>%
-    tidyr::gather(parameter, sample, beta_names[1]:beta_names[length(beta_names)],
+    tidyr::gather(parameter_name, sample, beta_names[1]:beta_names[length(beta_names)],
                   factor_key = TRUE) %>%
-    dplyr::mutate(parameter = paste0("naive_", parameter))
+    dplyr::mutate(parameter_name = paste0("naive_", parameter_name))
 
   naive_posterior_means <- naive_posterior_sample_burn %>%
-    dplyr::group_by(parameter) %>%
+    dplyr::group_by(parameter_name) %>%
     dplyr::summarise(posterior_mean = mean(sample),
                      posterior_median = stats::median(sample)) %>%
     dplyr::ungroup()
 
   posterior_sample_burn <- posterior_sample_df %>%
     dplyr::select(dplyr::all_of(beta_names), dplyr::all_of(gamma_names),
-                  chain, sample) %>%
+                  chain_number, sample) %>%
     dplyr::filter(sample > burn_in) %>%
-    tidyr::gather(parameter, sample,
+    tidyr::gather(parameter_name, sample,
                   beta_names[1]:gamma_names[length(gamma_names)], factor_key = TRUE)
 
   posterior_means <- posterior_sample_burn %>%
-    dplyr::group_by(parameter) %>%
+    dplyr::group_by(parameter_name) %>%
     dplyr::summarise(posterior_mean = mean(sample),
                      posterior_median = stats::median(sample)) %>%
     dplyr::ungroup()
