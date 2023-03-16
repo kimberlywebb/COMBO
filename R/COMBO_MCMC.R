@@ -88,7 +88,6 @@
 #' @importFrom rjags coda.samples jags.model
 #' @importFrom dplyr select filter `%>%` mutate group_by ungroup summarise all_of
 #' @importFrom tidyr gather
-#' @importFrom utils globalVariables
 #'
 #' @examples
 #' set.seed(123)
@@ -156,8 +155,6 @@ COMBO_MCMC <- function(Ystar, x, z, prior,
                        number_MCMC_chains = 4,
                        MCMC_sample = 2000,
                        burn_in = 1000){
-
-  utils::globalVariables(c("chain_number", "parameter_name"))
 
   if (!is.numeric(Ystar) || !is.vector(Ystar))
     stop("'Ystar' must be a numeric vector.")

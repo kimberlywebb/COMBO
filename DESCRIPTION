@@ -20,8 +20,7 @@ Imports:
     turboEM (>= 2021.1),
     SAMBA (>= 0.9.0),
     knitr (>= 1.40),
-    kableExtra (>= 1.3.4),
-    utils (>= 4.2.0)
+    kableExtra (>= 1.3.4)
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
