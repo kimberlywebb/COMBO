@@ -1,6 +1,6 @@
 Package: COMBO
 Title: Correcting Misclassified Binary Outcomes in Association Studies
-Version: 1.0.0.000
+Version: 1.0.0
 Authors@R: 
     person("Kimberly", "Hochstedler",
            email = "kah343@cornell.edu", role = c("aut", "cre"))
