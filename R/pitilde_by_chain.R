@@ -21,43 +21,6 @@
 #'
 #' @importFrom stats rnorm
 #'
-#' @examples \dontrun{
-#' set.seed(123)
-#' n <- 100
-#' ones <- rep(1, n)
-#' v <- rnorm(n)
-#' V <- matrix(c(ones, v), nrow = n, byrow = FALSE)
-#' delta <- array(c(1, 2, -1, -2, -3, -4, -1, -2), dim = c(2,2,2))
-#' example_chain1 <- matrix(c(rnorm(n, mean = delta[1,1,1]),
-#'                            rnorm(n, mean = delta[2,1,1]),
-#'                            rnorm(n, mean = delta[1,2,1]),
-#'                            rnorm(n, mean = delta[2,2,1]),
-#'                            rnorm(n, mean = delta[1,1,2]),
-#'                            rnorm(n, mean = delta[2,1,2]),
-#'                            rnorm(n, mean = delta[1,2,2]),
-#'                            rnorm(n, mean = delta[2,2,2])),
-#'                            nrow = n, byrow = FALSE)
-#' colnames(example_chain1) <- c("delta[1,1,1,1]", "delta[1,2,1,1]",
-#'                               "delta[1,1,2,1]", "delta[1,2,2,1]",
-#'                               "delta[1,1,1,2]", "delta[1,2,1,2]",
-#'                               "delta[1,2,2,2]", "delta[1,2,2,2]")
-#' example_chain2 <- matrix(c(rnorm(n, mean = delta[1,1,1]),
-#'                            rnorm(n, mean = delta[2,1,1]),
-#'                            rnorm(n, mean = delta[1,2,1]),
-#'                            rnorm(n, mean = delta[2,2,1]),
-#'                            rnorm(n, mean = delta[1,1,2]),
-#'                            rnorm(n, mean = delta[2,1,2]),
-#'                            rnorm(n, mean = delta[1,2,2]),
-#'                            rnorm(n, mean = delta[2,2,2])),
-#'                            nrow = n, byrow = FALSE)
-#' colnames(example_chain2) <- c("delta[1,1,1,1]", "delta[1,2,1,1]",
-#'                               "delta[1,1,2,1]", "delta[1,2,2,1]",
-#'                               "delta[1,1,1,2]", "delta[1,2,1,2]",
-#'                               "delta[1,2,2,2]", "delta[1,2,2,2]")
-#' chains_list <- list(example_chain1, example_chain2)
-#' pitilde_by_chain(n_chains = 2, chains_list = chains_list,
-#'                  V = V, n = n, n_cat = 2)
-#' }
 pitilde_by_chain <- function(n_chains, chains_list, V, n, n_cat){
 
   colmeans_by_chain = lapply(chains_list, colMeans)

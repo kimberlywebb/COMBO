@@ -5,10 +5,6 @@
 #'
 #' @return \code{sum_every_n} returns a vector of sums of every \code{n}^{th} element of the vector \code{x}.
 #'
-#' @examples \dontrun{
-#' x <- c(5, 2, 5, 2, 5, 2)
-#' sum_every_n(x, n = 2)
-#' }
 sum_every_n <- function(x, n){
   vector_groups = split(x,
                         ceiling(seq_along(x) / n))

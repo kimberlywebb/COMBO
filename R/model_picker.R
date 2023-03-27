@@ -8,9 +8,6 @@
 #'   outcome misclassification model to be turned into a .BUG file and used
 #'   for MCMC estimation with \code{rjags}.
 #'
-#' @examples \dontrun{
-#' t_model <- model_picker(prior = "t")
-#' }
 model_picker <- function(prior){
 
   unif_modelstring = "

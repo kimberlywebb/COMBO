@@ -35,35 +35,6 @@
 #'
 #' @importFrom stats rnorm rgamma rmultinom glm predict coef
 #'
-#' @examples \dontrun{
-#' set.seed(123)
-#' n <- 1000
-#' x_mu <- 0
-#' x_sigma <- 1
-#' z_shape <- 1
-#'
-#' true_beta <- matrix(c(1, -.5), ncol = 1)
-#' true_gamma <- matrix(c(1, 10, .5, -3), nrow = 2, byrow = FALSE)
-#'
-#' my_data <- COMBO_data(sample_size = n,
-#'                       x_mu = x_mu, x_sigma = x_sigma,
-#'                       z_shape = z_shape,
-#'                       beta = true_beta, gamma = true_gamma)
-#'
-#' Ystar = ifelse(my_data[["obs_Y"]] == 1, 1, 0)
-#' x_matrix = matrix(my_data[["x"]], ncol = 1)
-#' z_matrix = matrix(my_data[["z"]], ncol = 1)
-#'
-#' starting_values <- rep(1,6)
-#' beta_start <- matrix(starting_values[1:2], ncol = 1)
-#' gamma_start <- matrix(starting_values[3:4], ncol = 1, nrow = 2, byrow = FALSE)
-#'
-#' perfect_sensitivity_results <- perfect_sensitivity_EM(Ystar,
-#'                                                       Z = x_matrix, X = z_matrix,
-#'                                                       start = c(beta_start, gamma_start),
-#'                                                       beta0_fixed = NULL)
-#' perfect_sensitivity_results$param
-#' }
 perfect_sensitivity_EM <- function(Ystar, Z, X, start, beta0_fixed = NULL,
                                    weights = NULL, expected = TRUE,
                                    tolerance = 1e-7, max_em_iterations = 1500)

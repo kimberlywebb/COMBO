@@ -26,16 +26,6 @@
 #'
 #' @importFrom stats rnorm
 #'
-#' @examples \dontrun{
-#' set.seed(123)
-#' n <- 100
-#' ones <- rep(1, n)
-#' z <- rnorm(n)
-#' Z <- matrix(c(ones, z), nrow = n, byrow = FALSE)
-#' gamma <- matrix(c(1, 2, 3, 4), nrow = 2, byrow = FALSE)
-#' conditional_probabilities <- pistar_compute(gamma, Z, n, n_cat = 2)
-#' head(conditional_probabilities)
-#' }
 pistar_compute <- function(gamma, Z, n, n_cat){
 
   exp_zg = exp(Z %*% gamma)

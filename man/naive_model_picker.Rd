@@ -19,8 +19,3 @@ for MCMC estimation with \code{rjags}.
 \description{
 Select a Logisitic Regression Model for a Given Prior
 }
-\examples{
-\dontrun{
-t_model <- naive_model_picker(prior = "t")
-}
-}

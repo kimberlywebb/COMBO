@@ -17,9 +17,3 @@ sum_every_n1(x, n)
 \description{
 Sum Every "n"th Element, then add 1
 }
-\examples{
-\dontrun{
-x <- c(5, 2, 5, 2, 5, 2)
-sum_every_n1(x, n = 2)
-}
-}

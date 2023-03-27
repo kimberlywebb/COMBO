@@ -18,16 +18,6 @@
 #'
 #' @importFrom stats rnorm
 #'
-#' @examples \dontrun{
-#' set.seed(123)
-#' n <- 1000
-#' ones <- rep(1, n)
-#' x <- rnorm(n)
-#' X <- matrix(c(ones, x), nrow = n, byrow = FALSE)
-#' beta <- matrix(c(1, 2), ncol = 1)
-#' probabilities <- pi_compute(beta, X, n, n_cat = 2)
-#' head(probabilities)
-#' }
 pi_compute <- function(beta, X, n, n_cat){
   exp_xb = exp(X %*% beta)
   pi_result = exp_xb[,1] / rep(sum_every_n1(exp_xb[,1], n), n_cat - 1)

@@ -35,15 +35,3 @@ Columns of the matrix correspond to the true outcome categories \eqn{j = 1, \dot
 \description{
 Compute Conditional Probability of Each Observed Outcome Given Each True Outcome, for Every Subject
 }
-\examples{
-\dontrun{
-set.seed(123)
-n <- 100
-ones <- rep(1, n)
-z <- rnorm(n)
-Z <- matrix(c(ones, z), nrow = n, byrow = FALSE)
-gamma <- matrix(c(1, 2, 3, 4), nrow = 2, byrow = FALSE)
-conditional_probabilities <- pistar_compute(gamma, Z, n, n_cat = 2)
-head(conditional_probabilities)
-}
-}

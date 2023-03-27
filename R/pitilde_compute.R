@@ -29,16 +29,6 @@
 #'
 #' @importFrom stats rnorm
 #'
-#' @examples \dontrun{
-#' set.seed(123)
-#' n <- 100
-#' ones <- rep(1, n)
-#' v <- rnorm(n)
-#' V <- matrix(c(ones, v), nrow = n, byrow = FALSE)
-#' delta <- array(c(1, 2, 3, 4, -1, -2, -3, -4), dim = c(2,2,2))
-#' conditional_probabilities <- pitilde_compute(delta, V, n, n_cat = 2)
-#' head(conditional_probabilities)
-#' }
 pitilde_compute <- function(delta, V, n, n_cat){
 
   exp_vd1 = exp(V %*% delta[,,1])

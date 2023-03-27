@@ -25,24 +25,3 @@ conditional probability \eqn{P(Y^* = j | Y = j, Z)} across all subjects.
 \description{
 Compute the Mean Conditional Probability of Correct Classification, by True Outcome Across all Subjects
 }
-\examples{
-\dontrun{
-set.seed(123)
-n <- 100
-ones <- rep(1, n)
-z <- rnorm(n)
-Z <- matrix(c(ones, z), nrow = n, byrow = FALSE)
-gamma <- matrix(c(1, 2, 3, 4), nrow = 2, byrow = FALSE)
-example_MCMC_chain <- matrix(c(rnorm(n, mean = gamma[1,1]),
-                               rnorm(n, mean = gamma[2,1]),
-                               rnorm(n, mean = gamma[1,2]),
-                               rnorm(n, mean = gamma[2,2])),
-                             nrow = n, byrow = FALSE)
-colnames(example_MCMC_chain) <- c("gamma[1,1,1]", "gamma[1,1,2]",
-                                  "gamma[1,2,1]", "gamma[1,2,2]")
-chain_colMeans <- colMeans(example_MCMC_chain)
-conditional_probabilities <- pistar_compute_for_chains(chain_colMeans, Z, n, n_cat = 2)
-mean_pistarjj_compute(conditional_probabilities, 1, n)
-mean_pistarjj_compute(conditional_probabilities, 2, n)
-}
-}

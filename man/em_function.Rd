@@ -38,34 +38,3 @@ estimates from one iteration of the EM-algorithm.
 \description{
 EM-Algorithm Function for Estimation of the Misclassification Model
 }
-\examples{
-\dontrun{
-
-set.seed(123)
-n <- 1000
-x_mu <- 0
-x_sigma <- 1
-z_shape <- 1
-
-true_beta <- matrix(c(1, -2), ncol = 1)
-true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
-
-my_data <- COMBO_data(sample_size = n,
-                      x_mu = x_mu, x_sigma = x_sigma,
-                      z_shape = z_shape,
-                      beta = true_beta, gamma = true_gamma)
-
-obs_Y_matrix = my_data[["obs_Y_matrix"]]
-X = my_data[["x_design_matrix"]]
-Z = my_data[["z_design_matrix"]]
-
-starting_values <- rnorm(6)
-
-new_parameters <- em_function(starting_values,
-                              obs_Y_matrix = obs_Y_matrix,
-                              X = X, Z = Z,
-                              sample_size = n, n_cat = 2)
-
-new_parameters
-}
-}

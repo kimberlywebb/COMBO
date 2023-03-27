@@ -55,59 +55,6 @@
 #' @importFrom stats rnorm rmultinom
 #' @importFrom rjags jags.model
 #'
-#' @examples \dontrun{
-#' set.seed(123)
-#' sample_size <- 1000
-#' x_mu <- 0
-#' x_sigma <- 1
-#' z_shape <- 1
-#' v_shape <- 1
-#'
-#' true_beta <- matrix(c(1, -2), ncol = 1)
-#' true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
-#' true_delta <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
-#'
-#' my_data <- COMBO_data_2stage(sample_size = sample_size,
-#'                              x_mu = x_mu, x_sigma = x_sigma,
-#'                              z_shape = z_shape, v_shape = v_shape,
-#'                              beta = true_beta, gamma = true_gamma, delta = true_delta)
-#'
-#' obs_Ystar = my_data[["obs_Ystar"]]
-#' obs_Ytilde = my_data[["obs_Ytilde"]]
-#' X = my_data[["x_design_matrix"]]
-#' Z = my_data[["z_design_matrix"]]
-#' V = my_data[["v_design_matrix"]]
-#'
-#' unif_lower_beta <- matrix(c(-5, -5, NA, NA), nrow = 2, byrow = TRUE)
-#' unif_upper_beta <- matrix(c(5, 5, NA, NA), nrow = 2, byrow = TRUE)
-#'
-#' unif_lower_delta <- array(data = c(-5, NA, -5, NA, -5, NA, -5, NA),
-#'                           dim = c(2,2,2))
-#' unif_upper_delta <- array(data = c(5, NA, 5, NA, 5, NA, 5, NA),
-#'                           dim = c(2,2,2))
-#'
-#' beta_prior_parameters <- list(lower = unif_lower_beta, upper = unif_upper_beta)
-#' delta_prior_parameters <- list(lower = unif_lower_delta, upper = unif_upper_delta)
-#'
-#' modelstring = naive_model_picker(prior = "uniform")
-#' temp_model_file = tempfile()
-#' tmps = file(temp_model_file, "w")
-#' cat(modelstring, file = tmps)
-#' close(tmps)
-#'
-#' jags_model_object <- naive_jags_picker(prior = "uniform",
-#'                                        sample_size = n,
-#'                                        dim_x = ncol(X),
-#'                                        dim_v = ncol(V),
-#'                                        n_cat = 2,
-#'                                        Ystar = obs_Ystar, Ytilde = obs_Ytilde,
-#'                                        X = X, V = V,
-#'                                        beta_prior_parameters = beta_prior_parameters,
-#'                                        delta_prior_parameters = delta_prior_parameters,
-#'                                        number_MCMC_chains = 1,
-#'                                        naive_model_file = temp_model_file)
-#' }
-
 naive_jags_picker_2stage <- function(prior, sample_size, dim_x, dim_v, n_cat,
                                      Ystar, Ytilde, X, V,
                                      beta_prior_parameters,

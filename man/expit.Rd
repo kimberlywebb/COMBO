@@ -16,12 +16,3 @@ expit(x)
 \description{
 \eqn{\frac{\exp\{x\}}{1 + \exp\{x\}}}
 }
-\examples{
-\dontrun{
-x <- c(1, 2, 3)
-
-expit(x)
-
-exp(x) / (1 + exp(x))
-}
-}

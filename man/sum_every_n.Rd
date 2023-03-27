@@ -17,9 +17,3 @@ sum_every_n(x, n)
 \description{
 Sum Every "n"th Element
 }
-\examples{
-\dontrun{
-x <- c(5, 2, 5, 2, 5, 2)
-sum_every_n(x, n = 2)
-}
-}

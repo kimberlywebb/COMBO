@@ -28,15 +28,3 @@ categories \eqn{j = 1, \dots,} \code{n_cat}.
 \description{
 Compute Probability of Each True Outcome, for Every Subject
 }
-\examples{
-\dontrun{
-set.seed(123)
-n <- 1000
-ones <- rep(1, n)
-x <- rnorm(n)
-X <- matrix(c(ones, x), nrow = n, byrow = FALSE)
-beta <- matrix(c(1, 2), ncol = 1)
-probabilities <- pi_compute(beta, X, n, n_cat = 2)
-head(probabilities)
-}
-}

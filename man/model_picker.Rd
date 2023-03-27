@@ -19,8 +19,3 @@ for MCMC estimation with \code{rjags}.
 \description{
 Select a Binary Outcome Misclassification Model for a Given Prior
 }
-\examples{
-\dontrun{
-t_model <- model_picker(prior = "t")
-}
-}

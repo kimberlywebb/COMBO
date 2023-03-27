@@ -28,46 +28,6 @@
 #'
 #' @importFrom stats rnorm rgamma rmultinom
 #'
-#' @examples \dontrun{
-#' set.seed(123)
-#' n <- 1000
-#' n_cat <- 2
-#'
-#' ones <- rep(1, n)
-#' x <- rnorm(n)
-#' X <- matrix(c(ones, x), nrow = n, byrow = FALSE)
-#' z <- rgamma(n, shape = 1)
-#' Z <- matrix(c(ones, z), nrow = n, byrow = FALSE)
-#'
-#' beta <- matrix(c(1, -2), ncol = 1)
-#' gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
-#'
-#' probabilities <- pi_compute(beta, X, n, n_cat = 2)
-#' conditional_probabilities <- pistar_compute(gamma, Z, n, n_cat = 2)
-#'
-#' true_Y <- rep(NA, n)
-#' for(i in 1:n){
-#'   true_Y[i] = which(rmultinom(1, 1, probabilities[i,]) == 1)
-#' }
-#' pistar_matrix_labels <- rep(1:n_cat, each = n)
-#' obs_Y <- rep(NA, n)
-#' for(i in 1:n){
-#'  true_j = true_Y[i]
-#'  obs_Y[i] = which(rmultinom(1, 1,
-#'                             conditional_probabilities[c(i, n + i), true_j]) == 1)
-#'  }
-#'
-#' obs_Y_reps <- matrix(rep(obs_Y, n_cat), nrow = n, byrow = FALSE)
-#' category_matrix <- matrix(rep(1:n_cat, each = n), nrow = n, byrow = FALSE)
-#' obs_Y_matrix <- 1 * (obs_Y_reps == category_matrix)
-#'
-#' e_step_weights <- w_j(ystar_matrix = obs_Y_matrix,
-#'                       pistar_matrix = conditional_probabilities,
-#'                       pi_matrix = probabilities,
-#'                       sample_size = n, n_cat = n_cat)
-#' head(e_step_weights)
-
-#' }
 w_j <- function(ystar_matrix, pistar_matrix, pi_matrix, sample_size, n_cat){
 
   pi_ij_1_allj_repped = do.call(rbind,

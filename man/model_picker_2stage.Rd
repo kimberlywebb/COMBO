@@ -19,8 +19,3 @@ for MCMC estimation with \code{rjags}.
 \description{
 Select a Two-Stage Binary Outcome Misclassification Model for a Given Prior
 }
-\examples{
-\dontrun{
-t_model <- model_picker_2stage(prior = "t")
-}
-}

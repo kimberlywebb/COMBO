@@ -8,10 +8,6 @@
 #'   logistic regression model to be turned into a .BUG file and used
 #'   for MCMC estimation with \code{rjags}.
 #'
-#' @examples \dontrun{
-#' t_model <- naive_model_picker_2stage(prior = "t")
-#' }
-
 naive_model_picker_2stage <- function(prior) {
 
   unif_modelstring = "model{

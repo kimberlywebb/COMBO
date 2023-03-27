@@ -36,45 +36,6 @@
 #' @importFrom stats rnorm rmultinom
 #' @importFrom rjags jags.model
 #'
-#' @examples \dontrun{
-#' set.seed(123)
-#' n <- 100
-#' x_mu <- 0
-#' x_sigma <- 1
-#' z_shape <- 1
-#'
-#' true_beta <- matrix(c(1, -2), ncol = 1)
-#' true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
-#'
-#' my_data <- COMBO_data(sample_size = n,
-#'                       x_mu = x_mu, x_sigma = x_sigma,
-#'                       z_shape = z_shape,
-#'                       beta = true_beta, gamma = true_gamma)
-#'
-#' obs_Y = my_data[["obs_Y"]]
-#' X = my_data[["x_design_matrix"]]
-#'
-#' unif_lower_beta <- matrix(c(-5, -5, NA, NA), nrow = 2, byrow = TRUE)
-#' unif_upper_beta <- matrix(c(5, 5, NA, NA), nrow = 2, byrow = TRUE)
-#'
-#' beta_prior_parameters <- list(lower = unif_lower_beta, upper = unif_upper_beta)
-#'
-#' modelstring = naive_model_picker(prior = "uniform")
-#' temp_model_file = tempfile()
-#' tmps = file(temp_model_file, "w")
-#' cat(modelstring, file = tmps)
-#' close(tmps)
-#'
-#' jags_model_object <- naive_jags_picker(prior = "uniform",
-#'                                        sample_size = n,
-#'                                        dim_x = ncol(X),
-#'                                        n_cat = 2,
-#'                                        Ystar = obs_Y, X = X,
-#'                                        beta_prior_parameters = beta_prior_parameters,
-#'                                        number_MCMC_chains = 1,
-#'                                        naive_model_file = temp_model_file)
-#' }
-
 naive_jags_picker <- function(prior, sample_size, dim_x, n_cat,
                               Ystar, X, beta_prior_parameters,
                               number_MCMC_chains,

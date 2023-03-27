@@ -30,30 +30,3 @@ The second column contains the conditional probability \eqn{P(Y^* = 2 | Y = 2, Z
 \description{
 Compute the Mean Conditional Probability of Correct Classification, by True Outcome Across all Subjects for each MCMC Chain
 }
-\examples{
-\dontrun{
-set.seed(123)
-n <- 100
-ones <- rep(1, n)
-z <- rnorm(n)
-Z <- matrix(c(ones, z), nrow = n, byrow = FALSE)
-gamma <- matrix(c(1, 2, 3, 4), nrow = 2, byrow = FALSE)
-example_chain1 <- matrix(c(rnorm(n, mean = gamma[1,1]),
-                           rnorm(n, mean = gamma[2,1]),
-                           rnorm(n, mean = gamma[1,2]),
-                           rnorm(n, mean = gamma[2,2])),
-                           nrow = n, byrow = FALSE)
-colnames(example_chain1) <- c("gamma[1,1,1]", "gamma[1,1,2]",
-                              "gamma[1,2,1]", "gamma[1,2,2]")
-example_chain2 <- matrix(c(rnorm(n, mean = gamma[1,1]),
-                           rnorm(n, mean = gamma[2,1]),
-                           rnorm(n, mean = gamma[1,2]),
-                           rnorm(n, mean = gamma[2,2])),
-                           nrow = n, byrow = FALSE)
-colnames(example_chain2) <- c("gamma[1,1,1]", "gamma[1,1,2]",
-                              "gamma[1,2,1]", "gamma[1,2,2]")
-chains_list <- list(example_chain1, example_chain2)
-pistar_by_chain(n_chains = 2, chains_list = chains_list,
-                Z = Z, n = n, n_cat = 2)
-}
-}

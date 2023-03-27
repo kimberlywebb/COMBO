@@ -19,8 +19,3 @@ for MCMC estimation with \code{rjags}.
 \description{
 Select a Naive Two-Stage Regression Model for a Given Prior
 }
-\examples{
-\dontrun{
-t_model <- naive_model_picker_2stage(prior = "t")
-}
-}
