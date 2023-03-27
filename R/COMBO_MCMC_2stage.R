@@ -127,7 +127,7 @@
 #' @importFrom dplyr select filter `%>%` mutate group_by ungroup summarise all_of
 #' @importFrom tidyr gather
 #'
-#' @examples \dontrun{
+#' @examples \donttest{
 #' set.seed(123)
 #' n <- 1000
 #' x_mu <- 0

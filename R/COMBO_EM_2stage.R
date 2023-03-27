@@ -66,7 +66,7 @@
 #' @importFrom turboEM turboem
 #' @importFrom Matrix nearPD
 #'
-#' @examples \dontrun{
+#' @examples \donttest{
 #' set.seed(123)
 #' n <- 1000
 #' x_mu <- 0

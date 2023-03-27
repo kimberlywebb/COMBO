@@ -157,7 +157,7 @@ whether or not the algorithm converged for a given parameter estimate.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
 <span class="r-in"><span><span class="va">x_mu</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
@@ -174,6 +174,20 @@ whether or not the algorithm converged for a given parameter estimate.</p>
 <span class="r-in"><span>                             z_shape <span class="op">=</span> <span class="va">z_shape</span>, v_shape <span class="op">=</span> <span class="va">v_shape</span>,</span></span>
 <span class="r-in"><span>                             beta <span class="op">=</span> <span class="va">true_beta</span>, gamma <span class="op">=</span> <span class="va">true_gamma</span>, delta <span class="op">=</span> <span class="va">true_delta</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Ytilde"</span><span class="op">]</span><span class="op">]</span>, <span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Ystar"</span><span class="op">]</span><span class="op">]</span>, <span class="va">my_data</span><span class="op">[[</span><span class="st">"true_Y"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , ,  = 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       1   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1 457 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2  51  38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , ,  = 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       1   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1  30  40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2  39 232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">beta_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">true_beta</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gamma_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">true_gamma</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -188,7 +202,28 @@ whether or not the algorithm converged for a given parameter estimate.</p>
 <span class="r-in"><span>                              gamma_start <span class="op">=</span> <span class="va">gamma_start</span>,</span></span>
 <span class="r-in"><span>                              delta_start <span class="op">=</span> <span class="va">delta_start</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">EM_results</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">EM_results</span><span class="co"># }</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Parameter  Estimates        SE Convergence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          beta1  1.4857609 0.3238284        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          beta2 -2.3265703 0.4682280        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        gamma11  0.3211518 0.1672771        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        gamma21  1.1840635 0.2141527        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        gamma12 -1.1636818 0.3454245        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        gamma22 -0.7654293 0.2742785        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      delta1111  1.0949581 0.2177926        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      delta2111  1.4164513 0.3075869        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      delta1121  0.1675273 0.6064557        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     delta2121  1.1181800 0.3890782        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     delta1112 -1.0898378 1.5149193        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     delta2112  0.1323471 0.9157872        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     delta1122 -0.9378235 0.3907942        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     delta2122 -1.4545354 0.4430070        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   naive_beta1  2.0395634 0.3586543        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   naive_beta2 -3.0261792 0.5118091        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 naive_delta11  0.6391778 0.1795188        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 naive_delta21  1.1309208 0.2665479        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 naive_delta12 -0.6268924 0.3503954        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 naive_delta22 -1.2690082 0.5441009        TRUE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

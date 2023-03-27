@@ -147,7 +147,7 @@ first-stage observation, and second-stage observation mechanisms, respectively,
 in a two-stage binary outcome misclassification model.
 }
 \examples{
-\dontrun{
+\donttest{
 set.seed(123)
 n <- 1000
 x_mu <- 0

@@ -114,37 +114,6 @@ This value should be equal to the number of rows of the design matrix, <code>X</
 at the provided inputs.</p>
     </div>
 
-    <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
-<span class="r-in"><span><span class="va">x_mu</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
-<span class="r-in"><span><span class="va">x_sigma</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
-<span class="r-in"><span><span class="va">z_shape</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">true_beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">true_gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">.5</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="COMBO_data.html">COMBO_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="va">n</span>,</span></span>
-<span class="r-in"><span>                      x_mu <span class="op">=</span> <span class="va">x_mu</span>, x_sigma <span class="op">=</span> <span class="va">x_sigma</span>,</span></span>
-<span class="r-in"><span>                      z_shape <span class="op">=</span> <span class="va">z_shape</span>,</span></span>
-<span class="r-in"><span>                      beta <span class="op">=</span> <span class="va">true_beta</span>, gamma <span class="op">=</span> <span class="va">true_gamma</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">obs_Y_matrix</span> <span class="op">=</span> <span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Y_matrix"</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="va">my_data</span><span class="op">[[</span><span class="st">"x_design_matrix"</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">Z</span> <span class="op">=</span> <span class="va">my_data</span><span class="op">[[</span><span class="st">"z_design_matrix"</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">starting_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">loglik_value</span> <span class="op">&lt;-</span> <span class="fu"><a href="loglik.html">loglik</a></span><span class="op">(</span><span class="va">starting_values</span>,</span></span>
-<span class="r-in"><span>                       obs_Y_matrix <span class="op">=</span> <span class="va">obs_Y_matrix</span>,</span></span>
-<span class="r-in"><span>                       X <span class="op">=</span> <span class="va">X</span>, Z <span class="op">=</span> <span class="va">Z</span>,</span></span>
-<span class="r-in"><span>                       sample_size <span class="op">=</span> <span class="va">n</span>, n_cat <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">loglik_value</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-</code></pre></div>
-    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
