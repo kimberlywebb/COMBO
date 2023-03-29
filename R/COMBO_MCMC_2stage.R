@@ -128,6 +128,26 @@
 #' @importFrom tidyr gather
 #'
 #' @examples \donttest{
+#'
+#' # Helper functions
+#' sum_every_n <- function(x, n){
+#' vector_groups = split(x,
+#'                       ceiling(seq_along(x) / n))
+#' sum_x = Reduce(`+`, vector_groups)
+#'
+#' return(sum_x)
+#' }
+#'
+#' sum_every_n1 <- function(x, n){
+#' vector_groups = split(x,
+#'                       ceiling(seq_along(x) / n))
+#' sum_x = Reduce(`+`, vector_groups) + 1
+#'
+#' return(sum_x)
+#' }
+#'
+#' # Example
+#'
 #' set.seed(123)
 #' n <- 1000
 #' x_mu <- 0
