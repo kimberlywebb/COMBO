@@ -61,6 +61,8 @@
 #' @param number_MCMC_chains An integer specifying the number of MCMC chains to compute.
 #' @param model_file A .BUG file and used
 #'   for MCMC estimation with \code{rjags}.
+#' @param display_progress A logical value specifying whether messages should be
+#'   displayed during model compilation. The default is \code{TRUE}.
 #'
 #' @return \code{jags_picker} returns a \code{jags.model} object for a two-stage binary
 #'   outcome misclassification model. The object includes the specified
@@ -75,7 +77,10 @@ jags_picker_2stage <- function(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
                         gamma_prior_parameters,
                         delta_prior_parameters,
                         number_MCMC_chains,
-                        model_file){
+                        model_file, display_progress = TRUE){
+
+  quiet_argument <- !display_progress
+
   if (prior == "t") {
     jags_object <- jags.model(
       model_file,
@@ -96,7 +101,8 @@ jags_picker_2stage <- function(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
                   t_mu_delta = delta_prior_parameters[[1]],
                   t_tau_delta = delta_prior_parameters[[2]],
                   t_df_delta = delta_prior_parameters[[3]]),
-      n.chains = number_MCMC_chains)
+      n.chains = number_MCMC_chains,
+      quiet = quiet_argument)
   } else if (prior == "uniform") {
     jags_object <- jags.model(
       model_file,
@@ -114,7 +120,8 @@ jags_picker_2stage <- function(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
                   unif_u_gamma = gamma_prior_parameters[[2]],
                   unif_l_delta = delta_prior_parameters[[1]],
                   unif_u_delta = delta_prior_parameters[[2]]),
-      n.chains = number_MCMC_chains)
+      n.chains = number_MCMC_chains,
+      quiet = quiet_argument)
   } else if (prior == "normal") {
     jags_object <- jags.model(
       model_file,
@@ -132,7 +139,8 @@ jags_picker_2stage <- function(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
                   normal_sigma_gamma = gamma_prior_parameters[[2]],
                   normal_mu_delta = delta_prior_parameters[[1]],
                   normal_sigma_delta = delta_prior_parameters[[2]]),
-      n.chains = number_MCMC_chains)
+      n.chains = number_MCMC_chains,
+      quiet = quiet_argument)
   } else if (prior == "dexp") {
     jags_object <- jags.model(
       model_file,
@@ -150,7 +158,8 @@ jags_picker_2stage <- function(prior, sample_size, dim_x, dim_z, dim_v, n_cat,
                   dexp_b_gamma = gamma_prior_parameters[[2]],
                   dexp_mu_delta = delta_prior_parameters[[1]],
                   dexp_b_delta = delta_prior_parameters[[2]]),
-      n.chains = number_MCMC_chains)
+      n.chains = number_MCMC_chains,
+      quiet = quiet_argument)
   } else { print("Please select a model.")}
 
   return(jags_object)

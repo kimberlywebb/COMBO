@@ -16,7 +16,8 @@ jags_picker(
   beta_prior_parameters,
   gamma_prior_parameters,
   number_MCMC_chains,
-  model_file
+  model_file,
+  display_progress = TRUE
 )
 }
 \arguments{
@@ -74,9 +75,12 @@ and all elements in the \code{n_cat} row should be set to \code{NA}.}
 
 \item{model_file}{A .BUG file and used
 for MCMC estimation with \code{rjags}.}
+
+\item{display_progress}{A logical value specifying whether messages should be
+displayed during model compilation. The default is \code{TRUE}.}
 }
 \value{
-\code{jags_picker} returns a \code{jags.model} object for a binay
+\code{jags_picker} returns a \code{jags.model} object for a binary
 outcome misclassification model. The object includes the specified
 prior distribution, model, number of chains, and data.
 }
