@@ -61,7 +61,8 @@
 <span>  <span class="va">beta_prior_parameters</span>,</span>
 <span>  <span class="va">gamma_prior_parameters</span>,</span>
 <span>  <span class="va">number_MCMC_chains</span>,</span>
-<span>  <span class="va">model_file</span></span>
+<span>  <span class="va">model_file</span>,</span>
+<span>  display_progress <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -145,12 +146,17 @@ and all elements in the <code>n_cat</code> row should be set to <code>NA</code>.
 <dd><p>A .BUG file and used
 for MCMC estimation with <code>rjags</code>.</p></dd>
 
+
+<dt>display_progress</dt>
+<dd><p>A logical value specifying whether messages should be
+displayed during model compilation. The default is <code>TRUE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p><code>jags_picker</code> returns a <code>jags.model</code> object for a binay
+<p><code>jags_picker</code> returns a <code>jags.model</code> object for a binary
 outcome misclassification model. The object includes the specified
 prior distribution, model, number of chains, and data.</p>
     </div>

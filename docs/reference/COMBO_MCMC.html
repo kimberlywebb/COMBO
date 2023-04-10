@@ -64,7 +64,8 @@ model.</p>
 <span>  <span class="va">gamma_prior_parameters</span>,</span>
 <span>  number_MCMC_chains <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  MCMC_sample <span class="op">=</span> <span class="fl">2000</span>,</span>
-<span>  burn_in <span class="op">=</span> <span class="fl">1000</span></span>
+<span>  burn_in <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  display_progress <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -138,6 +139,11 @@ The default is <code>2000</code>.</p></dd>
 <dt>burn_in</dt>
 <dd><p>An integer specifying the number of MCMC samples to discard
 for the burn-in period. The default is <code>1000</code>.</p></dd>
+
+
+<dt>display_progress</dt>
+<dd><p>A logical value specifying whether messages should be
+displayed during model compilation. The default is <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -263,14 +269,14 @@ provides the posterior median computed across all chains and all samples.</p></d
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">MCMC_results</span><span class="op">$</span><span class="va">posterior_means_df</span><span class="co"># }</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   parameter    posterior_mean posterior_median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> beta[1,1]            0.895            0.903 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> beta[1,2]           -<span style="color: #BB0000;">2.32</span>            -<span style="color: #BB0000;">2.29</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> gamma[1,1,1]         0.471            0.455 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> gamma[1,2,1]        -<span style="color: #BB0000;">0.030</span><span style="color: #BB0000; text-decoration: underline;">8</span>           0.010<span style="text-decoration: underline;">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> gamma[1,1,2]         1.18             1.18  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> gamma[1,2,2]        -<span style="color: #BB0000;">1.53</span>            -<span style="color: #BB0000;">1.53</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parameter_name posterior_mean posterior_median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> beta[1,1]              0.937            0.938 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> beta[1,2]             -<span style="color: #BB0000;">2.34</span>            -<span style="color: #BB0000;">2.31</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> gamma[1,1,1]           0.560            0.560 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> gamma[1,2,1]          -<span style="color: #BB0000;">0.012</span><span style="color: #BB0000; text-decoration: underline;">8</span>          -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> gamma[1,1,2]           1.00             0.955 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> gamma[1,2,2]          -<span style="color: #BB0000;">1.60</span>            -<span style="color: #BB0000;">1.49</span>  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

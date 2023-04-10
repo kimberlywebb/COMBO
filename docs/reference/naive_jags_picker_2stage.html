@@ -62,7 +62,8 @@
 <span>  <span class="va">beta_prior_parameters</span>,</span>
 <span>  <span class="va">delta_prior_parameters</span>,</span>
 <span>  <span class="va">number_MCMC_chains</span>,</span>
-<span>  <span class="va">naive_model_file</span></span>
+<span>  <span class="va">naive_model_file</span>,</span>
+<span>  display_progress <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -150,6 +151,11 @@ and all elements in the <code>n_cat</code> row should be set to <code>NA</code>.
 <dt>naive_model_file</dt>
 <dd><p>A .BUG file and used
 for MCMC estimation with <code>rjags</code>.</p></dd>
+
+
+<dt>display_progress</dt>
+<dd><p>A logical value specifying whether messages should be
+displayed during model compilation. The default is <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
