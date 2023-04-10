@@ -308,9 +308,12 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                              model_file = temp_model_file,
                              display_progress = display_progress)
 
+  display_progress_bar <- ifelse(display_progress == TRUE, "text", "none")
+
   posterior_sample = coda.samples(jags,
                                   c('beta', 'gamma', 'delta'),
-                                  MCMC_sample)
+                                  MCMC_sample,
+                                  progress.bar = display_progress_bar)
 
   pistarjj = pistar_by_chain(n_chains = number_MCMC_chains,
                              chains_list = posterior_sample,
@@ -348,7 +351,8 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
 
   naive_posterior_sample = coda.samples(naive_jags,
                                         c('beta', 'delta'),
-                                        MCMC_sample)
+                                        MCMC_sample,
+                                        progress.bar = display_progress_bar)
 
   naive_posterior_sample_df <- do.call(rbind.data.frame, naive_posterior_sample)
   naive_posterior_sample_df$chain_number <- rep(1:number_MCMC_chains, each = MCMC_sample)
