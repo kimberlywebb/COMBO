@@ -17,7 +17,8 @@ naive_jags_picker_2stage(
   beta_prior_parameters,
   delta_prior_parameters,
   number_MCMC_chains,
-  naive_model_file
+  naive_model_file,
+  display_progress = TRUE
 )
 }
 \arguments{
@@ -78,6 +79,9 @@ and all elements in the \code{n_cat} row should be set to \code{NA}.}
 
 \item{naive_model_file}{A .BUG file and used
 for MCMC estimation with \code{rjags}.}
+
+\item{display_progress}{A logical value specifying whether messages should be
+displayed during model compilation. The default is \code{TRUE}.}
 }
 \value{
 \code{naive_jags_picker_2stage} returns a \code{jags.model} object for a naive

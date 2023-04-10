@@ -27,6 +27,8 @@
 #' @param number_MCMC_chains An integer specifying the number of MCMC chains to compute.
 #' @param naive_model_file A .BUG file and used
 #'   for MCMC estimation with \code{rjags}.
+#' @param display_progress A logical value specifying whether messages should be
+#'   displayed during model compilation. The default is \code{TRUE}.
 #'
 #' @return \code{naive_jags_picker} returns a \code{jags.model} object for a naive
 #'   logistic regression model predicting the potentially misclassified \code{Y*}
@@ -39,7 +41,11 @@
 naive_jags_picker <- function(prior, sample_size, dim_x, n_cat,
                               Ystar, X, beta_prior_parameters,
                               number_MCMC_chains,
-                              naive_model_file){
+                              naive_model_file,
+                              display_progress = TRUE){
+
+  quiet_argument <- !display_progress
+
   if (prior == "t") {
     jags_object <- jags.model(
       naive_model_file,
@@ -51,7 +57,8 @@ naive_jags_picker <- function(prior, sample_size, dim_x, n_cat,
                   t_mu_beta = beta_prior_parameters[[1]],
                   t_tau_beta = beta_prior_parameters[[2]],
                   t_df_beta = beta_prior_parameters[[3]]),
-      n.chains = number_MCMC_chains)
+      n.chains = number_MCMC_chains,
+      quiet = quiet_argument)
   } else if (prior == "uniform") {
     jags_object <- jags.model(
       naive_model_file,
@@ -62,7 +69,8 @@ naive_jags_picker <- function(prior, sample_size, dim_x, n_cat,
                   x = X,
                   unif_l_beta = beta_prior_parameters[[1]],
                   unif_u_beta = beta_prior_parameters[[2]]),
-      n.chains = number_MCMC_chains)
+      n.chains = number_MCMC_chains,
+      quiet = quiet_argument)
   } else if (prior == "normal") {
     jags_object <- jags.model(
       naive_model_file,
@@ -73,7 +81,8 @@ naive_jags_picker <- function(prior, sample_size, dim_x, n_cat,
                   x = X,
                   normal_mu_beta = beta_prior_parameters[[1]],
                   normal_sigma_beta = beta_prior_parameters[[2]]),
-      n.chains = number_MCMC_chains)
+      n.chains = number_MCMC_chains,
+      quiet = quiet_argument)
   } else if (prior == "dexp") {
     jags_object <- jags.model(
       naive_model_file,
@@ -84,7 +93,8 @@ naive_jags_picker <- function(prior, sample_size, dim_x, n_cat,
                   x = X,
                   dexp_mu_beta = beta_prior_parameters[[1]],
                   dexp_b_beta = beta_prior_parameters[[2]]),
-      n.chains = number_MCMC_chains)
+      n.chains = number_MCMC_chains,
+      quiet = quiet_argument)
   } else { print("Please select a model.")}
 
   return(jags_object)

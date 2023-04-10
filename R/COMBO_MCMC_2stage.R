@@ -83,6 +83,8 @@
 #'   The default is \code{2000}.
 #' @param burn_in An integer specifying the number of MCMC samples to discard
 #'   for the burn-in period. The default is \code{1000}.
+#' @param display_progress A logical value specifying whether messages should be
+#'   displayed during model compilation. The default is \code{TRUE}.
 #'
 #' @return \code{COMBO_MCMC_2stage} returns a list of the posterior samples and posterior
 #'   means for both the binary outcome misclassification model and a naive logistic
@@ -267,7 +269,8 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                               naive_delta_prior_parameters,
                               number_MCMC_chains = 4,
                               MCMC_sample = 2000,
-                              burn_in = 1000){
+                              burn_in = 1000,
+                              display_progress = TRUE){
 
   # Define global variables to make the "NOTES" happy.
   chain_number <- NULL
@@ -302,7 +305,8 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                              beta_prior_parameters, gamma_prior_parameters,
                              delta_prior_parameters,
                              number_MCMC_chains,
-                             model_file = temp_model_file)
+                             model_file = temp_model_file,
+                             display_progress = display_progress)
 
   posterior_sample = coda.samples(jags,
                                   c('beta', 'gamma', 'delta'),
@@ -339,7 +343,8 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                                          beta_prior_parameters,
                                          naive_delta_prior_parameters,
                                          number_MCMC_chains,
-                                         naive_model_file = naive_temp_model_file)
+                                         naive_model_file = naive_temp_model_file,
+                                         display_progress = display_progress)
 
   naive_posterior_sample = coda.samples(naive_jags,
                                         c('beta', 'delta'),

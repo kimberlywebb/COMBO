@@ -17,7 +17,8 @@ COMBO_MCMC_2stage(
   naive_delta_prior_parameters,
   number_MCMC_chains = 4,
   MCMC_sample = 2000,
-  burn_in = 1000
+  burn_in = 1000,
+  display_progress = TRUE
 )
 }
 \arguments{
@@ -112,6 +113,9 @@ The default is \code{2000}.}
 
 \item{burn_in}{An integer specifying the number of MCMC samples to discard
 for the burn-in period. The default is \code{1000}.}
+
+\item{display_progress}{A logical value specifying whether messages should be
+displayed during model compilation. The default is \code{TRUE}.}
 }
 \value{
 \code{COMBO_MCMC_2stage} returns a list of the posterior samples and posterior
