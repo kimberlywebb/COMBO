@@ -137,7 +137,7 @@ naive_jags_picker_2stage <- function(prior, sample_size, dim_x, dim_v, n_cat,
                   dexp_b_delta = delta_prior_parameters[[2]]),
       n.chains = number_MCMC_chains,
       quiet = quiet_argument)
-  } else { print("Please select a model.")}
+  } else { stop("Please select a model.")}
 
   return(jags_object)
 }

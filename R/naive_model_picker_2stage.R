@@ -198,7 +198,7 @@ naive_model_picker_2stage <- function(prior) {
                           ifelse(prior == "uniform", unif_modelstring,
                                  ifelse(prior == "normal", normal_modelstring,
                                         ifelse(prior == "dexp", dexp_modelstring,
-                                               print("Please select a prior distribution.")))))
+                                               stop("Please select a prior distribution.")))))
 
   return(selected_model)
 }

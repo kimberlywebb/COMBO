@@ -221,7 +221,7 @@ selected_model = ifelse(prior == "t", t_modelstring,
                         ifelse(prior == "uniform", unif_modelstring,
                                ifelse(prior == "normal", normal_modelstring,
                                       ifelse(prior == "dexp", dexp_modelstring,
-                                             print("Please select a prior distribution.")))))
+                                             stop("Please select a prior distribution.")))))
 
 return(selected_model)
 

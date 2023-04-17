@@ -95,7 +95,7 @@ naive_jags_picker <- function(prior, sample_size, dim_x, n_cat,
                   dexp_b_beta = beta_prior_parameters[[2]]),
       n.chains = number_MCMC_chains,
       quiet = quiet_argument)
-  } else { print("Please select a model.")}
+  } else { stop("Please select a model.")}
 
   return(jags_object)
 }
