@@ -199,11 +199,11 @@ COMBO_EM <- function(Ystar,
   pistar_11 <- mean(results_i_pistar_v[1:sample_size, 1])
   pistar_22 <- mean(results_i_pistar_v[(sample_size + 1):(2*sample_size), 2])
 
-  flip_pistar_11 <- 1 - pistar_22
+  flip_pistar11 <- 1 - pistar_22
   flip_pistar22 <- 1 - pistar_11
 
   J <- pistar_11 + pistar_22 - 1
-  J_flip <- flip_pistar_11 + flip_pistar_22 - 1
+  J_flip <- flip_pistar11 + flip_pistar22 - 1
 
   estimates_i <- if ((J_flip <= J) |
                      (is.na(pistar_11) & is.na(pistar_22))) {
