@@ -185,36 +185,26 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
   # Naive model
   Ystar_01 <- ifelse(Ystar == 1, 1, 0)
   Ytilde_01 <- ifelse(Ytilde == 1, 1, 0)
-  naive_start_beta <- glm(Ystar_01 ~ X[,-1], family = "binomial")
-  naive_start_delta1 <- glm(Ytilde_01[which(Ystar == 1)] ~ V[which(Ystar == 1), -1],
-                            family = "binomial")
-  naive_start_delta2 <- glm(Ytilde_01[which(Ystar == 2)] ~ V[which(Ystar == 2), -1],
-                            family = "binomial")
-  naive_results <- optim(par = c(unname(coef(naive_start_beta)),
-                                 unname(coef(naive_start_delta1)),
-                                 unname(coef(naive_start_delta2))),
-                         fn = naive_loglik_2stage,
-                         X = X, V = V,
-                         obs_Ystar_matrix = obs_Ystar_matrix,
-                         obs_Ytilde_matrix = obs_Ytilde_matrix,
-                         sample_size = sample_size,
-                         n_cat = n_cat,
-                         hessian = TRUE,
-                         control = list(maxit = max_em_iterations))
-  naive_se <- tryCatch(sqrt(diag(solve(naive_results$hessian))),
-                       silent = TRUE,
-                       error = function(e) rep(NA, length(c(unname(coef(naive_start_beta)),
-                                                            unname(coef(naive_start_delta1)),
-                                                            unname(coef(naive_start_delta2))))))
-  naive_convergence <- ifelse(naive_results$convergence == 1, "maxit reached",
-                              ifelse(naive_results$convergence == 10,
-                                     "degenerency in nelder-mead simplex",
-                                     ifelse(naive_results$convergence == 51,
-                                            "warning from L-BFGS-B",
-                                            ifelse(naive_results$convergence == 52,
-                                                   "error from L-BFGS-B",
-                                                   ifelse(naive_results$convergence == 0,
-                                                          TRUE, NA)))))
+
+  outcome1_model <- glm(Ystar_01 ~ X[,-1], family = "binomial")
+
+  outcome2_ystar1_model <- glm(Ytilde_01[which(Ystar == 1)] ~ V[which(Ystar == 1), -1],
+                               family = "binomial")
+  outcome2_ystar2_model <- glm(Ytilde_01[which(Ystar == 2)] ~ V[which(Ystar == 2), -1],
+                               family = "binomial")
+
+  naive_param <- c(coef(summary(outcome1_model))[,2],
+                   coef(summary(outcome2_ystar1_model))[,2],
+                   coef(summary(outcome2_ystar2_model))[,2])
+
+  naive_se <- c(coef(summary(outcome1_model))[,3],
+                coef(summary(outcome2_ystar1_model))[,3],
+                coef(summary(outcome2_ystar2_model))[,3])
+
+  naive_convergence <- c(rep(outcome1_model$converged, nrow(coef(summary(outcome1_model)))),
+                         rep(outcome2_ystar1_model$converged, nrow(coef(summary(outcome2_ystar1_model)))),
+                         rep(outcome2_ystar2_model$converged, nrow(coef(summary(outcome2_ystar2_model)))))
+
 
   # Do label switching correction within the EM algorithm simulation
   results_i_gamma <- matrix(turboEM::pars(results)[(ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))],
@@ -311,14 +301,13 @@ COMBO_EM_2stage <- function(Ystar, Ytilde,
                                         delta_param_names,
                                         naive_param_names),
                           Estimates = c(c(estimates_i),
-                                        c(naive_results$par)),
+                                        c(naive_param)),
                           SE = c(SE_EM, naive_se),
                           Convergence = c(rep(results$convergence,
                                               length(c(beta_param_names,
                                                        gamma_param_names,
                                                        delta_param_names))),
-                                          rep(naive_convergence,
-                                              length(naive_param_names))))
+                                          naive_convergence))
 
   return(estimates)
 }
