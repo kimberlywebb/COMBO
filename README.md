@@ -33,5 +33,5 @@ install.packages("COMBO")
 
 # Install the development version from GitHub:
 # install.packages("devtools")
-devtools::install_github("kimhochstedler/COMBO")
+devtools::install_github("kimberlywebb/COMBO")
 ```
