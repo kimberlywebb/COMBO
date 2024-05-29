@@ -1,48 +1,48 @@
-#' Generate Data to use in two-stage COMBO Functions
+#' Generate data to use in two-stage COMBO Functions
 #'
 #' @param sample_size An integer specifying the sample size of the generated data set.
 #' @param x_mu A numeric value specifying the mean of \code{x} predictors
 #' generated from a Normal distribution.
 #' @param x_sigma A positive numeric value specifying the standard deviation of
 #'   \code{x} predictors generated from a Normal distribution.
-#' @param z_shape A positive numeric value specifying the shape parameter of
-#'   \code{z} predictors generated from a Gamma distribution.
-#' @param v_shape A positive numeric value specifying the shape parameter of
-#'   \code{v} predictors generated from a Gamma distribution.
+#' @param z1_shape A positive numeric value specifying the shape parameter of
+#'   \code{z1} predictors generated from a Gamma distribution.
+#' @param z2_shape A positive numeric value specifying the shape parameter of
+#'   \code{z2} predictors generated from a Gamma distribution.
 #' @param beta A column matrix of \eqn{\beta} parameter values (intercept, slope)
 #'   to generate data under in the true outcome mechanism.
-#' @param gamma A numeric matrix of \eqn{\gamma} parameters
+#' @param gamma1 A numeric matrix of \eqn{\gamma^{(1)}} parameters
 #'   to generate data under in the first-stage observation mechanism.
-#'   In matrix form, the \code{gamma} matrix rows correspond to intercept (row 1)
-#'   and slope (row 2) terms. The gamma parameter matrix columns correspond to the true outcome categories
+#'   In matrix form, the \code{gamma1} matrix rows correspond to intercept (row 1)
+#'   and slope (row 2) terms. The \code{gamma1} parameter matrix columns correspond to the true outcome categories
 #'   \eqn{Y \in \{1, 2\}}.
-#' @param delta A numeric array of \eqn{\delta} parameters to generate data under
-#'   the second-stage observation mechanism. In array form, the \code{delta} matrix rows
+#' @param gamma2 A numeric array of \eqn{\gamma^{(2)}} parameters to generate data under
+#'   the second-stage observation mechanism. In array form, the \code{gamma2} matrix rows
 #'   correspond to intercept (row 1) and slope (row 2) terms. The matrix columns correspond
-#'   to first-stage observed outcome categories. The third dimension of the \code{delta}
+#'   to first-stage observed outcome categories. The third dimension of the \code{gamma2}
 #'   array is indexed by the true outcome categories.
 #'
 #' @return \code{COMBO_data_2stage} returns a list of generated data elements:
-#'   \item{obs_Ystar}{A vector of first-stage observed outcomes.}
-#'   \item{obs_Ytilde}{A vector of second-stage observed outcomes.}
+#'   \item{obs_Ystar1}{A vector of first-stage observed outcomes.}
+#'   \item{obs_Ystar2}{A vector of second-stage observed outcomes.}
 #'   \item{true_Y}{A vector of true outcomes.}
-#'   \item{obs_Ystar_matrix}{A numeric matrix of indicator variables (0, 1) for the first-stage observed
-#'   outcome \code{Y*}. Rows of the matrix correspond to each subject. Columns of
+#'   \item{obs_Ystar1_matrix}{A numeric matrix of indicator variables (0, 1) for the first-stage observed
+#'   outcome \eqn{Y^{*(1)}}. Rows of the matrix correspond to each subject. Columns of
 #'   the matrix correspond to each observed outcome category. Each row contains
 #'   exactly one 0 entry and exactly one 1 entry.}
-#'   \item{obs_Ytilde_matrix}{A numeric matrix of indicator variables (0, 1) for the second-stage observed
-#'   outcome \code{Y*}. Rows of the matrix correspond to each subject. Columns of
+#'   \item{obs_Ystar2_matrix}{A numeric matrix of indicator variables (0, 1) for the second-stage observed
+#'   outcome \eqn{Y^{*(2)}}. Rows of the matrix correspond to each subject. Columns of
 #'   the matrix correspond to each observed outcome category. Each row contains
 #'   exactly one 0 entry and exactly one 1 entry.}
 #'   \item{x}{A vector of generated predictor values in the true outcome
 #'   mechanism, from the Normal distribution.}
-#'   \item{z}{A vector of generated predictor values in the first-stage observation
+#'   \item{z1}{A vector of generated predictor values in the first-stage observation
 #'   mechanism from the Gamma distribution.}
-#'   \item{v}{A vector of generated predictor values in the second-stage observation
+#'   \item{z2}{A vector of generated predictor values in the second-stage observation
 #'   mechanism from the Gamma distribution.}
 #'   \item{x_design_matrix}{The design matrix for the \code{x} predictor.}
-#'   \item{z_design_matrix}{The design matrix for the \code{z} predictor.}
-#'   \item{v_design_matrix}{The design matrix for the \code{v} predictor.}
+#'   \item{z1_design_matrix}{The design matrix for the \code{z1} predictor.}
+#'   \item{z2_design_matrix}{The design matrix for the \code{z2} predictor.}
 #'
 #' @export
 #'
@@ -52,25 +52,30 @@
 #'
 #' @examples
 #' set.seed(123)
-#' n <- 500
+#' n <- 1000
 #' x_mu <- 0
 #' x_sigma <- 1
-#' z_shape <- 1
-#' v_shape <- 1
+#' z1_shape <- 1
+#' z2_shape <- 1
 #'
 #' true_beta <- matrix(c(1, -2), ncol = 1)
-#' true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
-#' true_delta <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
+#' true_gamma1 <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
+#' true_gamma2 <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
 #'
 #' my_data <- COMBO_data_2stage(sample_size = n,
 #'                              x_mu = x_mu, x_sigma = x_sigma,
-#'                              z_shape = z_shape, v_shape = v_shape,
-#'                              beta = true_beta, gamma = true_gamma, delta = true_delta)
-#' table(my_data[["obs_Ytilde"]], my_data[["obs_Ystar"]], my_data[["true_Y"]])
+#'                              z1_shape = z1_shape, z2_shape = z2_shape,
+#'                              beta = true_beta, gamma1 = true_gamma1, gamma2 = true_gamma2)
+#' table(my_data[["obs_Ystar2"]], my_data[["obs_Ystar1"]], my_data[["true_Y"]])
 COMBO_data_2stage <- function(sample_size,
                               x_mu, x_sigma,
-                              z_shape, v_shape,
-                              beta, gamma, delta){
+                              z1_shape, z2_shape,
+                              beta, gamma1, gamma2){
+
+  z_shape <- z1_shape
+  v_shape <- z2_shape
+  gamma <- gamma1
+  delta <- gamma2
 
   n_cat <- 2
   x <- rnorm(sample_size, x_mu, x_sigma)
@@ -126,17 +131,17 @@ COMBO_data_2stage <- function(sample_size,
                             byrow = FALSE)
   obs_Ytilde_matrix <- 1 * (obs_Ytilde_reps == category_matrix)
 
-  data_output <- list(obs_Ystar = obs_Ystar,
-                      obs_Ytilde = obs_Ytilde,
+  data_output <- list(obs_Ystar1 = obs_Ystar,
+                      obs_Ystar2 = obs_Ytilde,
                       true_Y = true_Y,
-                      obs_Ystar_matrix = obs_Ystar_matrix,
-                      obs_Ytilde_matrix = obs_Ytilde_matrix,
+                      obs_Ystar1_matrix = obs_Ystar_matrix,
+                      obs_Ystar2_matrix = obs_Ytilde_matrix,
                       x = x,
-                      z = z,
-                      v = v,
+                      z1 = z,
+                      z2 = v,
                       x_design_matrix = x_matrix,
-                      z_design_matrix = z_matrix,
-                      v_design_matrix = v_matrix)
+                      z1_design_matrix = z_matrix,
+                      z2_design_matrix = v_matrix)
 
   return(data_output)
 
