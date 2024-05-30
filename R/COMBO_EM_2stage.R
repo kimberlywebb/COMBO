@@ -225,10 +225,16 @@ COMBO_EM_2stage <- function(Ystar1, Ystar2,
   pistar_11 <- mean(results_i_pistar_v[1:sample_size, 1])
   pistar_22 <- mean(results_i_pistar_v[(sample_size + 1):(2*sample_size), 2])
 
+  flip_pistar11 <- 1 - pistar_22
+  flip_pistar22 <- 1 - pistar_11
+
+  J <- pistar_11 + pistar_22 - 1
+  J_flip <- flip_pistar11 + flip_pistar22 - 1
+
   pitilde_111 <- mean(results_i_pitilde[1:sample_size, 1, 1])
   pitilde_222 <- mean(results_i_pitilde[(sample_size + 1):(2*sample_size), 2, 2])
 
-  estimates_i <- if ((pistar_11 > .50 | pistar_22 > .50 | pitilde_111 > .50 | pitilde_222 > .50) |
+  estimates_i <- if ((J_flip <= J) |
                      (is.na(pistar_11) & is.na(pistar_22))) {
     # If turboem cannot estimate the parameters they will be NA.
     turboEM::pars(results)
@@ -263,8 +269,8 @@ COMBO_EM_2stage <- function(Ystar1, Ystar2,
    #                        nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),
     #                       byrow = FALSE)))
 
-  SE_EM <- if ((pistar_11 > .50 | pistar_22 > .50 | pitilde_111 > .50 | pitilde_222 > .50) |
-                     (is.na(pistar_11) & is.na(pistar_22))) {
+  SE_EM <- if ((J_flip <= J) |
+               (is.na(pistar_11) & is.na(pistar_22))) {
 
     tryCatch(sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
                               nrow = length(c(c(beta_start), c(gamma_start), c(delta_start))),

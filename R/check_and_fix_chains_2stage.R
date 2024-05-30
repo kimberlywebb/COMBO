@@ -29,10 +29,14 @@ check_and_fix_chains_2stage <- function(n_chains, chains_list,
   for(i in 1:n_chains){
     pistar11 = pistarjj_matrix[i, 1]
     pistar22 = pistarjj_matrix[i, 2]
-    pitilde111 = pitildejjj_matrix[i, 1]
-    pitilde222 = pitildejjj_matrix[i, 2]
-    output = if(pistar11 > .50 & pistar22 > .50 &
-                pitilde111 > .50 & pitilde222 > .50){
+
+    flip_pistar11 = 1 - pistar22
+    flip_pistar22 = 1 - pistar11
+
+    J = pistar11 + pistar22 - 1
+    J_flip = flip_pistar11 + flip_pistar22 - 1
+
+    output = if(J_flip <= J){
       chains_list[[i]]
     } else {label_switch_2stage(chains_list[[i]],
                                 dim_x, dim_z, dim_v, n_cat)}
