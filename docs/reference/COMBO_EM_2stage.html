@@ -173,9 +173,21 @@ whether or not the algorithm converged for a given parameter estimate.</p>
 <span class="r-in"><span>                             x_mu <span class="op">=</span> <span class="va">x_mu</span>, x_sigma <span class="op">=</span> <span class="va">x_sigma</span>,</span></span>
 <span class="r-in"><span>                             z1_shape <span class="op">=</span> <span class="va">z1_shape</span>, z2_shape <span class="op">=</span> <span class="va">z2_shape</span>,</span></span>
 <span class="r-in"><span>                             beta <span class="op">=</span> <span class="va">true_beta</span>, gamma1 <span class="op">=</span> <span class="va">true_gamma1</span>, gamma2 <span class="op">=</span> <span class="va">true_gamma2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_data_2stage(sample_size = n, x_mu = x_mu, x_sigma = x_sigma,     z1_shape = z1_shape, z2_shape = z2_shape, beta = true_beta,     gamma1 = true_gamma1, gamma2 = true_gamma2):</span> unused arguments (z1_shape = z1_shape, z2_shape = z2_shape, gamma1 = true_gamma1, gamma2 = true_gamma2)</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Ystar2"</span><span class="op">]</span><span class="op">]</span>, <span class="va">my_data</span><span class="op">[[</span><span class="st">"obs_Ystar1"</span><span class="op">]</span><span class="op">]</span>, <span class="va">my_data</span><span class="op">[[</span><span class="st">"true_Y"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'my_data' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , ,  = 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       1   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1 457 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2  51  38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , ,  = 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       1   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1  30  40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2  39 232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">beta_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">true_beta</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gamma1_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">true_gamma1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -189,10 +201,29 @@ whether or not the algorithm converged for a given parameter estimate.</p>
 <span class="r-in"><span>                              beta_start <span class="op">=</span> <span class="va">beta_start</span>,</span></span>
 <span class="r-in"><span>                              gamma1_start <span class="op">=</span> <span class="va">gamma1_start</span>,</span></span>
 <span class="r-in"><span>                              gamma2_start <span class="op">=</span> <span class="va">gamma2_start</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in COMBO_EM_2stage(Ystar1 = my_data[["obs_Ystar1"]], Ystar2 = my_data[["obs_Ystar2"]],     x_matrix = my_data[["x"]], z1_matrix = my_data[["z1"]], z2_matrix = my_data[["z2"]],     beta_start = beta_start, gamma1_start = gamma1_start, gamma2_start = gamma2_start):</span> unused arguments (Ystar1 = my_data[["obs_Ystar1"]], Ystar2 = my_data[["obs_Ystar2"]], z1_matrix = my_data[["z1"]], z2_matrix = my_data[["z2"]], gamma1_start = gamma1_start, gamma2_start = gamma2_start)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">EM_results</span><span class="co"># }</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'EM_results' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Parameter   Estimates          SE Convergence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           beta_1  1.48576087   0.3238284        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           beta_2 -2.32657028   0.4682280        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        gamma1_11  0.32115176   0.1672771        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        gamma1_21  1.18406349   0.2141527        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        gamma1_12 -1.16368178   0.3454245        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        gamma1_22 -0.76542933   0.2742785        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      gamma2_1111  1.09495809   0.2177926        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      gamma2_2111  1.41645126   0.3075869        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      gamma2_1121  0.16752733   0.6064557        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     gamma2_2121  1.11817996   0.3890782        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     gamma2_1112 -1.08983781   1.5149193        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     gamma2_2112  0.13234707   0.9157872        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     gamma2_1122 -0.93782348   0.3907942        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     gamma2_2122 -1.45453541   0.4430070        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    naive_beta_1  0.06898792   5.3173399        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    naive_beta_2  0.07839931 -10.4633987        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 naive_gamma2_11  0.17418532   5.8189020        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 naive_gamma2_21  0.19302573   4.2266253        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 naive_gamma2_12  0.14501424  -3.9715920        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 naive_gamma2_22  0.10691412   0.0766478        TRUE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
