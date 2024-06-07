@@ -332,7 +332,7 @@ COMBO_MCMC_2stage <- function(Ystar1, Ystar2, x_matrix, z1_matrix, z2_matrix,
                                   MCMC_sample,
                                   progress.bar = display_progress_bar)
 
-  pistarjj = pistar_by_chain(n_chains = number_MCMC_chains,
+  pistarjj = pistar_by_chain_2stage(n_chains = number_MCMC_chains,
                              chains_list = posterior_sample,
                              Z = Z, n = sample_size, n_cat = n_cat)
 
