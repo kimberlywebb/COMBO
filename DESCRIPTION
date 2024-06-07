@@ -70,6 +70,8 @@ Collate:
     'naive_jags_picker_2stage.R'
     'naive_loglik_2stage.R'
     'naive_model_picker_2stage.R'
+    'pistar_by_chain_2stage.R'
+    'pistar_compute_for_chains_2stage.R'
     'pitilde_by_chain.R'
     'pitilde_compute_for_chains.R'
     'true_classification_prob.R'
