@@ -115,10 +115,16 @@
     <loc>/reference/pistar_by_chain.html</loc>
   </url>
   <url>
+    <loc>/reference/pistar_by_chain_2stage.html</loc>
+  </url>
+  <url>
     <loc>/reference/pistar_compute.html</loc>
   </url>
   <url>
     <loc>/reference/pistar_compute_for_chains.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pistar_compute_for_chains_2stage.html</loc>
   </url>
   <url>
     <loc>/reference/pitilde_by_chain.html</loc>
