@@ -328,7 +328,7 @@ COMBO_MCMC_2stage <- function(Ystar1, Ystar2, x_matrix, z1_matrix, z2_matrix,
   display_progress_bar <- ifelse(display_progress == TRUE, "text", "none")
 
   posterior_sample = coda.samples(jags,
-                                  c('beta', 'gamma', 'delta'),
+                                  c('beta', 'gamma1', 'gamma2'),
                                   MCMC_sample,
                                   progress.bar = display_progress_bar)
 
@@ -367,7 +367,7 @@ COMBO_MCMC_2stage <- function(Ystar1, Ystar2, x_matrix, z1_matrix, z2_matrix,
                                          display_progress = display_progress)
 
   naive_posterior_sample = coda.samples(naive_jags,
-                                        c('beta', 'gamma1', 'gamma2'),
+                                        c('beta', 'gamma'),
                                         MCMC_sample,
                                         progress.bar = display_progress_bar)
 
