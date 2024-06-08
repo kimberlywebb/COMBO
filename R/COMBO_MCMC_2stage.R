@@ -367,7 +367,7 @@ COMBO_MCMC_2stage <- function(Ystar1, Ystar2, x_matrix, z1_matrix, z2_matrix,
                                          display_progress = display_progress)
 
   naive_posterior_sample = coda.samples(naive_jags,
-                                        c('beta', 'gamma'),
+                                        c('beta', 'gamma2'),
                                         MCMC_sample,
                                         progress.bar = display_progress_bar)
 
@@ -382,7 +382,7 @@ COMBO_MCMC_2stage <- function(Ystar1, Ystar2, x_matrix, z1_matrix, z2_matrix,
                         rep(1:n_cat, dim_v*dim_v), ",",
                         rep(rep(1:n_cat, each = dim_v), dim_v), ",",
                         rep(1:dim_v, each = n_cat * n_cat), "]")
-  naive_delta_names <- paste0("gamma[1,", rep(1:n_cat, dim_v), ",", rep(1:dim_z, each = n_cat), "]")
+  naive_delta_names <- paste0("gamma2[1,", rep(1:n_cat, dim_v), ",", rep(1:dim_z, each = n_cat), "]")
 
   naive_posterior_sample_burn <- naive_posterior_sample_df %>%
     dplyr::select(dplyr::all_of(beta_names), dplyr::all_of(naive_delta_names),
