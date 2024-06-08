@@ -29,7 +29,7 @@ naive_model_picker_2stage <- function(prior) {
     for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-      log(phitilde[i, k, j]) <- delta[k, j, 1:dim_v] %*% v[i, 1:dim_v]
+      log(phitilde[i, k, j]) <- gamma2[k, j, 1:dim_v] %*% v[i, 1:dim_v]
       pi2_obs2[i, k, j] <- phitilde[i, k, j] / (sum(phitilde[i, 1:n_cat, j]))
 
       }
@@ -48,8 +48,8 @@ naive_model_picker_2stage <- function(prior) {
   for(m in 1:n_cat){
     for(n in 1:dim_v){
 
-      delta[1, m, n] ~ dunif(unif_l_delta[1, m, n], unif_u_delta[1, m, n])
-      delta[2, m, n] <- 0
+      gamma2[1, m, n] ~ dunif(unif_l_delta[1, m, n], unif_u_delta[1, m, n])
+      gamma2[2, m, n] <- 0
     }
 
   }
@@ -75,7 +75,7 @@ naive_model_picker_2stage <- function(prior) {
     for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-      log(phitilde[i, k, j]) <- delta[k, j, 1:dim_v] %*% v[i, 1:dim_v]
+      log(phitilde[i, k, j]) <- gamma2[k, j, 1:dim_v] %*% v[i, 1:dim_v]
       pi2_obs2[i, k, j] <- phitilde[i, k, j] / (sum(phitilde[i, 1:n_cat, j]))
 
       }
@@ -94,8 +94,8 @@ naive_model_picker_2stage <- function(prior) {
   for(m in 1:n_cat){
     for(n in 1:dim_v){
 
-      delta[1, m, n] ~ dt(t_mu_delta[1, m, n], t_tau_delta[1, m, n], t_df_delta[1, m, n])
-      delta[2, m, n] <- 0
+      gamma2[1, m, n] ~ dt(t_mu_delta[1, m, n], t_tau_delta[1, m, n], t_df_delta[1, m, n])
+      gamma2[2, m, n] <- 0
     }
 
   }
@@ -121,7 +121,7 @@ naive_model_picker_2stage <- function(prior) {
     for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-      log(phitilde[i, k, j]) <- delta[k, j, 1:dim_v] %*% v[i, 1:dim_v]
+      log(phitilde[i, k, j]) <- gamma2[k, j, 1:dim_v] %*% v[i, 1:dim_v]
       pi2_obs2[i, k, j] <- phitilde[i, k, j] / (sum(phitilde[i, 1:n_cat, j]))
 
       }
@@ -140,8 +140,8 @@ naive_model_picker_2stage <- function(prior) {
   for(m in 1:n_cat){
     for(n in 1:dim_v){
 
-      delta[1, m, n] ~ dunif(normal_mu_delta[1, m, n], normal_sigma_delta[1, m, n])
-      delta[2, m, n] <- 0
+      gamma2[1, m, n] ~ dunif(normal_mu_delta[1, m, n], normal_sigma_delta[1, m, n])
+      gamma2[2, m, n] <- 0
     }
 
   }
@@ -167,7 +167,7 @@ naive_model_picker_2stage <- function(prior) {
     for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-      log(phitilde[i, k, j]) <- delta[k, j, 1:dim_v] %*% v[i, 1:dim_v]
+      log(phitilde[i, k, j]) <- gamma2[k, j, 1:dim_v] %*% v[i, 1:dim_v]
       pi2_obs2[i, k, j] <- phitilde[i, k, j] / (sum(phitilde[i, 1:n_cat, j]))
 
       }
@@ -186,8 +186,8 @@ naive_model_picker_2stage <- function(prior) {
   for(m in 1:n_cat){
     for(n in 1:dim_v){
 
-      delta[1, m, n] ~ dunif(dexp_mu_delta[1, m, n], dexp_b_delta[1, m, n])
-      delta[2, m, n] <- 0
+      gamma2[1, m, n] ~ dunif(dexp_mu_delta[1, m, n], dexp_b_delta[1, m, n])
+      gamma2[2, m, n] <- 0
     }
 
   }
