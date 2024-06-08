@@ -73,8 +73,8 @@ misclassification_prob2 <- function(gamma2_array,
   pitilde_array = pitilde_compute(delta_array, V, sample_size, n_cat)
   pitilde_df = data.frame(Subject = subject,
                           Y = Y_categories,
-                          Ystar = Ystar_categories,
-                          Ytilde = Ytilde_categories,
+                          Ystar1 = Ystar_categories,
+                          Ystar2 = Ytilde_categories,
                           Probability = c(pitilde_array))
 
   return(pitilde_df)
