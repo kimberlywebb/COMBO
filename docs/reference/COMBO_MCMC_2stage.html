@@ -397,12 +397,24 @@ provides the posterior median computed across all chains and all samples.</p></d
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Failed to set trace monitor for gamma</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Variable gamma not found</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dplyr::all_of(naive_delta_names):</span> Can't subset columns that don't exist.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Columns `gamma2[1,1,1]`, `gamma2[1,2,1]`, `gamma2[1,1,2]`, and `gamma2[1,2,2]` don't exist.</span>
 <span class="r-in"><span><span class="va">MCMC_results</span><span class="op">$</span><span class="va">posterior_means_df</span><span class="co"># }</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'MCMC_results' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 14 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    parameter_name  posterior_mean posterior_median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> beta[1,1]                1.60            1.60  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> beta[1,2]               -<span style="color: #BB0000;">2.27</span>           -<span style="color: #BB0000;">2.23</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> gamma1[1,1,1]            0.414           0.419 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> gamma1[1,2,1]           -<span style="color: #BB0000;">1.28</span>           -<span style="color: #BB0000;">1.18</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> gamma1[1,1,2]            1.07            1.09  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> gamma1[1,2,2]           -<span style="color: #BB0000;">1.74</span>           -<span style="color: #BB0000;">1.38</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> gamma2[1,1,1,1]          0.685           0.625 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> gamma2[1,2,1,1]          1.22            1.03  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> gamma2[1,1,2,1]          0.133          -<span style="color: #BB0000;">0.093</span><span style="color: #BB0000; text-decoration: underline;">0</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> gamma2[1,2,2,1]         -<span style="color: #BB0000;">1.07</span>           -<span style="color: #BB0000;">0.913</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> gamma2[1,1,1,2]          1.33            1.29  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> gamma2[1,2,1,2]          2.01            1.94  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> gamma2[1,1,2,2]         -<span style="color: #BB0000;">0.723</span>          -<span style="color: #BB0000;">1.15</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> gamma2[1,2,2,2]         -<span style="color: #BB0000;">2.29</span>           -<span style="color: #BB0000;">2.07</span>  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
