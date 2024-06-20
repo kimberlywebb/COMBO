@@ -63,25 +63,28 @@ jobs:
           done < <(Rscript -e 'release <- system("lsb_release -rs", intern = TRUE); writeLines(remotes::system_requirements("ubuntu", release))')
       # JAGS install from https://github.com/boydorr/SpARKjags/blob/master/.github/workflows/test-build.yaml
       # JAGS is automatically installed on linux via the rjags package.
-      
+      - name: Install JAGS (if Windows)
+        if: runner.os == 'Windows'
+        run: |
+          curl.exe -o wjags.exe --url https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe
+          wjags.exe /S
+          del wjags.exe
+        shell: cmd
 
       - name: Install system dependencies (macOS)
         if: runner.os == 'macOS'
         run: |
+          brew install jags
           brew install homebrew/cask/xquartz
           brew install pkg-config
-          brew install jags
+          brew install udunits
+          brew install gdal
 
       - name: Install dependencies
         if: runner.os != 'Linux'
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
-          devtools::install_url("http://sourceforge.net/projects/mcmc-jags/files/rjags/4/rjags_4-4.tar.gz",
-                      args="--configure-args='--with-jags-include=/Users/casallas/homebrew/opt/jags/include/JAGS        
-                                              --with-jags-lib=/Users/casallas/homebrew/opt/jags/lib'
-                            "
-                      )
         shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v2
