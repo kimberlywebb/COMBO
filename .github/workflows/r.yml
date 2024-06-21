@@ -1,21 +1,14 @@
-
-name: build
-
+# For help debugging build failures open an issue on the RStudio community with the 'github-actions' tag.
+# https://community.rstudio.com/new-topic?category=Package%20development&tags=github-actions
+# Additional comment.
 on:
   push:
-    branches:
-      - '*'
-  pull_request:
-    branches:
-      - '*'
+
+name: R-CMD-check
 
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-    # use GITHUB_TOKEN as enviromental version for all steps
-    # to install private repo as dependency
-    env:
-      GITHUB_PAT: ${{ secrets.GH_PAT }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
@@ -23,9 +16,16 @@ jobs:
       fail-fast: false
       matrix:
         config:
+          - {os: ubuntu-latest, r: 'devel'}
+          - {os: ubuntu-latest, r: 'release'}
           - {os: windows-latest, r: 'release'}
+          - {os: windows-latest, r: 'devel'}
           - {os: macOS-latest, r: 'release'}
-          - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: macOS-latest, r: 'devel'}
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: ${{ matrix.config.rspm }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
@@ -33,6 +33,8 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -43,51 +45,72 @@ jobs:
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
 
-      - name: Cache R packages
+      - name: Restore (or define new) R package cache
         if: runner.os != 'Windows'
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+          key: ${{ matrix.config.os }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ matrix.config.os }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install system dependencies (ubuntu)
+      - name: Install system dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jags
+          xvfb-run R --no-save
           while read -r cmd
           do
             eval sudo $cmd
-          done < <(Rscript -e 'cat(remotes::system_requirements("ubuntu", "20.04"), sep = "\n")')
-
-      - name: Install jags (windows-latest)
+          done < <(Rscript -e 'release <- system("lsb_release -rs", intern = TRUE); writeLines(remotes::system_requirements("ubuntu", release))')
+      # JAGS install from https://github.com/boydorr/SpARKjags/blob/master/.github/workflows/test-build.yaml
+      # JAGS is automatically installed on linux via the rjags package.
+      - name: Install JAGS (if Windows)
         if: runner.os == 'Windows'
         run: |
-          curl.exe -o wjags.exe --url https://deac-fra.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.2.0-Rtools33.exe
+          curl.exe -o wjags.exe --url https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe
           wjags.exe /S
           del wjags.exe
         shell: cmd
 
-      - name: Install jags (macOS-latest)
+      - name: Install system dependencies (macOS)
         if: runner.os == 'macOS'
-        run : |
-              rm '/usr/local/bin/gfortran'
-              brew install jags
+        run: |
+          brew install jags
+          brew install homebrew/cask/xquartz
+          brew install pkg-config
+          brew install udunits
+          brew install gdal
 
       - name: Install dependencies
+        if: runner.os != 'Linux'
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+          DISPLAY: 99.0
+        run: |
+          options(rmarkdown.html_vignette.check_title = FALSE)
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@main
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          name: ${{ matrix.config.os }}-r${{ matrix.config.r }}-results
           path: check
+          
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
