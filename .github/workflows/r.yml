@@ -87,6 +87,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
+          install.packages("rjags", type = "source")
         shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v2
