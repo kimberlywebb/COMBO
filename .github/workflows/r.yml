@@ -82,6 +82,7 @@ jobs:
           brew install gdal
           brew install homebrew/cask/xquartz
           brew install jags
+          brew link --overwrite jags
 
       - name: Install dependencies
         if: runner.os != 'Linux'
