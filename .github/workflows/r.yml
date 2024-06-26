@@ -79,6 +79,7 @@ jobs:
           brew install jags
           brew install homebrew/cask/xquartz
           brew install pkg-config
+          brew install cairo
           brew install udunits
           brew install gdal
 
