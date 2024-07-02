@@ -76,7 +76,11 @@ jobs:
       - name: Install system dependencies (macOS)
         if: runner.os == 'macOS'
         run: |
-          wget -O JAGS-4.3.1-universal.tar.gz https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Mac%20OS%20X/extras/JAGS-4.3.1-universal.tar.gz/download
+          devtools::install_url("http://sourceforge.net/projects/mcmc-jags/files/rjags/4/rjags_4-4.tar.gz",
+                      args="--configure-args='--with-jags-include=/Users/casallas/homebrew/opt/jags/include/JAGS        
+                                              --with-jags-lib=/Users/casallas/homebrew/opt/jags/lib'
+                            "
+                      )
 
       - name: Install dependencies
         if: runner.os != 'Linux'
