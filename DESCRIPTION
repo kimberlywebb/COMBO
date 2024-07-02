@@ -2,10 +2,10 @@ Package: COMBO
 Title: Correcting Misclassified Binary Outcomes in Association Studies
 Version: 1.0.0
 Authors@R: 
-    person("Kimberly", "Hochstedler",
+    person("Kimberly", "Hochstedler Webb",
            email = "kah343@cornell.edu", role = c("aut", "cre"))
-Author: Kimberly Hochstedler [aut, cre]
-Maintainer: Kimberly Hochstedler  <kah343@cornell.edu>
+Author: Kimberly Hochstedler Webb [aut, cre]
+Maintainer: Kimberly Hochstedler Webb <kah343@cornell.edu>
 Description: Use frequentist and Bayesian methods to estimate parameters from a
   binary outcome misclassification model. These methods correct for the problem
   of "label switching" by assuming that correct outcome classification occurs
