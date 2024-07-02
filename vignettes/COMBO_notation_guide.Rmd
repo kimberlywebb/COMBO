@@ -15,8 +15,6 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-
-library(kableExtra)
 ```
 
 ```{r}
@@ -60,8 +58,8 @@ notation_table <- data.frame(Term, Definition, Description)
 
 ## Notation
 This guide is designed to summarize key notation and quantities used the *COMBO* R Package and associated publications.
-
-```{r}
-kableExtra::kbl(notation_table, escape = FALSE, booktabs = TRUE) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+```{r, results = "asis"}
+library(xtable)
+xtable_notation <- xtable(notation_table)
+print(xtable(notation_table), type = "html", include.rownames=FALSE)
 ```
