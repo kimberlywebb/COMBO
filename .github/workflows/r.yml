@@ -77,12 +77,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install pkg-config
-          brew install cairo
-          brew install udunits
-          brew install gdal
-          brew install homebrew/cask/xquartz
           brew install jags
-          brew link --overwrite jags
 
       - name: Install dependencies
         if: runner.os != 'Linux'
