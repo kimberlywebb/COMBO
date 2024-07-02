@@ -85,7 +85,6 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           install.packages("rjags", type="source")
-          devtools::install_github("r-lib/svglite")
         shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v2
