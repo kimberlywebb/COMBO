@@ -30,7 +30,7 @@ SystemRequirements: JAGS (http://mcmc-jags.sourceforge.net)
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 Collate: 
     'sum_every_n1.R'

@@ -12,7 +12,7 @@ sum_every_n(x, n)
 \item{n}{A numeric value specifying the distance between the reference index and the next index to be summed}
 }
 \value{
-\code{sum_every_n} returns a vector of sums of every \code{n}^{th} element of the vector \code{x}.
+\code{sum_every_n} returns a vector of sums of every \code{n}th element of the vector \code{x}.
 }
 \description{
 Sum Every "n"th Element
