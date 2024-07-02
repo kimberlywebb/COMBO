@@ -78,7 +78,7 @@ jobs:
         run: |
           wget -O JAGS-4.3.1.pkg https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Mac%20OS%20X/JAGS-4.3.1.pkg/download
           sudo installer -pkg JAGS-4.3.1.pkg -target /
-          brew intall pkg-config
+          brew install pkg-config
           brew install cairo
 
       - name: Install dependencies
