@@ -86,7 +86,13 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           install.packages("rjags", type="source")
-          install.packages("gdtools", type = "source") 
+          install.packages("gdtools", type = "source", configure.vars = "INCLUDE_DIR=/usr/local/Cellar/cairo/1.14.0/include/cairo LIB_DIR=/usr/local/Cellar/cairo/1.14.0/lib") 
+        shell: Rscript {0}
+
+      - name: Install gdtools for Mac
+        if: runner.os == 'macOS'
+        run: |
+          install.packages("gdtools", type = "source", configure.vars = "INCLUDE_DIR=/usr/local/Cellar/cairo/1.14.0/include/cairo LIB_DIR=/usr/local/Cellar/cairo/1.14.0/lib") 
         shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v2
