@@ -1,4 +1,5 @@
-# COMBO ![my workflow](https://github.com/kimberlywebb/COMBO/actions/workflows/r.yml/badge.svg)  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/COMBO)](https://cran.r-project.org/package=COMBO) [![downlaods-badge](http://cranlogs.r-pkg.org/badges/grand-total/COMBO)](
+# COMBO
+![my workflow](https://github.com/kimberlywebb/COMBO/actions/workflows/r.yml/badge.svg) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/COMBO)](https://cran.r-project.org/package=COMBO)  [![downlaods-badge](http://cranlogs.r-pkg.org/badges/grand-total/COMBO)](
 https://cran.r-project.org/package=COMBO)
 
 ![ ](https://github.com/kimhochstedler/COMBO/blob/main/small_logo.png?raw=true)
