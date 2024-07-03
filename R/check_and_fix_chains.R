@@ -23,7 +23,14 @@ check_and_fix_chains <- function(n_chains, chains_list, pistarjj_matrix,
   for(i in 1:n_chains){
     pistar11 = pistarjj_matrix[i, 1]
     pistar22 = pistarjj_matrix[i, 2]
-    output = if(pistar11 > .50 & pistar22 > .50){
+
+    flip_pistar11 = 1 - pistar22
+    flip_pistar22 = 1 - pistar11
+
+    J = pistar11 + pistar22 - 1
+    J_flip = flip_pistar11 + flip_pistar22 - 1
+
+    output = if(J_flip <= J){
       chains_list[[i]]
     } else {label_switch(chains_list[[i]],
                          dim_x, dim_z, n_cat)}

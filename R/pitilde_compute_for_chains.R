@@ -26,12 +26,12 @@
 pitilde_compute_for_chains <- function(chain_colMeans, V, n, n_cat){
 
   dim_v = ncol(V)
-  delta_names <- paste0("delta[1,",
+  delta_names <- paste0("gamma2[1,",
                         rep(1:n_cat, dim_v*dim_v), ",",
                         rep(rep(1:n_cat, each = dim_v), dim_v), ",",
                         rep(1:dim_v, each = n_cat * n_cat), "]")
-  delta_j1_names <- which(substring(delta_names, 11, 11) == 1)
-  delta_j2_names <- which(substring(delta_names, 11, 11) == 2)
+  delta_j1_names <- which(substring(delta_names, 12, 12) == 1)
+  delta_j2_names <- which(substring(delta_names, 12, 12) == 2)
   delta_j1 <- matrix(chain_colMeans[delta_names[delta_j1_names]],
                      ncol = 2, byrow = TRUE)
   delta_j2 <- matrix(chain_colMeans[delta_names[delta_j2_names]],

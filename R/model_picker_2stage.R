@@ -30,7 +30,7 @@ model_picker_2stage <- function(prior){
      for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-        log(phistar[i, k, j]) <- gamma[k, j, 1:dim_z] %*% z[i,1:dim_z]
+        log(phistar[i, k, j]) <- gamma1[k, j, 1:dim_z] %*% z[i,1:dim_z]
         pistar[i, k, j] <- phistar[i, k, j] / (sum(phistar[i, 1:n_cat, j]))
 
       }
@@ -43,7 +43,7 @@ model_picker_2stage <- function(prior){
      for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
+        log(phitilde[i, l, k, j]) <- gamma2[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
         pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
 
       }
@@ -71,8 +71,8 @@ model_picker_2stage <- function(prior){
   for(m in 1:n_cat){
     for(n in 1:dim_z){
 
-      gamma[1, m, n] ~ dunif(unif_l_gamma[1, m, n], unif_u_gamma[1, m, n])
-      gamma[2, m, n] <- 0
+      gamma1[1, m, n] ~ dunif(unif_l_gamma[1, m, n], unif_u_gamma[1, m, n])
+      gamma1[2, m, n] <- 0
     }
 
   }
@@ -81,8 +81,8 @@ model_picker_2stage <- function(prior){
   for(r in 1:n_cat){
     for(s in 1:dim_v){
 
-      delta[1, q, r, s] ~ dunif(unif_l_delta[1, q, r, s], unif_u_delta[1, q, r, s])
-      delta[2, q, r, s] <- 0
+      gamma2[1, q, r, s] ~ dunif(unif_l_delta[1, q, r, s], unif_u_delta[1, q, r, s])
+      gamma2[2, q, r, s] <- 0
     }
 
   }
@@ -111,7 +111,7 @@ t_modelstring = "
     for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-        log(phistar[i, k, j]) <- gamma[k, j, 1:dim_z] %*% z[i,1:dim_z]
+        log(phistar[i, k, j]) <- gamma1[k, j, 1:dim_z] %*% z[i,1:dim_z]
         pistar[i, k, j] <- phistar[i, k, j] / (sum(phistar[i, 1:n_cat, j]))
 
       }
@@ -124,7 +124,7 @@ t_modelstring = "
      for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
+        log(phitilde[i, l, k, j]) <- gamma2[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
         pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
 
       }
@@ -151,8 +151,8 @@ t_modelstring = "
 
   for(m in 1:n_cat){
     for(n in 1:dim_z){
-      gamma[1, m, n] ~ dt(t_mu_gamma[1,m,n], t_tau_gamma[1,m,n], t_df_gamma[1,m,n])
-      gamma[2, m, n] <- 0
+      gamma1[1, m, n] ~ dt(t_mu_gamma[1,m,n], t_tau_gamma[1,m,n], t_df_gamma[1,m,n])
+      gamma1[2, m, n] <- 0
     }
 
   }
@@ -161,8 +161,8 @@ t_modelstring = "
     for(r in 1:n_cat){
       for(s in 1:dim_v){
 
-      delta[1, q, r, s] ~ dt(t_mu_delta[1, q, r, s], t_tau_delta[1, q, r, s], t_df_delta[1, q, r, s])
-      delta[2, q, r, s] <- 0
+      gamma2[1, q, r, s] ~ dt(t_mu_delta[1, q, r, s], t_tau_delta[1, q, r, s], t_df_delta[1, q, r, s])
+      gamma2[2, q, r, s] <- 0
     }
 
   }
@@ -192,7 +192,7 @@ normal_modelstring = "
     for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-        log(phistar[i, k, j]) <- gamma[k, j, 1:dim_z] %*% z[i,1:dim_z]
+        log(phistar[i, k, j]) <- gamma1[k, j, 1:dim_z] %*% z[i,1:dim_z]
         pistar[i, k, j] <- phistar[i, k, j] / (sum(phistar[i, 1:n_cat, j]))
 
       }
@@ -205,7 +205,7 @@ normal_modelstring = "
      for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
+        log(phitilde[i, l, k, j]) <- gamma2[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
         pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
 
       }
@@ -233,8 +233,8 @@ normal_modelstring = "
   for(m in 1:n_cat){
     for(n in 1:dim_z){
 
-      gamma[1, m, n] ~ dnorm(normal_mu_gamma[1, m, n], normal_sigma_gamma[1, m, n])
-      gamma[2, m, n] <- 0
+      gamma1[1, m, n] ~ dnorm(normal_mu_gamma[1, m, n], normal_sigma_gamma[1, m, n])
+      gamma1[2, m, n] <- 0
     }
 
   }
@@ -243,8 +243,8 @@ for(q in 1:n_cat){
   for(r in 1:n_cat){
     for(s in 1:dim_v){
 
-      delta[1, q, r, s] ~ dnorm(normal_mu_delta[1, q, r, s], normal_sigma_delta[1, q, r, s])
-      delta[2, q, r, s] <- 0
+      gamma2[1, q, r, s] ~ dnorm(normal_mu_delta[1, q, r, s], normal_sigma_delta[1, q, r, s])
+      gamma2[2, q, r, s] <- 0
     }
 
   }
@@ -274,7 +274,7 @@ dexp_modelstring = "
     for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-        log(phistar[i, k, j]) <- gamma[k, j, 1:dim_z] %*% z[i,1:dim_z]
+        log(phistar[i, k, j]) <- gamma1[k, j, 1:dim_z] %*% z[i,1:dim_z]
         pistar[i, k, j] <- phistar[i, k, j] / (sum(phistar[i, 1:n_cat, j]))
 
       }
@@ -287,7 +287,7 @@ dexp_modelstring = "
      for(k in 1:n_cat){
       for(j in 1:n_cat){
 
-        log(phitilde[i, l, k, j]) <- delta[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
+        log(phitilde[i, l, k, j]) <- gamma2[l, k, j, 1:dim_v] %*% v[i, 1:dim_v]
         pitilde[i, l, k, j] <- phitilde[i, l, k, j] / (sum(phitilde[i, 1:n_cat, k, j]))
 
       }
@@ -315,8 +315,8 @@ dexp_modelstring = "
   for(m in 1:n_cat){
     for(n in 1:dim_z){
 
-      gamma[1, m, n] ~ ddexp(dexp_mu_gamma[1, m, n], dexp_b_gamma[1, m, n])
-      gamma[2, m, n] <- 0
+      gamma1[1, m, n] ~ ddexp(dexp_mu_gamma[1, m, n], dexp_b_gamma[1, m, n])
+      gamma1[2, m, n] <- 0
     }
 
   }
@@ -325,8 +325,8 @@ dexp_modelstring = "
   for(r in 1:n_cat){
     for(s in 1:dim_v){
 
-      delta[1, q, r, s] ~ ddexp(dexp_mu_delta[1, q, r, s], dexp_b_delta[1, q, r, s])
-      delta[2, q, r, s] <- 0
+      gamma2[1, q, r, s] ~ ddexp(dexp_mu_delta[1, q, r, s], dexp_b_delta[1, q, r, s])
+      gamma2[2, q, r, s] <- 0
     }
 
   }

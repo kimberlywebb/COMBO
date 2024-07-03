@@ -2,10 +2,10 @@ Package: COMBO
 Title: Correcting Misclassified Binary Outcomes in Association Studies
 Version: 1.0.0
 Authors@R: 
-    person("Kimberly", "Hochstedler",
+    person("Kimberly", "Hochstedler Webb",
            email = "kah343@cornell.edu", role = c("aut", "cre"))
-Author: Kimberly Hochstedler [aut, cre]
-Maintainer: Kimberly Hochstedler  <kah343@cornell.edu>
+Author: Kimberly Hochstedler Webb [aut, cre]
+Maintainer: Kimberly Hochstedler Webb <kah343@cornell.edu>
 Description: Use frequentist and Bayesian methods to estimate parameters from a
   binary outcome misclassification model. These methods correct for the problem
   of "label switching" by assuming that correct outcome classification occurs
@@ -23,12 +23,14 @@ Imports:
     utils (>= 4.2.0)
 Suggests:
     knitr (>= 1.40),
-    kableExtra (>= 1.3.4),
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    devtools (>= 2.4.5),
+    xtable (>= 1.8.0)
+SystemRequirements: JAGS (http://mcmc-jags.sourceforge.net)
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 Collate: 
     'sum_every_n1.R'
@@ -72,6 +74,8 @@ Collate:
     'naive_jags_picker_2stage.R'
     'naive_loglik_2stage.R'
     'naive_model_picker_2stage.R'
+    'pistar_by_chain_2stage.R'
+    'pistar_compute_for_chains_2stage.R'
     'pitilde_by_chain.R'
     'pitilde_compute_for_chains.R'
     'true_classification_prob.R'

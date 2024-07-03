@@ -21,8 +21,8 @@
 label_switch_2stage <- function(chain_matrix, dim_x, dim_z, dim_v, n_cat){
 
   beta_names <- paste0("beta[1,", 1:dim_x, "]")
-  gamma_names <- paste0("gamma[1,", rep(1:n_cat, dim_z), ",", rep(1:dim_z, each = n_cat), "]")
-  delta_names <- paste0("delta[1,",
+  gamma_names <- paste0("gamma1[1,", rep(1:n_cat, dim_z), ",", rep(1:dim_z, each = n_cat), "]")
+  delta_names <- paste0("gamma2[1,",
                         rep(1:n_cat, dim_v*dim_v), ",",
                         rep(rep(1:n_cat, each = dim_v), dim_v), ",",
                         rep(1:dim_v, each = n_cat * n_cat), "]")

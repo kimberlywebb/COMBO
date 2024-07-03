@@ -5,55 +5,55 @@
 \title{EM-Algorithm Estimation of the Two-Stage Binary Outcome Misclassification Model}
 \usage{
 COMBO_EM_2stage(
-  Ystar,
-  Ytilde,
+  Ystar1,
+  Ystar2,
   x_matrix,
-  z_matrix,
-  v_matrix,
+  z1_matrix,
+  z2_matrix,
   beta_start,
-  gamma_start,
-  delta_start,
+  gamma1_start,
+  gamma2_start,
   tolerance = 1e-07,
   max_em_iterations = 1500,
   em_method = "squarem"
 )
 }
 \arguments{
-\item{Ystar}{A numeric vector of indicator variables (1, 2) for the first-stage observed
-outcome \code{Y*}. There should be no \code{NA} terms. The reference category is 2.}
+\item{Ystar1}{A numeric vector of indicator variables (1, 2) for the first-stage observed
+outcome \eqn{Y^{*(1)}}. There should be no \code{NA} terms. The reference category is 2.}
 
-\item{Ytilde}{A numeric vector of indicator variables (1, 2) for the second-stage
-observed outcome \eqn{\tilde{Y}}. There should be no \code{NA} terms. The
+\item{Ystar2}{A numeric vector of indicator variables (1, 2) for the second-stage
+observed outcome \eqn{Y^{*(2)}}. There should be no \code{NA} terms. The
 reference category is 2.}
 
 \item{x_matrix}{A numeric matrix of covariates in the true outcome mechanism.
 \code{x_matrix} should not contain an intercept and no values should be \code{NA}.}
 
-\item{z_matrix}{A numeric matrix of covariates in the first-stage observation mechanism.
-\code{z_matrix} should not contain an intercept and no values should be \code{NA}.}
+\item{z1_matrix}{A numeric matrix of covariates in the first-stage observation mechanism.
+\code{z1_matrix} should not contain an intercept and no values should be \code{NA}.}
 
-\item{v_matrix}{A numeric matrix of covariates in the second-stage observation mechanism.
-\code{v_matrix} should not contain an intercept and no values should be \code{NA}.}
+\item{z2_matrix}{A numeric matrix of covariates in the second-stage observation mechanism.
+\code{z2_matrix} should not contain an intercept and no values should be \code{NA}.}
 
 \item{beta_start}{A numeric vector or column matrix of starting values for the \eqn{\beta}
 parameters in the true outcome mechanism. The number of elements in \code{beta_start}
 should be equal to the number of columns of \code{x_matrix} plus 1.}
 
-\item{gamma_start}{A numeric vector or matrix of starting values for the \eqn{\gamma}
-parameters in the first-stage observation mechanism. In matrix form, the \code{gamma_start} matrix rows
-correspond to parameters for the \code{Y* = 1}
-first-stage observed outcome, with the dimensions of \code{z_matrix} plus 1, and the
-gamma parameter matrix columns correspond to the true outcome categories
-\eqn{Y \in \{1, 2\}}. A numeric vector for \code{gamma_start} is
-obtained by concatenating the gamma matrix, i.e. \code{gamma_start <- c(gamma_matrix)}.}
+\item{gamma1_start}{A numeric vector or matrix of starting values for the \eqn{\gamma^{(1)}}
+parameters in the first-stage observation mechanism. In matrix form, the \code{gamma1_start} matrix rows
+correspond to parameters for the \eqn{Y^{*(1)} = 1}
+first-stage observed outcome, with the dimensions of \code{z1_matrix} plus 1, and the
+parameter matrix columns correspond to the true outcome categories
+\eqn{Y \in \{1, 2\}}. A numeric vector for \code{gamma1_start} is
+obtained by concatenating the matrix, i.e. \code{gamma1_start <- c(gamma1_matrix)}.}
 
-\item{delta_start}{A numeric array of starting values for the \eqn{\delta} parameters
+\item{gamma2_start}{A numeric array of starting values for the \eqn{\gamma^{(2)}} parameters
 in the second-stage observation mechanism. The first dimension (matrix rows)
-of \code{delta_start} correspond to parameters for the \eqn{\tilde{Y} = 1}
-second-stage observed outcome, with the dimensions of the \code{v_matrix}
+of \code{gamma2_start} correspond to parameters for the \eqn{Y^{*(2)} = 1}
+second-stage observed outcome, with the dimensions of the \code{z2_matrix}
 plus 1. The second dimension (matrix columns) correspond to the first-stage
-observed outcome categories \eqn{Y^* \in \{1, 2\}}. The third dimension of
-\code{delta_start} corresponds to to the true outcome categories
+observed outcome categories \eqn{Y^{*(1)} \in \{1, 2\}}. The third dimension of
+\code{gamma2_start} corresponds to to the true outcome categories
 \eqn{Y \in \{1, 2\}}.}
 
 \item{tolerance}{A numeric value specifying when to stop estimation, based on
@@ -76,7 +76,7 @@ whether or not the algorithm converged for a given parameter estimate.
 Estimates are provided for the two-stage binary misclassification model.
 }
 \description{
-Jointly estimate \eqn{\beta}, \eqn{\gamma}, \eqn{\delta} parameters from the true outcome,
+Jointly estimate \eqn{\beta}, \eqn{\gamma^{(1)}}, \eqn{\gamma^{(2)}} parameters from the true outcome,
 first-stage observation, and second-stage observation mechanisms, respectively,
 in a two-stage binary outcome misclassification model.
 }
@@ -86,31 +86,31 @@ set.seed(123)
 n <- 1000
 x_mu <- 0
 x_sigma <- 1
-z_shape <- 1
-v_shape <- 1
+z1_shape <- 1
+z2_shape <- 1
 
 true_beta <- matrix(c(1, -2), ncol = 1)
-true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
-true_delta <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
+true_gamma1 <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
+true_gamma2 <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
 
 my_data <- COMBO_data_2stage(sample_size = n,
                              x_mu = x_mu, x_sigma = x_sigma,
-                             z_shape = z_shape, v_shape = v_shape,
-                             beta = true_beta, gamma = true_gamma, delta = true_delta)
-table(my_data[["obs_Ytilde"]], my_data[["obs_Ystar"]], my_data[["true_Y"]])
+                             z1_shape = z1_shape, z2_shape = z2_shape,
+                             beta = true_beta, gamma1 = true_gamma1, gamma2 = true_gamma2)
+table(my_data[["obs_Ystar2"]], my_data[["obs_Ystar1"]], my_data[["true_Y"]])
 
 beta_start <- rnorm(length(c(true_beta)))
-gamma_start <- rnorm(length(c(true_gamma)))
-delta_start <- rnorm(length(c(true_delta)))
+gamma1_start <- rnorm(length(c(true_gamma1)))
+gamma2_start <- rnorm(length(c(true_gamma2)))
 
-EM_results <- COMBO_EM_2stage(Ystar = my_data[["obs_Ystar"]],
-                              Ytilde = my_data[["obs_Ytilde"]],
+EM_results <- COMBO_EM_2stage(Ystar1 = my_data[["obs_Ystar1"]],
+                              Ystar2 = my_data[["obs_Ystar2"]],
                               x_matrix = my_data[["x"]],
-                              z_matrix = my_data[["z"]],
-                              v_matrix = my_data[["v"]],
+                              z1_matrix = my_data[["z1"]],
+                              z2_matrix = my_data[["z2"]],
                               beta_start = beta_start,
-                              gamma_start = gamma_start,
-                              delta_start = delta_start)
+                              gamma1_start = gamma1_start,
+                              gamma2_start = gamma2_start)
 
 EM_results}
 }

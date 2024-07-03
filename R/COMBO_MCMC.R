@@ -6,10 +6,10 @@
 #'
 #' @param Ystar A numeric vector of indicator variables (1, 2) for the observed
 #'   outcome \code{Y*}. The reference category is 2.
-#' @param x A numeric matrix of covariates in the true outcome mechanism.
-#'   \code{x} should not contain an intercept.
-#' @param z A numeric matrix of covariates in the observation mechanism.
-#'   \code{z} should not contain an intercept.
+#' @param x_matrix A numeric matrix of covariates in the true outcome mechanism.
+#'   \code{x_matrix} should not contain an intercept.
+#' @param z_matrix A numeric matrix of covariates in the observation mechanism.
+#'   \code{z_matrix} should not contain an intercept.
 #' @param prior A character string specifying the prior distribution for the
 #'   \eqn{\beta} and \eqn{\gamma} parameters. Options are \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"} (double Exponential, or Weibull).
@@ -151,13 +151,16 @@
 #'                            number_MCMC_chains = 2,
 #'                            MCMC_sample = 200, burn_in = 100)
 #' MCMC_results$posterior_means_df}
-COMBO_MCMC <- function(Ystar, x, z, prior,
+COMBO_MCMC <- function(Ystar, x_matrix, z_matrix, prior,
                        beta_prior_parameters,
                        gamma_prior_parameters,
                        number_MCMC_chains = 4,
                        MCMC_sample = 2000,
                        burn_in = 1000,
                        display_progress = TRUE){
+
+  x <- x_matrix
+  z <- z_matrix
 
   # Define global variables to make the "NOTES" happy.
   chain_number <- NULL

@@ -1,22 +1,22 @@
 #' MCMC Estimation of the Two-Stage Binary Outcome Misclassification Model
 #'
-#' Jointly estimate \eqn{\beta}, \eqn{\gamma}, and \eqn{\delta} parameters from the true outcome
+#' Jointly estimate \eqn{\beta}, \eqn{\gamma^{(1)}}, and \eqn{\gamma^{(2)}} parameters from the true outcome
 #' first-stage observation, and second-stage observation mechanisms, respectively,
 #' in a two-stage binary outcome misclassification model.
 #'
-#' @param Ystar A numeric vector of indicator variables (1, 2) for the observed
-#'   outcome \code{Y*}. The reference category is 2.
-#' @param Ytilde A numeric vector of indicator variables (1, 2) for the second-stage
-#'   observed outcome \eqn{\tilde{Y}}. There should be no \code{NA} terms. The
+#' @param Ystar1 A numeric vector of indicator variables (1, 2) for the observed
+#'   outcome \eqn{Y^{*(1)}}. The reference category is 2.
+#' @param Ystar2 A numeric vector of indicator variables (1, 2) for the second-stage
+#'   observed outcome \eqn{Y^{*(2)}}. There should be no \code{NA} terms. The
 #'   reference category is 2.
-#' @param x A numeric matrix of covariates in the true outcome mechanism.
-#'   \code{x} should not contain an intercept.
-#' @param z A numeric matrix of covariates in the observation mechanism.
-#'   \code{z} should not contain an intercept.
-#' @param v A numeric matrix of covariates in the second-stage observation mechanism.
-#'   \code{v} should not contain an intercept and no values should be \code{NA}.
+#' @param x_matrix A numeric matrix of covariates in the true outcome mechanism.
+#'   \code{x_matrix} should not contain an intercept.
+#' @param z1_matrix A numeric matrix of covariates in the observation mechanism.
+#'   \code{z1_matrix} should not contain an intercept.
+#' @param z2_matrix A numeric matrix of covariates in the second-stage observation mechanism.
+#'   \code{z2_matrix} should not contain an intercept and no values should be \code{NA}.
 #' @param prior A character string specifying the prior distribution for the
-#'   \eqn{\beta}, \eqn{\gamma}, and \eqn{\delta} parameters. Options are \code{"t"},
+#'   \eqn{\beta}, \eqn{\gamma^{(1)}}, and \eqn{\gamma^{(2)}} parameters. Options are \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"} (double Exponential, or Weibull).
 #' @param beta_prior_parameters A numeric list of prior distribution parameters
 #'   for the \eqn{\beta} terms. For prior distributions \code{"t"},
@@ -32,48 +32,48 @@
 #'   The third list element should be empty for all other prior distributions.
 #'   All matrices in the list should have dimensions \code{n_cat} X \code{dim_x}, and all
 #'   elements in the \code{n_cat} row should be set to \code{NA}.
-#' @param gamma_prior_parameters A numeric list of prior distribution parameters
-#'   for the \eqn{\gamma} terms. For prior distributions \code{"t"},
+#' @param gamma1_prior_parameters A numeric list of prior distribution parameters
+#'   for the \eqn{\gamma^{(1)}} terms. For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
 #'   list should contain an array of location, lower bound, mean, or shape parameters,
-#'   respectively, for \eqn{\gamma} terms.
+#'   respectively, for \eqn{\gamma^{(1)}} terms.
 #'   For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
 #'   list should contain an array of shape, upper bound, standard deviation, or scale parameters,
-#'   respectively, for \eqn{\gamma} terms.
+#'   respectively, for \eqn{\gamma^{(1)}} terms.
 #'   For prior distribution \code{"t"}, the third element of the list should contain
-#'   an array of the degrees of freedom for \eqn{\gamma} terms.
+#'   an array of the degrees of freedom for \eqn{\gamma^{(1)}} terms.
 #'   The third list element should be empty for all other prior distributions.
-#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z},
+#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z1},
 #'   and all elements in the \code{n_cat} row should be set to \code{NA}.
-#' @param delta_prior_parameters A numeric list of prior distribution parameters
-#'   for the \eqn{\delta} terms. For prior distributions \code{"t"},
+#' @param gamma2_prior_parameters A numeric list of prior distribution parameters
+#'   for the \eqn{\gamma^{(2)}} terms. For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
 #'   list should contain an array of location, lower bound, mean, or shape parameters,
-#'   respectively, for \eqn{\delta} terms.
+#'   respectively, for \eqn{\gamma^{(2)}} terms.
 #'   For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
 #'   list should contain an array of shape, upper bound, standard deviation, or scale parameters,
-#'   respectively, for \eqn{\delta} terms.
+#'   respectively, for \eqn{\gamma^{(2)}} terms.
 #'   For prior distribution \code{"t"}, the third element of the list should contain
-#'   an array of the degrees of freedom for \eqn{\delta} terms.
+#'   an array of the degrees of freedom for \eqn{\gamma^{(2)}} terms.
 #'   The third list element should be empty for all other prior distributions.
 #'   All arrays in the list should have dimensions \code{n_cat} X
-#'   \code{n_cat} X \code{n_cat} X \code{dim_v},
+#'   \code{n_cat} X \code{n_cat} X \code{dim_z2},
 #'   and all elements in the \code{n_cat} row should be set to \code{NA}.
-#' @param naive_delta_prior_parameters A numeric list of prior distribution parameters
-#'   for the naive model \eqn{\delta} terms. For prior distributions \code{"t"},
+#' @param naive_gamma2_prior_parameters A numeric list of prior distribution parameters
+#'   for the naive model \eqn{\gamma^{(2)}} terms. For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the first element of the
 #'   list should contain an array of location, lower bound, mean, or shape parameters,
-#'   respectively, for naive \eqn{\delta} terms.
+#'   respectively, for naive \eqn{\gamma^{(2)}} terms.
 #'   For prior distributions \code{"t"},
 #'   \code{"uniform"}, \code{"normal"}, or \code{"dexp"}, the second element of the
 #'   list should contain an array of shape, upper bound, standard deviation, or scale parameters,
-#'   respectively, for naive \eqn{\delta} terms.
+#'   respectively, for naive \eqn{\gamma^{(2)}} terms.
 #'   For prior distribution \code{"t"}, the third element of the list should contain
-#'   an array of the degrees of freedom for naive \eqn{\delta} terms.
+#'   an array of the degrees of freedom for naive \eqn{\gamma^{(2)}} terms.
 #'   The third list element should be empty for all other prior distributions.
-#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_v},
+#'   All arrays in the list should have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z2},
 #'   and all elements in the \code{n_cat} row should be set to \code{NA}.
 #'   Note that prior distributions for the naive \eqn{\beta} terms are inherted
 #'   from the \code{beta_prior_parameters} argument.
@@ -93,10 +93,14 @@
 #'   \item{posterior_sample_df}{A data frame containing three columns. The first
 #'   column indicates the chain from which a sample is taken, from 1 to \code{number_MCMC_chains}.
 #'   The second column specifies the parameter associated with a given row. \eqn{\beta}
-#'   terms have dimensions \code{dim_x} X \code{n_cat}. The \eqn{\gamma} terms
-#'   have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z}, where the first
-#'   index specifies the observed outcome category and the second index specifies
-#'   the true outcome category. The final column provides the MCMC sample.}
+#'   terms have dimensions \code{dim_x} X \code{n_cat}. The \eqn{\gamma^{(1)}} terms
+#'   have dimensions \code{n_cat} X \code{n_cat} X \code{dim_z1}, where the first
+#'   index specifies the first-stage observed outcome category and the second index specifies
+#'   the true outcome category. The \eqn{\gamma^{(2)}} terms
+#'   have dimensions \code{n_cat} X \code{n_cat} X \code{n_cat} X \code{dim_z2}, where the first
+#'   index specifies the second-stage observed outcome category, the second index specifies
+#'   the first-stage observed outcome category, and the third index specifies the true outcome category.
+#'   The final column provides the MCMC sample.}
 #'   \item{posterior_means_df}{A data frame containing three columns. The first
 #'   column specifies the parameter associated with a given row. Parameters are
 #'   indexed as in the \code{posterior_sample_df}. The second column provides
@@ -154,19 +158,19 @@
 #' n <- 1000
 #' x_mu <- 0
 #' x_sigma <- 1
-#' z_shape <- 1
-#' v_shape <- 1
+#' z1_shape <- 1
+#' z2_shape <- 1
 #'
 #' true_beta <- matrix(c(1, -2), ncol = 1)
-#' true_gamma <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
-#' true_delta <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
+#' true_gamma1 <- matrix(c(.5, 1, -.5, -1), nrow = 2, byrow = FALSE)
+#' true_gamma2 <- array(c(1.5, 1, .5, .5, -.5, 0, -1, -1), dim = c(2, 2, 2))
 #'
 #' x_matrix = matrix(rnorm(n, x_mu, x_sigma), ncol = 1)
 #' X = matrix(c(rep(1, n), x_matrix[,1]), ncol = 2, byrow = FALSE)
-#' z_matrix = matrix(rgamma(n, z_shape), ncol = 1)
-#' Z = matrix(c(rep(1, n), z_matrix[,1]), ncol = 2, byrow = FALSE)
-#' v_matrix = matrix(rgamma(n, v_shape), ncol = 1)
-#' V = matrix(c(rep(1, n), v_matrix[,1]), ncol = 2, byrow = FALSE)
+#' z1_matrix = matrix(rgamma(n, z1_shape), ncol = 1)
+#' Z1 = matrix(c(rep(1, n), z1_matrix[,1]), ncol = 2, byrow = FALSE)
+#' z2_matrix = matrix(rgamma(n, z2_shape), ncol = 1)
+#' Z2 = matrix(c(rep(1, n), z2_matrix[,1]), ncol = 2, byrow = FALSE)
 #'
 #' exp_xb = exp(X %*% true_beta)
 #' pi_result = exp_xb[,1] / (exp_xb[,1] + 1)
@@ -177,100 +181,113 @@
 #'     true_Y[i] = which(stats::rmultinom(1, 1, pi_matrix[i,]) == 1)
 #' }
 #'
-#' exp_zg = exp(Z %*% true_gamma)
-#' pistar_denominator = matrix(c(1 + exp_zg[,1], 1 + exp_zg[,2]), ncol = 2, byrow = FALSE)
-#' pistar_result = exp_zg / pistar_denominator
+#' exp_z1g1 = exp(Z1 %*% true_gamma1)
+#' pistar1_denominator = matrix(c(1 + exp_z1g1[,1], 1 + exp_z1g1[,2]),
+#'                              ncol = 2, byrow = FALSE)
+#' pistar1_result = exp_z1g1 / pistar1_denominator
 #'
-#' pistar_matrix = matrix(c(pistar_result[,1], 1 - pistar_result[,1],
-#'                          pistar_result[,2], 1 - pistar_result[,2]),
-#'                        ncol = 2, byrow = FALSE)
+#' pistar1_matrix = matrix(c(pistar1_result[,1], 1 - pistar1_result[,1],
+#'                           pistar1_result[,2], 1 - pistar1_result[,2]),
+#'                         ncol = 2, byrow = FALSE)
 #'
 #'
-#' obs_Y <- rep(NA, n)
+#' obs_Y1 <- rep(NA, n)
 #' for(i in 1:n){
 #'     true_j = true_Y[i]
-#'     obs_Y[i] = which(rmultinom(1, 1,
-#'                      pistar_matrix[c(i, n + i),
+#'     obs_Y1[i] = which(rmultinom(1, 1,
+#'                       pistar1_matrix[c(i, n + i),
 #'                                      true_j]) == 1)
 #'  }
 #'
-#' Ystar <- obs_Y
+#' Ystar1 <- obs_Y1
 #'
-#' exp_vd1 = exp(V %*% true_delta[,,1])
-#' exp_vd2 = exp(V %*% true_delta[,,2])
+#' exp_z2g2_1 = exp(Z2 %*% true_gamma2[,,1])
+#' exp_z2g2_2 = exp(Z2 %*% true_gamma2[,,2])
 #'
-#' pi_denominator1 = apply(exp_vd1, FUN = sum_every_n1, n, MARGIN = 2)
-#' pi_result1 = exp_vd1 / rbind(pi_denominator1)
+#' pi_denominator1 = apply(exp_z2g2_1, FUN = sum_every_n1, n, MARGIN = 2)
+#' pi_result1 = exp_z2g2_1 / rbind(pi_denominator1)
 #'
-#' pi_denominator2 = apply(exp_vd2, FUN = sum_every_n1, n, MARGIN = 2)
-#' pi_result2 = exp_vd2 / rbind(pi_denominator2)
+#' pi_denominator2 = apply(exp_z2g2_2, FUN = sum_every_n1, n, MARGIN = 2)
+#' pi_result2 = exp_z2g2_2 / rbind(pi_denominator2)
 #'
-#' pitilde_matrix1 = rbind(pi_result1,
+#' pistar2_matrix1 = rbind(pi_result1,
 #'                         1 - apply(pi_result1,
 #'                                   FUN = sum_every_n, n = n,
 #'                                   MARGIN = 2))
 #'
-#' pitilde_matrix2 = rbind(pi_result2,
+#' pistar2_matrix2 = rbind(pi_result2,
 #'                         1 - apply(pi_result2,
 #'                                   FUN = sum_every_n, n = n,
 #'                                   MARGIN = 2))
 #'
-#' pitilde_array = array(c(pitilde_matrix1, pitilde_matrix2),
-#'                    dim = c(dim(pitilde_matrix1), 2))
+#' pistar2_array = array(c(pistar2_matrix1, pistar2_matrix2),
+#'                    dim = c(dim(pistar2_matrix1), 2))
 #'
-#' obs_Ytilde <- rep(NA, n)
+#' obs_Y2 <- rep(NA, n)
 #' for(i in 1:n){
 #'     true_j = true_Y[i]
-#'     obs_k = Ystar[i]
-#'     obs_Ytilde[i] = which(rmultinom(1, 1,
-#'                                   pitilde_array[c(i,n+ i),
+#'     obs_k = Ystar1[i]
+#'     obs_Y2[i] = which(rmultinom(1, 1,
+#'                                   pistar2_array[c(i,n+ i),
 #'                                                 obs_k, true_j]) == 1)
 #' }
 #'
-#' Ytilde  <- obs_Ytilde
+#' Ystar2 <- obs_Y2
 #'
 #' unif_lower_beta <- matrix(c(-5, -5, NA, NA), nrow = 2, byrow = TRUE)
 #' unif_upper_beta <- matrix(c(5, 5, NA, NA), nrow = 2, byrow = TRUE)
 #'
-#' unif_lower_gamma <- array(data = c(-5, NA, -5, NA, -5, NA, -5, NA),
+#' unif_lower_gamma1 <- array(data = c(-5, NA, -5, NA, -5, NA, -5, NA),
 #'                           dim = c(2,2,2))
-#' unif_upper_gamma <- array(data = c(5, NA, 5, NA, 5, NA, 5, NA),
+#' unif_upper_gamma1 <- array(data = c(5, NA, 5, NA, 5, NA, 5, NA),
 #'                           dim = c(2,2,2))
 #'
-#' unif_upper_delta <- array(rep(c(5, NA), 8), dim = c(2,2,2,2))
-#' unif_lower_delta <- array(rep(c(-5, NA), 8), dim = c(2,2,2,2))
+#' unif_upper_gamma2 <- array(rep(c(5, NA), 8), dim = c(2,2,2,2))
+#' unif_lower_gamma2 <- array(rep(c(-5, NA), 8), dim = c(2,2,2,2))
 #'
-#' unif_lower_naive_delta <- array(data = c(-5, NA, -5, NA, -5, NA, -5, NA),
+#' unif_lower_naive_gamma2 <- array(data = c(-5, NA, -5, NA, -5, NA, -5, NA),
 #'                                 dim = c(2,2,2))
-#' unif_upper_naive_delta <- array(data = c(5, NA, 5, NA, 5, NA, 5, NA),
+#' unif_upper_naive_gamma2 <- array(data = c(5, NA, 5, NA, 5, NA, 5, NA),
 #'                                 dim = c(2,2,2))
 #'
 #' beta_prior_parameters <- list(lower = unif_lower_beta, upper = unif_upper_beta)
-#' gamma_prior_parameters <- list(lower = unif_lower_gamma, upper = unif_upper_gamma)
-#' delta_prior_parameters <- list(lower = unif_lower_delta, upper = unif_upper_delta)
-#' naive_delta_prior_parameters <- list(lower = unif_lower_naive_delta,
-#'                                      upper = unif_upper_naive_delta)
+#' gamma1_prior_parameters <- list(lower = unif_lower_gamma1, upper = unif_upper_gamma1)
+#' gamma2_prior_parameters <- list(lower = unif_lower_gamma2, upper = unif_upper_gamma2)
+#' naive_gamma2_prior_parameters <- list(lower = unif_lower_naive_gamma2,
+#'                                       upper = unif_upper_naive_gamma2)
 #'
-#' MCMC_results <- COMBO_MCMC_2stage(Ystar, Ytilde,
-#'                                   x = x_matrix, z = z_matrix,
-#'                                   v = v_matrix,
+#' MCMC_results <- COMBO_MCMC_2stage(Ystar1, Ystar2,
+#'                                   x_matrix = x_matrix, z1_matrix = z1_matrix,
+#'                                   z2_matrix = z2_matrix,
 #'                                   prior = "uniform",
 #'                                   beta_prior_parameters = beta_prior_parameters,
-#'                                   gamma_prior_parameters = gamma_prior_parameters,
-#'                                   delta_prior_parameters = delta_prior_parameters,
-#'                                   naive_delta_prior_parameters = naive_delta_prior_parameters,
+#'                                   gamma1_prior_parameters = gamma1_prior_parameters,
+#'                                   gamma2_prior_parameters = gamma2_prior_parameters,
+#'                                   naive_gamma2_prior_parameters = naive_gamma2_prior_parameters,
 #'                                   number_MCMC_chains = 2,
 #'                                   MCMC_sample = 200, burn_in = 100)
 #' MCMC_results$posterior_means_df}
-COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
+COMBO_MCMC_2stage <- function(Ystar1, Ystar2, x_matrix, z1_matrix, z2_matrix,
+                              prior,
                               beta_prior_parameters,
-                              gamma_prior_parameters,
-                              delta_prior_parameters,
-                              naive_delta_prior_parameters,
+                              gamma1_prior_parameters,
+                              gamma2_prior_parameters,
+                              naive_gamma2_prior_parameters,
                               number_MCMC_chains = 4,
                               MCMC_sample = 2000,
                               burn_in = 1000,
                               display_progress = TRUE){
+
+  Ystar <- Ystar1
+  Ytilde <- Ystar2
+
+  x <- x_matrix
+  z <- z1_matrix
+  v <- z2_matrix
+
+  gamma_prior_parameters <- gamma1_prior_parameters
+  delta_prior_parameters <- gamma2_prior_parameters
+  naive_delta_prior_parameters <- naive_gamma2_prior_parameters
 
   # Define global variables to make the "NOTES" happy.
   chain_number <- NULL
@@ -311,11 +328,11 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
   display_progress_bar <- ifelse(display_progress == TRUE, "text", "none")
 
   posterior_sample = coda.samples(jags,
-                                  c('beta', 'gamma', 'delta'),
+                                  c('beta', 'gamma1', 'gamma2'),
                                   MCMC_sample,
                                   progress.bar = display_progress_bar)
 
-  pistarjj = pistar_by_chain(n_chains = number_MCMC_chains,
+  pistarjj = pistar_by_chain_2stage(n_chains = number_MCMC_chains,
                              chains_list = posterior_sample,
                              Z = Z, n = sample_size, n_cat = n_cat)
 
@@ -350,7 +367,7 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
                                          display_progress = display_progress)
 
   naive_posterior_sample = coda.samples(naive_jags,
-                                        c('beta', 'delta'),
+                                        c('beta', 'gamma2'),
                                         MCMC_sample,
                                         progress.bar = display_progress_bar)
 
@@ -360,12 +377,12 @@ COMBO_MCMC_2stage <- function(Ystar, Ytilde, x, z, v, prior,
   ###########################################
 
   beta_names <- paste0("beta[1,", 1:dim_x, "]")
-  gamma_names <- paste0("gamma[1,", rep(1:n_cat, dim_z), ",", rep(1:dim_z, each = n_cat), "]")
-  delta_names <- paste0("delta[1,",
+  gamma_names <- paste0("gamma1[1,", rep(1:n_cat, dim_z), ",", rep(1:dim_z, each = n_cat), "]")
+  delta_names <- paste0("gamma2[1,",
                         rep(1:n_cat, dim_v*dim_v), ",",
                         rep(rep(1:n_cat, each = dim_v), dim_v), ",",
                         rep(1:dim_v, each = n_cat * n_cat), "]")
-  naive_delta_names <- paste0("delta[1,", rep(1:n_cat, dim_v), ",", rep(1:dim_z, each = n_cat), "]")
+  naive_delta_names <- paste0("gamma2[1,", rep(1:n_cat, dim_v), ",", rep(1:dim_z, each = n_cat), "]")
 
   naive_posterior_sample_burn <- naive_posterior_sample_df %>%
     dplyr::select(dplyr::all_of(beta_names), dplyr::all_of(naive_delta_names),

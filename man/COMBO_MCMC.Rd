@@ -6,8 +6,8 @@
 \usage{
 COMBO_MCMC(
   Ystar,
-  x,
-  z,
+  x_matrix,
+  z_matrix,
   prior,
   beta_prior_parameters,
   gamma_prior_parameters,
@@ -21,11 +21,11 @@ COMBO_MCMC(
 \item{Ystar}{A numeric vector of indicator variables (1, 2) for the observed
 outcome \code{Y*}. The reference category is 2.}
 
-\item{x}{A numeric matrix of covariates in the true outcome mechanism.
-\code{x} should not contain an intercept.}
+\item{x_matrix}{A numeric matrix of covariates in the true outcome mechanism.
+\code{x_matrix} should not contain an intercept.}
 
-\item{z}{A numeric matrix of covariates in the observation mechanism.
-\code{z} should not contain an intercept.}
+\item{z_matrix}{A numeric matrix of covariates in the observation mechanism.
+\code{z_matrix} should not contain an intercept.}
 
 \item{prior}{A character string specifying the prior distribution for the
 \eqn{\beta} and \eqn{\gamma} parameters. Options are \code{"t"},

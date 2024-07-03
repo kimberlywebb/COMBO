@@ -195,9 +195,17 @@ COMBO_EM <- function(Ystar,
   results_i_gamma <- matrix(turboEM::pars(results)[(ncol(X) + 1):(ncol(X) + (n_cat * ncol(Z)))],
                             ncol = n_cat, byrow = FALSE)
   results_i_pistar_v <- pistar_compute(results_i_gamma, Z, sample_size, n_cat)
+
   pistar_11 <- mean(results_i_pistar_v[1:sample_size, 1])
   pistar_22 <- mean(results_i_pistar_v[(sample_size + 1):(2*sample_size), 2])
-  estimates_i <- if ((pistar_11 > .50 | pistar_22 > .50) |
+
+  flip_pistar11 <- 1 - pistar_22
+  flip_pistar22 <- 1 - pistar_11
+
+  J <- pistar_11 + pistar_22 - 1
+  J_flip <- flip_pistar11 + flip_pistar22 - 1
+
+  estimates_i <- if ((J_flip <= J) |
                      (is.na(pistar_11) & is.na(pistar_22))) {
     # If turboem cannot estimate the parameters they will be NA.
     turboEM::pars(results)
@@ -218,7 +226,7 @@ COMBO_EM <- function(Ystar,
 
   sigma_EM = solve(turboEM::hessian(results)[[1]])
 
-  SE_EM <- if ((pistar_11 > .50 | pistar_22 > .50) |
+  SE_EM <- if ((J_flip <= J) |
                      (is.na(pistar_11) & is.na(pistar_22))) {
     # If turboem cannot estimate the parameters they will be NA.
     sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
