@@ -47,7 +47,6 @@ COMBO_EM_data = list(
   x_matrix = x_matrix,
   z_matrix = z_matrix,
   true_beta = true_beta,
-  true_gamma = true_gamma,
-  pistar = pistar_result
+  true_gamma = true_gamma
 )
 usethis::use_data(COMBO_EM_data, overwrite = TRUE)
