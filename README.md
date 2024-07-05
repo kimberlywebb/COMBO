@@ -37,3 +37,4 @@ install.packages("COMBO")
 # install.packages("devtools")
 devtools::install_github("kimberlywebb/COMBO")
 ```
+Please note that COMBO requires JAGS to be installed. JAGS can be downloaded from [https://sourceforge.net/projects/mcmc-jags/](https://sourceforge.net/projects/mcmc-jags/).

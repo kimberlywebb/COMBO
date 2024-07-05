@@ -171,6 +171,9 @@ COMBO_MCMC <- function(Ystar, x_matrix, z_matrix, prior,
   if (length(setdiff(1:2, unique(Ystar))) != 0)
     stop("'Ystar' must be coded 1/2, where the reference category is 2.")
 
+  if(identical(x_matrix, z_matrix))
+    warning("'x_matrix' and 'z_matrix' are identical, which may cause problems with model convergence.")
+
   sample_size = length(Ystar)
   n_cat = 2
 

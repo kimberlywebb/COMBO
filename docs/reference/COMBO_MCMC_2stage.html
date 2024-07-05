@@ -14,7 +14,7 @@ in a two-stage binary outcome misclassification model."><meta property="og:image
     
     <a class="navbar-brand me-2" href="../index.html">COMBO</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,9 @@ in a two-stage binary outcome misclassification model."><meta property="og:image
     <a class="dropdown-item" href="../articles/COMBO_notation_guide.html">COMBO Notation Guide</a>
     <a class="dropdown-item" href="../articles/COMBO_notation_guide_2stage.html">COMBO Notation Guide - Two-stage Misclassification Model</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -401,20 +404,20 @@ provides the posterior median computed across all chains and all samples.</p></d
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 14 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    parameter_name  posterior_mean posterior_median</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> beta[1,1]                1.60             1.58 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> beta[1,2]               -<span style="color: #BB0000;">2.22</span>            -<span style="color: #BB0000;">2.20</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> gamma1[1,1,1]            0.386            0.388</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> gamma1[1,2,1]           -<span style="color: #BB0000;">1.25</span>            -<span style="color: #BB0000;">1.22</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> gamma1[1,1,2]            1.11             1.10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> gamma1[1,2,2]           -<span style="color: #BB0000;">1.85</span>            -<span style="color: #BB0000;">1.51</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> gamma2[1,1,1,1]          0.775            0.759</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> gamma2[1,2,1,1]          1.13             0.730</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> gamma2[1,1,2,1]         -<span style="color: #BB0000;">0.486</span>           -<span style="color: #BB0000;">0.739</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> gamma2[1,2,2,1]         -<span style="color: #BB0000;">0.837</span>           -<span style="color: #BB0000;">0.761</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> gamma2[1,1,1,2]          1.24             1.16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> gamma2[1,2,1,2]          2.13             2.00 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> gamma2[1,1,2,2]         -<span style="color: #BB0000;">0.281</span>           -<span style="color: #BB0000;">0.430</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> gamma2[1,2,2,2]         -<span style="color: #BB0000;">2.48</span>            -<span style="color: #BB0000;">2.30</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> beta[1,1]               1.48             1.48  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> beta[1,2]              -<span style="color: #BB0000;">2.09</span>            -<span style="color: #BB0000;">2.08</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> gamma1[1,1,1]           0.357            0.371 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> gamma1[1,2,1]          -<span style="color: #BB0000;">1.11</span>            -<span style="color: #BB0000;">1.09</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> gamma1[1,1,2]           1.25             1.22  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> gamma1[1,2,2]          -<span style="color: #BB0000;">2.41</span>            -<span style="color: #BB0000;">2.29</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> gamma2[1,1,1,1]         0.653            0.654 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> gamma2[1,2,1,1]         1.26             0.843 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> gamma2[1,1,2,1]        -<span style="color: #BB0000;">1.01</span>            -<span style="color: #BB0000;">1.43</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> gamma2[1,2,2,1]        -<span style="color: #BB0000;">0.832</span>           -<span style="color: #BB0000;">0.680</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> gamma2[1,1,1,2]         1.44             1.43  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> gamma2[1,2,1,2]         2.34             2.18  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> gamma2[1,1,2,2]         0.030<span style="text-decoration: underline;">3</span>           0.024<span style="text-decoration: underline;">0</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> gamma2[1,2,2,2]        -<span style="color: #BB0000;">2.40</span>            -<span style="color: #BB0000;">2.21</span>  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

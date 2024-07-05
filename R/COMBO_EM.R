@@ -141,6 +141,9 @@ COMBO_EM <- function(Ystar,
       stop("'x_matrix' must be a data.frame or matrix.")
   }
 
+  if(identical(x_matrix, z_matrix))
+      warning("'x_matrix' and 'z_matrix' are identical, which may cause problems with model convergence.")
+
   if (!is.numeric(Ystar) || !is.vector(Ystar))
     stop("'Ystar' must be a numeric vector.")
   if (length(setdiff(1:2, unique(Ystar))) != 0)

@@ -25,6 +25,12 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
+    <loc>/news/index.html</loc>
+  </url>
+  <url>
+    <loc>/news.html</loc>
+  </url>
+  <url>
     <loc>/reference/check_and_fix_chains.html</loc>
   </url>
   <url>
@@ -164,5 +170,8 @@
   </url>
   <url>
     <loc>/reference/w_j_2stage.html</loc>
+  </url>
+  <url>
+    <loc>/version_updates.html</loc>
   </url>
 </urlset>
