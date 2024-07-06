@@ -7,6 +7,8 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data("LSAC_data")
 #' head(LSAC_data)
+#' }
 "LSAC_data"

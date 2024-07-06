@@ -23,8 +23,10 @@ A dataset for testing the \code{COMBO_EM} function, generated from the
 \code{COMBO_data} function.
 }
 \examples{
+\dontrun{
 data("COMBO_EM_data")
 head(COMBO_EM_data)
+}
 
 }
 \keyword{datasets}

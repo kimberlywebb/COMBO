@@ -16,7 +16,9 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data("COMBO_EM_data")
 #' head(COMBO_EM_data)
+#' }
 #'
 "COMBO_EM_data"

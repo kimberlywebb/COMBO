@@ -18,7 +18,9 @@ LSAC_data
 Example data from The Law School Admissions Council's (LSAC) National Bar Passage Study (Linda Wightman, 1998)
 }
 \examples{
+\dontrun{
 data("LSAC_data")
 head(LSAC_data)
+}
 }
 \keyword{datasets}
