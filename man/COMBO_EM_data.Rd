@@ -3,26 +3,28 @@
 \docType{data}
 \name{COMBO_EM_data}
 \alias{COMBO_EM_data}
-\title{Example data for COMBO-EM}
+\title{Test data for the COMBO_EM function}
 \format{
-\subsection{\code{who}}{
-
-A list with the elements
+A list containing 6 variables for 1000 observations:
 \describe{
-\item{Y}{True outcome (Y)}
-\item{Ystar}{Observed outcome (Y*)}
-\item{x_matrix}{Matrix of predictors (X)}
-\item{z_matrix}{Matrix of adjustors for misclassification (Z)}
-\item{true_beta}{True beta}
-\item{true_gamma}{True gamma (misclassification)}
-\item{pistar}{Individual probability of misclassification}
-}
+\item{Y}{The true outcome variable}
+\item{Ystar}{The observed outcome variable}
+\item{x_matrix}{A matrix of predictor values in the true outcome mechanism}
+\item{z_matrix}{A matrix of predictor values in the observed outcome mechanism}
+\item{true_beta}{Beta parameter values used for data generation in the true outcome mechanism}
+\item{true_gamma}{Gamma parameter values used for data generation in the observed outcome mechanism}
 }
 }
 \usage{
 COMBO_EM_data
 }
 \description{
-Example data for COMBO-EM
+A dataset for testing the \code{COMBO_EM} function, generated from the
+\code{COMBO_data} function.
+}
+\examples{
+data("COMBO_EM_data")
+head(COMBO_EM_data)
+
 }
 \keyword{datasets}

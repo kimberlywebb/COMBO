@@ -22,6 +22,7 @@ reference:
       - '`COMBO_data`'
       - '`COMBO_data_2stage`'
       - '`COMBO_EM_data`'
+      - '`LSAC_data`'
   - title: Internals
     desc: Internal functions and helpers
     contents:

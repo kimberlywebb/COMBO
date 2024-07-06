@@ -1,0 +1,12 @@
+#' Example data from The Law School Admissions Council's (LSAC) National Bar Passage Study (Linda Wightman, 1998)
+#'
+#' @format A dataframe 39 columns, including background and demographic information, as well
+#' as if the candidates passed the bar exam to become lawyers in the USA.
+#'
+#' @source <https://www.kaggle.com/datasets/danofer/law-school-admissions-bar-passage/data?select=bar_pass_prediction.csv>
+#'
+#'
+#' @examples
+#' data("LSAC_data")
+#' head(LSAC_data)
+"LSAC_data"
