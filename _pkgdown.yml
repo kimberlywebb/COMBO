@@ -16,13 +16,14 @@ reference:
       - '`COMBO_MCMC`'
       - '`COMBO_EM_2stage`'
       - '`COMBO_MCMC_2stage`'
-  - title: Data generation for examples
-    desc: Function to generate data with misclassified binary outcomes
+  - title: Data for examples
+    desc: Data for examples and functions to generate data with misclassified binary outcomes
     contents:
       - '`COMBO_data`'
       - '`COMBO_data_2stage`'
       - '`COMBO_EM_data`'
       - '`LSAC_data`'
+      - '`VPRAI_synthetic_data`'
   - title: Internals
     desc: Internal functions and helpers
     contents:

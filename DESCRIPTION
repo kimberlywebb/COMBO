@@ -30,7 +30,7 @@ SystemRequirements: JAGS (http://mcmc-jags.sourceforge.net)
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Collate: 
     'sum_every_n1.R'
@@ -67,6 +67,7 @@ Collate:
     'model_picker_2stage.R'
     'COMBO_MCMC_2stage.R'
     'LSAC_data.R'
+    'VPRAI_synthetic_data.R'
     'check_and_fix_chains_2stage.R'
     'jags_picker_2stage.R'
     'label_switch_2stage.R'
