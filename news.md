@@ -5,3 +5,6 @@
 - Updated label switching correction criterion to use Youden's $J$ statistic.
 - Added a test for the `COMBO_EM` function.
 - Standardized variable names across functions.
+
+# Version 1.2.0
+- Added datasets for examples.
