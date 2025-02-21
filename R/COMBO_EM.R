@@ -209,7 +209,8 @@ COMBO_EM <- function(Ystar,
   J_flip <- flip_pistar11 + flip_pistar22 - 1
 
   estimates_i <- if ((J_flip <= J) |
-                     (is.na(pistar_11) & is.na(pistar_22))) {
+                     (is.na(pistar_11) & is.na(pistar_22)) |
+                     (is.nan(pistar_11) | is.nan(pistar_22))) {
     # If turboem cannot estimate the parameters they will be NA.
     turboEM::pars(results)
   } else {
@@ -230,7 +231,8 @@ COMBO_EM <- function(Ystar,
   sigma_EM = solve(turboEM::hessian(results)[[1]])
 
   SE_EM <- if ((J_flip <= J) |
-                     (is.na(pistar_11) & is.na(pistar_22))) {
+               (is.na(pistar_11) & is.na(pistar_22)) |
+               (is.nan(pistar_11) | is.nan(pistar_22))) {
     # If turboem cannot estimate the parameters they will be NA.
     sqrt(diag(matrix(Matrix::nearPD(sigma_EM)$mat,
                      nrow = length(c(c(beta_start), c(gamma_start))),
